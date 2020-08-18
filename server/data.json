@@ -1,0 +1,65 @@
+[
+    {
+        "subModuleName": "Place holder Submodule Name",
+        "subModuleImage": "https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/512x512/information.png",
+        "subModuleTopics": [
+            {
+                "topicName": "Place holder Topic Name",
+                "topicTheory": [
+                    {
+                        "mainTexts": [
+                            {
+                                "id": 1201860152539346,
+                                "text": "Place holder MainText"
+                            }
+                        ],
+                        "subTexts": [
+                            {
+                                "id": 1866040279690832,
+                                "subText": "Place holder SubText"
+                            }
+                        ],
+                        "images": [
+                            {
+                                "id": 4373952972843951,
+                                "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSodFnBBwFrIQ2dL1N4LzjniOYOFbbNk6dS0Q&usqp=CAU"
+                            }
+                        ],
+                        "videos": [
+                            {
+                                "id": 3298119360780283,
+                                "src": "https://www.youtube.com/embed/C0DPdy98e4c"
+                            }
+                        ]
+                    }
+                ],
+                "topicExercises": [
+                    {
+                        "questionText": "Place holder Question Text",
+                        "rightAnswer": "0",
+                        "image": "",
+                        "answers": [
+                            {
+                                "id": 3236930047389537,
+                                "answerText": "Place holder answerText"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "subModuleExercises": [
+            {
+                "questionText": "Place holder Question Text",
+                "rightAnswer": "0",
+                "image": "",
+                "answers": [
+                    {
+                        "id": 199603704496557,
+                        "answerText": "Place holder answerText"
+                    }
+                ]
+            }
+        ]
+    }
+]
