@@ -2,11 +2,11 @@ const express = require('express');
 const cors = require('cors');
 
 // routers
-const subModules = require('./routers/subModules')
+const modules = require('./routers/modules')
 
 const app = express();
 
 app.use(cors())
-app.use('/submodules', subModules)
+app.use('/module', modules)
 
 app.listen(3001);
