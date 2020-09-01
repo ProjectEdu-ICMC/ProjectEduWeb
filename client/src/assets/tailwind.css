@@ -16,3 +16,11 @@
 .btn-blue:hover {
     @apply bg-blue-500 border-transparent text-white ;
 }
+
+.btn-red {
+    @apply border-red-500 text-red-700;
+}
+
+.btn-red:hover {
+    @apply bg-red-500 border-transparent text-white ;
+}

@@ -6,16 +6,16 @@ function CardBoard(props) {
     const { data, cardSize, url } = props;
 
 
-    data.push({name: '1test'});
-    data.push({name: '2test'});
-    data.push({name: '3test'});
-    data.push({name: '4test'});
-    data.push({name: '5test'});
-    data.push({name: '6test'});
-    data.push({name: '8test'});
-    data.push({name: '11test'});
-    data.push({name: '2test'});
-    data.push({name: '3test'});
+    // data.push({name: '1test'});
+    // data.push({name: '2test'});
+    // data.push({name: '3test'});
+    // data.push({name: '4test'});
+    // data.push({name: '5test'});
+    // data.push({name: '6test'});
+    // data.push({name: '8test'});
+    // data.push({name: '11test'});
+    // data.push({name: '2test'});
+    // data.push({name: '3test'});
 
 
     return (

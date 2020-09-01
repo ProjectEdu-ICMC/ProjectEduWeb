@@ -27368,6 +27368,25 @@ video {
   color: rgba(255, 255, 255, var(--text-opacity));
 }
 
+.btn-red {
+  --border-opacity: 1;
+  border-color: #f56565;
+  border-color: rgba(245, 101, 101, var(--border-opacity));
+  --text-opacity: 1;
+  color: #c53030;
+  color: rgba(197, 48, 48, var(--text-opacity));
+}
+
+.btn-red:hover {
+  --bg-opacity: 1;
+  background-color: #f56565;
+  background-color: rgba(245, 101, 101, var(--bg-opacity));
+  border-color: transparent;
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;

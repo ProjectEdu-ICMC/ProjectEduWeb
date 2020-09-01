@@ -1,31 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import Axios from 'axios';
+import React, { useContext } from 'react';
 
 import CardBoard from '../components/CardBoard';
+import ImportFile from '../components/ImportFile'
+import { MainContext } from '../contexts/MainContext';
 
 function Main(props) {
-    
-    const [ data, setData ] = useState();
+    const [ state, dispatch ] = useContext(MainContext);
 
-    useEffect(() => {
-        const loadData = () => {
-            Axios.get('http://localhost:3001/module/all')
-                .then((res) => {
-                    setData(res.data);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        };
+    const handleReset = (event) => {
+        dispatch({
+            type: 'CLEAR_DATA'
+        });
+    }
 
-        loadData();
-    }, []);
+    const subModules = state.data ? state.data.map((subModule) => {
+        return {
+            name: subModule.subModuleName,
+            image: subModule.subModuleImage
+        }
+    }) : undefined;
 
     return (
         <>
-            { data ? 
-                <CardBoard url='/mod' cardSize={64} data={ data } /> : 
-                'No modules' }
+            { subModules ? 
+                <>
+                    <CardBoard url='/mod' cardSize={64} data={ subModules } />
+                    <button className='btn btn-red' onClick={ handleReset }>Reset</button>
+                </> :
+                <ImportFile /> }
         </>
    );
 }
