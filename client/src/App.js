@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Main from './pages/Main';
 import Module from './pages/Module';
+import Topic from './pages/Topic';
 
 import { MainContextProvider } from './contexts/MainContext';
 
@@ -15,6 +16,9 @@ function App() {
         <MainContextProvider>
             <Router>
                 <Switch>
+                    <Route path='/topic/:mod/:id'>
+                        <Topic />
+                    </Route>
                     <Route path='/mod/:id'>
                         <Module />
                     </Route>

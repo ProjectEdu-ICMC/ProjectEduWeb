@@ -20,7 +20,7 @@ function Module(props) {
     return (
         <>
             { topics ? 
-                <CardBoard cardSize={32} data={ topics } /> : 
+                <CardBoard url={ `/topic/${id}` } cardSize={32} data={ topics } /> : 
                 'No modules' }
             <Link className='btn btn-blue' to='/'>
                 Back
