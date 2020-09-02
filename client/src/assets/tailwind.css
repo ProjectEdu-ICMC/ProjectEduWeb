@@ -24,3 +24,11 @@
 .btn-red:hover {
     @apply bg-red-500 border-transparent text-white ;
 }
+
+.btn-green {
+    @apply border-green-500 text-green-700;
+}
+
+.btn-green:hover {
+    @apply bg-green-500 border-transparent text-white ;
+}
