@@ -1,10 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 
 import { MainContext } from '../contexts/MainContext'
 
 function ImportFile(props) {
     
-    const [ state, dispatch ] = useContext(MainContext);
+    const [ , dispatch ] = useContext(MainContext);
 
 
     const handleSelect = (event) => {

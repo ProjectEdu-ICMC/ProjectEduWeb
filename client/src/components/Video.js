@@ -1,10 +1,10 @@
 import React from 'react';
 
 function Video(props) {
-    const { src } = props.data;
+    const { id, src } = props.data;
     
     return (
-        <iframe src={ src }></iframe>
+        <iframe title={ id } src={ src }></iframe>
     )
 }
 

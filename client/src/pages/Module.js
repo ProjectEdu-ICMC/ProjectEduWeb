@@ -6,7 +6,7 @@ import { MainContext } from '../contexts/MainContext';
 
 function Module(props) {
     const { id } = useParams();
-    const [ state, dispatch ] = useContext(MainContext);
+    const [ state, ] = useContext(MainContext);
 
     if (!state.data) 
         return ( <Redirect to='/' /> );

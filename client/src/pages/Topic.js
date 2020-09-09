@@ -1,14 +1,13 @@
 import React, { useContext } from 'react';
 
-import { useParams, Link, Redirect } from 'react-router-dom'
-import CardBoard from '../components/CardBoard';
+import { useParams, Link, Redirect } from 'react-router-dom';
 import { MainContext } from '../contexts/MainContext';
 import Exercise from '../components/Exercise';
 import Theory from '../components/Theory';
 
 function Topic(props) {
     const { mod, id } = useParams();
-    const [ state, dispatch ] = useContext(MainContext);
+    const [ state, ] = useContext(MainContext);
 
     if (!state.data) 
         return ( <Redirect to='/' /> );
