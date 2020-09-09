@@ -16,6 +16,16 @@ const reducer = (state, action) => {
             return {
                 data: undefined
             };
+        case 'ADD_MODULE':
+            if (state.data === undefined)
+                return state;
+            return {
+                data: [
+                    ...state.data,
+                    action.payload
+                ]
+            };
+
         default:
             throw new Error('Reducer (Main) couldn\'t handle action');
     }

@@ -24,7 +24,17 @@ function Main(props) {
         link.click();
     }
 
-    const subModules = state.data ? state.data.map((subModule) => {
+    const addModule = (event) => {
+        dispatch({
+            type: 'ADD_MODULE',
+            payload: {
+                subModuleName: "Place holder Submodule Name",
+                subModuleImage: "https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/512x512/information.png"
+            }
+        })
+    }
+
+    const modules = state.data ? state.data.map((subModule) => {
         return {
             name: subModule.subModuleName,
             image: subModule.subModuleImage
@@ -33,9 +43,10 @@ function Main(props) {
 
     return (
         <>
-            { subModules ? 
+            { modules ? 
                 <>
-                    <CardBoard url='/mod' cardSize={64} data={ subModules } />
+                    <CardBoard url='/mod' cardSize={64} data={ modules } />
+                    <button className='btn btn-blue' onClick={ addModule }>Add Module</button>
                     <button className='btn btn-red' onClick={ handleReset }>Reset</button>
                     <button className='btn btn-green' onClick={ () => handleExport(state.data) }>Export</button>
                 </> :
