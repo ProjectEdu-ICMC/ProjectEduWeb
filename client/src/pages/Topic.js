@@ -7,13 +7,63 @@ import Theory from '../components/Theory';
 
 function Topic(props) {
     const { mod, id } = useParams();
-    const [ state, ] = useContext(MainContext);
+    const [ state, dispatch ] = useContext(MainContext);
 
     if (!state.data) 
         return ( <Redirect to='/' /> );
 
+    const addTheory = (event) => {
+        dispatch({
+            type: 'ADD_THEORY',
+            module: mod,
+            topic: id,
+            payload: {
+                mainTexts: [
+                    {
+                        text: "Place holder MainText"
+                    }
+                ],
+                subTexts: [
+                    {
+                        subText: "Place holder SubText"
+                    }
+                ],
+                images: [
+                    {
+                        src: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSodFnBBwFrIQ2dL1N4LzjniOYOFbbNk6dS0Q&usqp=CAU"
+                    }
+                ],
+                videos: [
+                    {
+                        src: "https://www.youtube.com/embed/C0DPdy98e4c"
+                    }
+                ]
+            }
+        });
+    }
+
+    const addExercise = (event) => {
+        dispatch({
+            type: 'ADD_EXERCISE',
+            module: mod,
+            topic: id,
+            payload: {
+                questionText: "Place holder Question Text",
+                rightAnswer: 0,
+                image: "",
+                answers: [
+                    {
+                        answerText: "Place holder answerText 1"
+                    },
+                    {
+                        answerText: "Place holder answerText 2"
+                    }
+                ]
+            }
+        });
+    }
+
     const topic = state.data[mod].subModuleTopics[id];
-    console.log(topic);
 
     const theories = topic.topicTheory ? topic.topicTheory.map((theory, index) => 
         <Theory key={ index } data={ theory } />) : undefined;
@@ -30,6 +80,7 @@ function Topic(props) {
             <hr />
             <h2 className='font-bold text-lg'>Theory</h2>
             { theories }
+            <button className='btn btn-blue' onClick={ addTheory }>Add Theory</button>
             { exercises && 
                 <>
                     <hr />
@@ -37,6 +88,7 @@ function Topic(props) {
                     { exercises }
                 </>
             }
+            <button className='btn btn-blue' onClick={ addExercise }>Add Exercise</button>
             <Link className='btn btn-blue' to={ `/mod/${mod}` }>
                 Back
             </Link>
