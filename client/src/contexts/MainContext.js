@@ -110,6 +110,162 @@ const reducer = (state, action) => {
                 ]
             }
 
+        case 'ADD_MAIN_TEXT':
+            if (state.data === undefined || 
+                state.data[action.module] === undefined ||
+                state.data[action.module].subModuleTopics[action.topic] === undefined || 
+                state.data[action.module].subModuleTopics[action.topic].topicTheory[action.theory] === undefined)
+                return state;
+
+            if (state.data[action.module].subModuleTopics[action.topic].topicTheory[action.theory].mainTexts === undefined)
+                state.data[action.module].subModuleTopics[action.topic].topicTheory[action.theory].mainTexts = []
+
+            return {
+                data: [
+                    ...state.data.slice(0, action.module),
+                    {
+                        ...state.data[action.module],
+                        subModuleTopics: [
+                            ...state.data[action.module].subModuleTopics.slice(0, action.topic),
+                            {
+                                ...state.data[action.module].subModuleTopics[action.topic],
+                                topicTheory: [
+                                    ...state.data[action.module].subModuleTopics[action.topic].topicTheory.slice(0, action.theory),
+                                    {
+                                        ...state.data[action.module].subModuleTopics[action.topic].topicTheory[action.theory],
+                                        mainTexts: [
+                                            ...state.data[action.module].subModuleTopics[action.topic].topicTheory[action.theory].mainTexts,
+                                            action.payload
+                                        ]
+                                    },
+                                    ...state.data[action.module].subModuleTopics[action.topic].topicTheory.slice(action.theory + 1)
+                                    
+                                ]
+                            },
+                            ...state.data[action.module].subModuleTopics.slice(action.topic + 1)
+                        ]
+                    },
+                    ...state.data.slice(action.module + 1)
+                ]
+            }
+
+        case 'ADD_SUB_TEXT':
+            if (state.data === undefined || 
+                state.data[action.module] === undefined ||
+                state.data[action.module].subModuleTopics[action.topic] === undefined || 
+                state.data[action.module].subModuleTopics[action.topic].topicTheory[action.theory] === undefined)
+                return state;
+
+            if (state.data[action.module].subModuleTopics[action.topic].topicTheory[action.theory].subTexts === undefined)
+                state.data[action.module].subModuleTopics[action.topic].topicTheory[action.theory].subTexts = []
+
+            return {
+                data: [
+                    ...state.data.slice(0, action.module),
+                    {
+                        ...state.data[action.module],
+                        subModuleTopics: [
+                            ...state.data[action.module].subModuleTopics.slice(0, action.topic),
+                            {
+                                ...state.data[action.module].subModuleTopics[action.topic],
+                                topicTheory: [
+                                    ...state.data[action.module].subModuleTopics[action.topic].topicTheory.slice(0, action.theory),
+                                    {
+                                        ...state.data[action.module].subModuleTopics[action.topic].topicTheory[action.theory],
+                                        subTexts: [
+                                            ...state.data[action.module].subModuleTopics[action.topic].topicTheory[action.theory].subTexts,
+                                            action.payload
+                                        ]
+                                    },
+                                    ...state.data[action.module].subModuleTopics[action.topic].topicTheory.slice(action.theory + 1)
+                                    
+                                ]
+                            },
+                            ...state.data[action.module].subModuleTopics.slice(action.topic + 1)
+                        ]
+                    },
+                    ...state.data.slice(action.module + 1)
+                ]
+            }
+
+        case 'ADD_IMAGE':
+            if (state.data === undefined || 
+                state.data[action.module] === undefined ||
+                state.data[action.module].subModuleTopics[action.topic] === undefined || 
+                state.data[action.module].subModuleTopics[action.topic].topicTheory[action.theory] === undefined)
+                return state;
+
+            if (state.data[action.module].subModuleTopics[action.topic].topicTheory[action.theory].images === undefined)
+                state.data[action.module].subModuleTopics[action.topic].topicTheory[action.theory].images = []
+
+            return {
+                data: [
+                    ...state.data.slice(0, action.module),
+                    {
+                        ...state.data[action.module],
+                        subModuleTopics: [
+                            ...state.data[action.module].subModuleTopics.slice(0, action.topic),
+                            {
+                                ...state.data[action.module].subModuleTopics[action.topic],
+                                topicTheory: [
+                                    ...state.data[action.module].subModuleTopics[action.topic].topicTheory.slice(0, action.theory),
+                                    {
+                                        ...state.data[action.module].subModuleTopics[action.topic].topicTheory[action.theory],
+                                        images: [
+                                            ...state.data[action.module].subModuleTopics[action.topic].topicTheory[action.theory].images,
+                                            action.payload
+                                        ]
+                                    },
+                                    ...state.data[action.module].subModuleTopics[action.topic].topicTheory.slice(action.theory + 1)
+                                    
+                                ]
+                            },
+                            ...state.data[action.module].subModuleTopics.slice(action.topic + 1)
+                        ]
+                    },
+                    ...state.data.slice(action.module + 1)
+                ]
+            }
+
+        case 'ADD_VIDEO':
+            if (state.data === undefined || 
+                state.data[action.module] === undefined ||
+                state.data[action.module].subModuleTopics[action.topic] === undefined || 
+                state.data[action.module].subModuleTopics[action.topic].topicTheory[action.theory] === undefined)
+                return state;
+
+            if (state.data[action.module].subModuleTopics[action.topic].topicTheory[action.theory].videos === undefined)
+                state.data[action.module].subModuleTopics[action.topic].topicTheory[action.theory].videos = []
+
+            return {
+                data: [
+                    ...state.data.slice(0, action.module),
+                    {
+                        ...state.data[action.module],
+                        subModuleTopics: [
+                            ...state.data[action.module].subModuleTopics.slice(0, action.topic),
+                            {
+                                ...state.data[action.module].subModuleTopics[action.topic],
+                                topicTheory: [
+                                    ...state.data[action.module].subModuleTopics[action.topic].topicTheory.slice(0, action.theory),
+                                    {
+                                        ...state.data[action.module].subModuleTopics[action.topic].topicTheory[action.theory],
+                                        videos: [
+                                            ...state.data[action.module].subModuleTopics[action.topic].topicTheory[action.theory].videos,
+                                            action.payload
+                                        ]
+                                    },
+                                    ...state.data[action.module].subModuleTopics[action.topic].topicTheory.slice(action.theory + 1)
+                                    
+                                ]
+                            },
+                            ...state.data[action.module].subModuleTopics.slice(action.topic + 1)
+                        ]
+                    },
+                    ...state.data.slice(action.module + 1)
+                ]
+            }
+
         default:
             throw new Error('Reducer (Main) couldn\'t handle action');
     }

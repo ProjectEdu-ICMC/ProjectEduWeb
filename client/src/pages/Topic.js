@@ -66,7 +66,12 @@ function Topic(props) {
     const topic = state.data[mod].subModuleTopics[id];
 
     const theories = topic.topicTheory ? topic.topicTheory.map((theory, index) => 
-        <Theory key={ index } data={ theory } />) : undefined;
+        <Theory key={ index } data={ { 
+            ...theory,
+            id: index,
+            mod: mod,
+            top: id
+        } } />) : undefined;
 
     const exercises = topic.topicExercises ? topic.topicExercises.map((exer, index) =>
         <Exercise key={ index } data={ exer } />) : undefined;
