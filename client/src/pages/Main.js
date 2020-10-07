@@ -1,11 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 import CardBoard from '../components/CardBoard';
+import ModuleForm from '../components/forms/ModuleForm';
 import ImportFile from '../components/ImportFile'
 import { MainContext } from '../contexts/MainContext';
 
 function Main(props) {
     const [ state, dispatch ] = useContext(MainContext);
+
+    const [ adding, setAdding ] = useState(false);
 
     const handleReset = (event) => {
         dispatch({
@@ -48,9 +51,10 @@ function Main(props) {
             { modules ? 
                 <>
                     <CardBoard url='/mod' cardSize={64} data={ modules } />
-                    <button className='btn btn-blue' onClick={ addModule }>Add Module</button>
+                    <button className='btn btn-blue' onClick={ () => setAdding(true) }>Add Module</button>
                     <button className='btn btn-red' onClick={ handleReset }>Reset</button>
                     <button className='btn btn-green' onClick={ () => handleExport(state.data) }>Export</button>
+                    { adding && <ModuleForm reset={ () => setAdding(false) } /> }
                 </> :
                 <ImportFile /> }
         </>

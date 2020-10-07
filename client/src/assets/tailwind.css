@@ -32,3 +32,11 @@
 .btn-green:hover {
     @apply bg-green-500 border-transparent text-white ;
 }
+
+.screen-form {
+    @apply bg-white p-4 flex flex-col;
+}
+
+.screen-form > input {
+    @apply bg-gray-200 p-2 text-base rounded mb-1 placeholder-gray-700;
+}
