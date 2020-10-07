@@ -38,5 +38,5 @@
 }
 
 .screen-form > input {
-    @apply bg-gray-200 p-2 text-base rounded mb-1 placeholder-gray-700;
+    @apply bg-gray-200 p-2 text-base rounded mb-1; 
 }

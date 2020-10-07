@@ -27,17 +27,17 @@ function Main(props) {
         link.click();
     }
 
-    const addModule = (event) => {
-        dispatch({
-            type: 'ADD_MODULE',
-            payload: {
-                subModuleName: "Place holder Submodule Name",
-                subModuleImage: "https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/512x512/information.png",
-                subModuleTopics: [],
-                subModuleExercises: []
-            }
-        })
-    }
+    // const addModule = (event) => {
+    //     dispatch({
+    //         type: 'ADD_MODULE',
+    //         payload: {
+    //             subModuleName: "Place holder Submodule Name",
+    //             subModuleImage: "https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/512x512/information.png",
+    //             subModuleTopics: [],
+    //             subModuleExercises: []
+    //         }
+    //     })
+    // }
 
     const modules = state.data ? state.data.map((subModule) => {
         return {

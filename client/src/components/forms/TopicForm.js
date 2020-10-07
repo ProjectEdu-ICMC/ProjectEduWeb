@@ -1,4 +1,5 @@
 import React, { useContext, useReducer } from 'react';
+import { useParams } from 'react-router-dom';
 import { MainContext } from '../../contexts/MainContext';
 
 const formReducer = (state, action) => {
@@ -12,7 +13,9 @@ const formReducer = (state, action) => {
     };
 };
 
-function ModuleForm(props) {
+function TopicForm(props) {
+    const { id } = useParams();
+
     const { reset } = props;
 
     const [ , dispatch ] = useContext(MainContext);
@@ -25,16 +28,13 @@ function ModuleForm(props) {
         if (formData.name === undefined || formData.name.length === 0)
             return;
 
-        if (formData.image === undefined || formData.image.length === 0)
-            return;
-
         dispatch({
-            type: 'ADD_MODULE',
+            type: 'ADD_TOPIC',
+            module: id,
             payload: {
-                subModuleName: formData.name, 
-                subModuleImage: formData.image,
-                subModuleTopics: [],
-                subModuleExercises: []
+                topicName: formData.name,
+                topicTheory: [],
+                topicExercises: []
             }
         });
 
@@ -56,7 +56,6 @@ function ModuleForm(props) {
         <div className='w-full h-screen flex items-center justify-center bg-opacity-75 bg-black absolute top-0 left-0'>
             <form className='screen-form' onSubmit={ handleSubmit } >
                 <input class='placeholder-gray-800' placeholder='Module Name' type='text' onChange={ handleChange } name='name' />
-                <input class='placeholder-gray-800' placeholder='Module Image' type='url' onChange={ handleChange } name='image' />
                 <button className='btn-green btn'>Create</button>
                 <div onClick={ () => reset() } className='btn btn-red'>Cancel</div>
             </form>
@@ -64,4 +63,4 @@ function ModuleForm(props) {
     );
 }
 
-export default ModuleForm
+export default TopicForm 
