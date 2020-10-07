@@ -8,24 +8,24 @@ import { MainContext } from '../contexts/MainContext';
 function Module(props) {
     const { id } = useParams();
 
-    const [ state, dispatch ] = useContext(MainContext);
+    const [ state, ] = useContext(MainContext);
 
     const [ adding, setAdding ] = useState(false);
 
     if (!state.data) 
         return ( <Redirect to='/' /> );
 
-    const addTopic = (event) => {
-        dispatch({
-            type: 'ADD_TOPIC',
-            module: id,
-            payload: {
-                topicName: "Place holder Topic Name",
-                topicTheory: [],
-                topicExercises: []
-            }
-        });
-    }
+    // const addTopic = (event) => {
+    //     dispatch({
+    //         type: 'ADD_TOPIC',
+    //         module: id,
+    //         payload: {
+    //             topicName: "Place holder Topic Name",
+    //             topicTheory: [],
+    //             topicExercises: []
+    //         }
+    //     });
+    // }
 
     const topics = state.data[id].subModuleTopics.map((topic) => {
         return {

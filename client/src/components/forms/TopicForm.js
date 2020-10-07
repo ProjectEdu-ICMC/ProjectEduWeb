@@ -53,9 +53,9 @@ function TopicForm(props) {
     };
 
     return ( 
-        <div className='w-full h-screen flex items-center justify-center bg-opacity-75 bg-black absolute top-0 left-0'>
+        <div className='w-full h-screen flex items-center justify-center bg-opacity-75 bg-black fixed top-0 left-0'>
             <form className='screen-form' onSubmit={ handleSubmit } >
-                <input class='placeholder-gray-800' placeholder='Module Name' type='text' onChange={ handleChange } name='name' />
+                <input class='placeholder-gray-800' placeholder='Topic Name' type='text' onChange={ handleChange } name='name' />
                 <button className='btn-green btn'>Create</button>
                 <div onClick={ () => reset() } className='btn btn-red'>Cancel</div>
             </form>

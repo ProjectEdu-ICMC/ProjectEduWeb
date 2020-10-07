@@ -18,26 +18,10 @@ function Topic(props) {
             module: mod,
             topic: id,
             payload: {
-                mainTexts: [
-                    {
-                        text: "Place holder MainText"
-                    }
-                ],
-                subTexts: [
-                    {
-                        subText: "Place holder SubText"
-                    }
-                ],
-                images: [
-                    {
-                        src: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSodFnBBwFrIQ2dL1N4LzjniOYOFbbNk6dS0Q&usqp=CAU"
-                    }
-                ],
-                videos: [
-                    {
-                        src: "https://www.youtube.com/embed/C0DPdy98e4c"
-                    }
-                ]
+                mainTexts: [],
+                subTexts: [],
+                images: [],
+                videos: []
             }
         });
     }
