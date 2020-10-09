@@ -64,4 +64,4 @@ function ModuleForm(props) {
     );
 }
 
-export default ModuleForm
+export default ModuleForm;

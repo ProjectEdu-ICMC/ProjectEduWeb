@@ -1,13 +1,15 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { useParams, Link, Redirect } from 'react-router-dom';
 import { MainContext } from '../contexts/MainContext';
 import Exercise from '../components/Exercise';
 import Theory from '../components/Theory';
+import ExerciseForm from '../components/forms/ExerciseForm';
 
 function Topic(props) {
     const { mod, id } = useParams();
     const [ state, dispatch ] = useContext(MainContext);
+    const [ adding, setAdding ] = useState(false);
 
     if (!state.data) 
         return ( <Redirect to='/' /> );
@@ -26,26 +28,26 @@ function Topic(props) {
         });
     }
 
-    const addExercise = (event) => {
-        dispatch({
-            type: 'ADD_EXERCISE',
-            module: mod,
-            topic: id,
-            payload: {
-                questionText: "Place holder Question Text",
-                rightAnswer: 0,
-                image: "",
-                answers: [
-                    {
-                        answerText: "Place holder answerText 1"
-                    },
-                    {
-                        answerText: "Place holder answerText 2"
-                    }
-                ]
-            }
-        });
-    }
+    // const addExercise = (event) => {
+    //     dispatch({
+    //         type: 'ADD_EXERCISE',
+    //         module: mod,
+    //         topic: id,
+    //         payload: {
+    //             questionText: "Place holder Question Text",
+    //             rightAnswer: 0,
+    //             image: "",
+    //             answers: [
+    //                 {
+    //                     answerText: "Place holder answerText 1"
+    //                 },
+    //                 {
+    //                     answerText: "Place holder answerText 2"
+    //                 }
+    //             ]
+    //         }
+    //     });
+    // }
 
     const topic = state.data[mod].subModuleTopics[id];
 
@@ -77,7 +79,8 @@ function Topic(props) {
                     { exercises }
                 </>
             }
-            <button className='btn btn-blue' onClick={ addExercise }>Add Exercise</button>
+            <button className='btn btn-blue' onClick={ () => setAdding(true) }>Add Exercise</button>
+            { adding && <ExerciseForm reset={ () => setAdding(false) } /> }
             <Link className='btn btn-blue' to={ `/mod/${mod}` }>
                 Back
             </Link>

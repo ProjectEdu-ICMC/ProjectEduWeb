@@ -37,6 +37,6 @@
     @apply bg-white p-4 flex flex-col;
 }
 
-.screen-form > input {
+.screen-form input {
     @apply bg-gray-200 p-2 text-base rounded mb-1; 
 }
