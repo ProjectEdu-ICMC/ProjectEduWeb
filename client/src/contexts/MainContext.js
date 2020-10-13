@@ -25,6 +25,24 @@ const reducer = (state, action) => {
                     action.payload
                 ]
             };
+        
+        case 'UPDATE_MODULE':
+            const { module, payload } = action;
+
+            if (state.data === undefined || state.data.length === 0) 
+                return state;
+
+            return {
+                data: [
+                    ...state.data.slice(0, module),
+                    {
+                        ...state.data[module],
+                        ...payload
+                    },
+                    ...state.data.slice(module + 1)
+                ]
+            };
+
         case 'ADD_TOPIC':
             if (state.data === undefined || 
                 state.data[action.module] === undefined)

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
 
 function Card(props) {
@@ -6,6 +6,10 @@ function Card(props) {
 
     const { name, image } = props.data;
     const { size, link } = props;
+    
+    useEffect(() => {
+        setNoImage(false);
+    }, [image])
 
     const invalidSrc = () => {
         setNoImage(true);
@@ -18,7 +22,7 @@ function Card(props) {
 
     return (
         <Link className={link ? 'cursor-pointer' : 'cursor-default' } to={ link || '#' }>
-            <div className={`${!size ? 'w-64' : `w-${size}`} ml-5 mb-5`}>
+            <div className={`${!size ? 'w-64' : `w-${size}`} mb-5`}>
                 <div className='relative bg-blue-500 pb-full'>
                     { display }
                 </div>

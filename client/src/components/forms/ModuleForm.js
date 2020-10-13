@@ -1,4 +1,4 @@
-import React, { useContext, useReducer } from 'react';
+import React, { useContext, useEffect, useReducer } from 'react';
 import { MainContext } from '../../contexts/MainContext';
 
 const formReducer = (state, action) => {
@@ -6,18 +6,41 @@ const formReducer = (state, action) => {
         return {};
     }
 
-    return {
-        ...state,
-        [action.name]: action.value
-    };
+    switch (action.type) {
+        case 'INIT':
+            return {
+                ...state,
+                ...action.payload
+            };
+        
+        default:
+            return {
+                ...state,
+                [action.name]: action.value
+            };
+
+    }
 };
 
 function ModuleForm(props) {
-    const { reset } = props;
+    const { reset, type, id } = props;
 
-    const [ , dispatch ] = useContext(MainContext);
+    const [ state, dispatch ] = useContext(MainContext);
 
     const [ formData, setFormData ] = useReducer(formReducer, {});
+
+    useEffect(() => {
+        if (id !== undefined) {
+            const { subModuleName, subModuleImage } = state.data[id];
+            setFormData({
+                type: 'INIT',
+                payload: {
+                    name: subModuleName,
+                    image: subModuleImage
+                }
+            });
+        }
+    }, [id, state]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -29,12 +52,11 @@ function ModuleForm(props) {
             return;
 
         dispatch({
-            type: 'ADD_MODULE',
+            type: `${type}_MODULE`,
+            module: id,
             payload: {
                 subModuleName: formData.name, 
                 subModuleImage: formData.image,
-                subModuleTopics: [],
-                subModuleExercises: []
             }
         });
 
@@ -55,9 +77,10 @@ function ModuleForm(props) {
     return ( 
         <div className='w-full h-screen flex items-center justify-center bg-opacity-75 bg-black fixed top-0 left-0'>
             <form className='screen-form' onSubmit={ handleSubmit } >
-                <input class='placeholder-gray-800' placeholder='Module Name' type='text' onChange={ handleChange } name='name' />
-                <input class='placeholder-gray-800' placeholder='Module Image' type='url' onChange={ handleChange } name='image' />
-                <button className='btn-green btn'>Create</button>
+                <span className='text-lg'>{ type }</span>
+                <input class='placeholder-gray-800' placeholder='Module Name' type='text' onChange={ handleChange } name='name' value={ formData.name } />
+                <input class='placeholder-gray-800' placeholder='Module Image' type='url' onChange={ handleChange } name='image' value={ formData.image } />
+                <button className='btn-green btn'>{ type }</button>
                 <div onClick={ () => reset() } className='btn btn-red'>Cancel</div>
             </form>
         </div>

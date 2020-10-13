@@ -8,7 +8,8 @@ import { MainContext } from '../contexts/MainContext';
 function Main(props) {
     const [ state, dispatch ] = useContext(MainContext);
 
-    const [ adding, setAdding ] = useState(false);
+    const [ adding, setAdding ] = useState(undefined);
+    const [ module, setModule ] = useState(undefined);
 
     const handleReset = (event) => {
         dispatch({
@@ -28,13 +29,13 @@ function Main(props) {
     }
 
     // const addModule = (event) => {
+    //     console.log('aaa');
     //     dispatch({
-    //         type: 'ADD_MODULE',
+    //         type: 'UPDATE_MODULE',
+    //         module: 1,
     //         payload: {
-    //             subModuleName: "Place holder Submodule Name",
-    //             subModuleImage: "https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/512x512/information.png",
-    //             subModuleTopics: [],
-    //             subModuleExercises: []
+    //             subModuleName: "TEST 1",
+    //             subModuleImage: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.howtogeek.com%2Fwp-content%2Fuploads%2F2015%2F02%2Fimg_54e924f260960.jpg&f=1&nofb=1"
     //         }
     //     })
     // }
@@ -50,11 +51,11 @@ function Main(props) {
         <>
             { modules ? 
                 <>
-                    <CardBoard url='/mod' cardSize={64} data={ modules } />
-                    <button className='btn btn-blue' onClick={ () => setAdding(true) }>Add Module</button>
+                    <CardBoard url='/mod' cardSize={64} data={ modules } update={ () => setAdding('UPDATE') } module={ setModule } />
+                    <button className='btn btn-blue' onClick={ () => setAdding('ADD') }>Add Module</button>
                     <button className='btn btn-red' onClick={ handleReset }>Reset</button>
                     <button className='btn btn-green' onClick={ () => handleExport(state.data) }>Export</button>
-                    { adding && <ModuleForm reset={ () => setAdding(false) } /> }
+                    { adding && <ModuleForm reset={ () => setAdding(undefined) } type={ adding } id={ module } /> }
                 </> :
                 <ImportFile /> }
         </>
