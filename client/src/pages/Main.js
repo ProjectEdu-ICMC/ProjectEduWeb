@@ -28,6 +28,12 @@ function Main(props) {
         link.click();
     }
 
+    const removeModule = (module) => {
+        dispatch({
+            type: 'REMOVE_MODULE',
+            module
+        });
+    }
     // const addModule = (event) => {
     //     console.log('aaa');
     //     dispatch({
@@ -51,8 +57,11 @@ function Main(props) {
         <>
             { modules ? 
                 <>
-                    <CardBoard url='/mod' cardSize={64} data={ modules } update={ () => setAdding('UPDATE') } module={ setModule } />
-                    <button className='btn btn-blue' onClick={ () => setAdding('ADD') }>Add Module</button>
+                    <CardBoard url='/mod' cardSize={64} data={ modules } update={ () => setAdding('UPDATE') } module={ setModule } remove={ removeModule } />
+                    <button className='btn btn-blue' onClick={ () => { 
+                        setAdding('ADD');
+                        setModule(undefined);
+                        } }>Add Module</button>
                     <button className='btn btn-red' onClick={ handleReset }>Reset</button>
                     <button className='btn btn-green' onClick={ () => handleExport(state.data) }>Export</button>
                     { adding && <ModuleForm reset={ () => setAdding(undefined) } type={ adding } id={ module } /> }

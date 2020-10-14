@@ -7,6 +7,8 @@ const initial = {
 }
 
 const reducer = (state, action) => {
+    const { module, payload } = action;
+    
     switch (action.type) {
         case 'SET_DATA':
             return {
@@ -27,8 +29,6 @@ const reducer = (state, action) => {
             };
         
         case 'UPDATE_MODULE':
-            const { module, payload } = action;
-
             if (state.data === undefined || state.data.length === 0) 
                 return state;
 
@@ -39,6 +39,17 @@ const reducer = (state, action) => {
                         ...state.data[module],
                         ...payload
                     },
+                    ...state.data.slice(module + 1)
+                ]
+            };
+
+        case 'REMOVE_MODULE':
+            if (state.data === undefined || state.data.length <= module) 
+                return state;
+            
+            return {
+                data: [
+                    ...state.data.slice(0, module),
                     ...state.data.slice(module + 1)
                 ]
             };
