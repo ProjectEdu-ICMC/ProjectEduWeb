@@ -50,13 +50,19 @@ function ModuleForm(props) {
 
         if (formData.image === undefined || formData.image.length === 0)
             return;
+            
+        const topics = type === 'ADD' ? {
+            subModuleTopics: []
+        } : {};
 
+        
         dispatch({
             type: `${type}_MODULE`,
             module: id,
             payload: {
                 subModuleName: formData.name, 
                 subModuleImage: formData.image,
+                ...topics
             }
         });
 
