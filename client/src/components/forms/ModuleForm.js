@@ -23,15 +23,18 @@ const formReducer = (state, action) => {
 };
 
 function ModuleForm(props) {
-    const { reset, type, id } = props;
+    const { reset, type, module } = props;
 
     const [ state, dispatch ] = useContext(MainContext);
 
-    const [ formData, setFormData ] = useReducer(formReducer, {});
+    const [ formData, setFormData ] = useReducer(formReducer, {
+        name: '',
+        image: ''
+    });
 
     useEffect(() => {
-        if (id !== undefined) {
-            const { subModuleName, subModuleImage } = state.data[id];
+        if (module !== undefined) {
+            const { subModuleName, subModuleImage } = state.data[module];
             setFormData({
                 type: 'INIT',
                 payload: {
@@ -40,7 +43,7 @@ function ModuleForm(props) {
                 }
             });
         }
-    }, [id, state]);
+    }, [module, state]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -58,7 +61,7 @@ function ModuleForm(props) {
         
         dispatch({
             type: `${type}_MODULE`,
-            module: id,
+            module: module,
             payload: {
                 subModuleName: formData.name, 
                 subModuleImage: formData.image,
@@ -84,8 +87,8 @@ function ModuleForm(props) {
         <div className='w-full h-screen flex items-center justify-center bg-opacity-75 bg-black fixed top-0 left-0'>
             <form className='screen-form' onSubmit={ handleSubmit } >
                 <span className='text-lg'>{ type }</span>
-                <input class='placeholder-gray-800' placeholder='Module Name' type='text' onChange={ handleChange } name='name' value={ formData.name } />
-                <input class='placeholder-gray-800' placeholder='Module Image' type='url' onChange={ handleChange } name='image' value={ formData.image } />
+                <input className='placeholder-gray-800' placeholder='Module Name' type='text' onChange={ handleChange } name='name' value={ formData.name } />
+                <input className='placeholder-gray-800' placeholder='Module Image' type='url' onChange={ handleChange } name='image' value={ formData.image } />
                 <button className='btn-green btn'>{ type }</button>
                 <div onClick={ () => reset() } className='btn btn-red'>Cancel</div>
             </form>

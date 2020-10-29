@@ -8,25 +8,22 @@ import { MainContext } from '../contexts/MainContext';
 function Module(props) {
     const { id } = useParams();
 
-    const [ state, ] = useContext(MainContext);
+    const [ state, dispatch ] = useContext(MainContext);
 
-    const [ adding, setAdding ] = useState(false);
+    const [ operation, setOperation ] = useState(undefined);
+    const [ topic, setTopic ] = useState(undefined);
 
     if (!state.data) 
         return ( <Redirect to='/' /> );
 
-    // const addTopic = (event) => {
-    //     dispatch({
-    //         type: 'ADD_TOPIC',
-    //         module: id,
-    //         payload: {
-    //             topicName: "Place holder Topic Name",
-    //             topicTheory: [],
-    //             topicExercises: []
-    //         }
-    //     });
-    // }
-
+    const removeTopic = (topic) => {
+        dispatch({
+            type: 'REMOVE_TOPIC',
+            module: id,
+            topic
+        });
+    }
+    
     const topics = state.data[id].subModuleTopics.map((topic) => {
         return {
             name: topic.topicName
@@ -36,10 +33,13 @@ function Module(props) {
     return (
         <>
             { topics ? 
-                <>
-                    <CardBoard url={ `/topic/${id}` } cardSize={32} data={ topics } /> 
-                    <button className='btn btn-blue' onClick={ () => setAdding(true) } >Add Topic</button>
-                    { adding && <TopicForm reset={ () => setAdding(false) } /> }
+                <>  
+                    <CardBoard url={`/topic/${id}`} cardSize={32} data={ topics } update={ () => setOperation('UPDATE') } choose={ setTopic } remove={ removeTopic } dir='col'/>
+                    <button className='btn btn-blue' onClick={ () => {
+                        setOperation('ADD');
+                        setTopic(undefined);
+                    } } >Add Topic</button>
+                    { operation && <TopicForm reset={ () => setOperation(undefined) } type={ operation } topic={ topic } /> }
                 </>: 
                 'No modules' }
             <Link className='btn btn-blue' to='/'>

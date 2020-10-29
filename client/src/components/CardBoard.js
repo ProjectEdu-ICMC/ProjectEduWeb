@@ -3,7 +3,7 @@ import Card from './Card';
 
 function CardBoard(props) {
     
-    const { data, cardSize, url, update, module, remove } = props;
+    const { data, cardSize, url, update, choose, remove, dir } = props;
 
 
     // data.push({name: '1test'});
@@ -22,15 +22,14 @@ function CardBoard(props) {
         <div className='container mx-auto p-3 flex flex-wrap'>
             { data && 
                 data.map((mod, ind) => {
-                    return ( <div className='flex flex-col ml-5'>
+                    return ( <div key={ ind } className='flex flex-col ml-5'>
                     <Card link={ url && `${ url }/${ ind }` } 
                         size={ cardSize } 
-                        key={ ind } 
                         data={ mod }/> 
-                    <div className='flex flex-row'>
+                    <div className={ `flex flex-${dir}` }>
                     { update && <button className='btn btn-blue flex-grow' onClick={ () => {
                         update();
-                        module(ind);
+                        choose(ind);
                     } }>Update</button> }
                     { remove && <button className='btn btn-red flex-grow' onClick={ () => {
                         remove(ind);

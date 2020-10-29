@@ -76,6 +76,50 @@ const reducer = (state, action) => {
                     ...state.data.slice(action.module + 1)
                 ]
             }
+        
+        case 'UPDATE_TOPIC':
+            if (state.data === undefined || 
+                state.data[action.module] === undefined ||
+                state.data[action.module].subModuleTopics.length <= action.topic)
+                return state;
+
+            return {
+                data: [
+                    ...state.data.slice(0, action.module),
+                    {
+                        ...state.data[action.module],
+                        subModuleTopics: [
+                            ...state.data[action.module].subModuleTopics.slice(0, action.topic),
+                            {
+                                ...state.data[action.module].subModuleTopics[action.topic],
+                                ...payload
+                            },
+                            ...state.data[action.module].subModuleTopics.slice(action.topic + 1)
+                        ]
+                    },
+                    ...state.data.slice(action.module + 1)
+                ]
+            }
+        
+        case 'REMOVE_TOPIC':
+            if (state.data === undefined || 
+                state.data[action.module] === undefined ||
+                state.data[action.module].subModuleTopics.length <= action.topic)
+                return state;
+
+            return {
+                data: [
+                    ...state.data.slice(0, action.module),
+                    {
+                        ...state.data[action.module],
+                        subModuleTopics: [
+                            ...state.data[action.module].subModuleTopics.slice(0, action.topic),
+                            ...state.data[action.module].subModuleTopics.slice(action.topic + 1)
+                        ]
+                    },
+                    ...state.data.slice(action.module + 1)
+                ]
+            }
 
         case 'ADD_EXERCISE':
             if (state.data === undefined || 

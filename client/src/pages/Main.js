@@ -8,7 +8,7 @@ import { MainContext } from '../contexts/MainContext';
 function Main(props) {
     const [ state, dispatch ] = useContext(MainContext);
 
-    const [ adding, setAdding ] = useState(undefined);
+    const [ operation, setOperation ] = useState(undefined);
     const [ module, setModule ] = useState(undefined);
 
     const handleReset = (event) => {
@@ -57,14 +57,14 @@ function Main(props) {
         <>
             { modules ? 
                 <>
-                    <CardBoard url='/mod' cardSize={64} data={ modules } update={ () => setAdding('UPDATE') } module={ setModule } remove={ removeModule } />
+                    <CardBoard url='/mod' cardSize={64} data={ modules } update={ () => setOperation('UPDATE') } choose={ setModule } remove={ removeModule } dir='row' />
                     <button className='btn btn-blue' onClick={ () => { 
-                        setAdding('ADD');
+                        setOperation('ADD');
                         setModule(undefined);
                         } }>Add Module</button>
                     <button className='btn btn-red' onClick={ handleReset }>Reset</button>
                     <button className='btn btn-green' onClick={ () => handleExport(state.data) }>Export</button>
-                    { adding && <ModuleForm reset={ () => setAdding(undefined) } type={ adding } id={ module } /> }
+                    { operation && <ModuleForm reset={ () => setOperation(undefined) } type={ operation } module={ module } /> }
                 </> :
                 <ImportFile /> }
         </>
