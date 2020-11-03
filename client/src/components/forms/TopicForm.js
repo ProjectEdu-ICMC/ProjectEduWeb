@@ -1,5 +1,6 @@
 import React, { useContext, useReducer, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { LanguageContext } from '../../contexts/LanguageContext';
 import { MainContext } from '../../contexts/MainContext';
 
 const formReducer = (state, action) => {
@@ -28,6 +29,8 @@ function TopicForm(props) {
 
     const { reset, type, topic } = props;
     const [ state, dispatch ] = useContext(MainContext);
+    const [ dict, ] = useContext(LanguageContext);
+
     const [ formData, setFormData ] = useReducer(formReducer, {
         name: ''
     });
@@ -50,11 +53,11 @@ function TopicForm(props) {
         if (formData.name === undefined || formData.name.length === 0)
             return;
 
-        const theories = type === 'ADD' ? {
+        const theories = type === dict.add ? {
             topicTheory: []
         } : {};
         
-        const exercises = type === 'ADD' ? {
+        const exercises = type === dict.add ? {
             topicExercises: []
         } : {};
 
@@ -86,9 +89,10 @@ function TopicForm(props) {
     return ( 
         <div className='w-full h-screen flex items-center justify-center bg-opacity-75 bg-black fixed top-0 left-0'>
             <form className='screen-form' onSubmit={ handleSubmit } >
-                <input className='placeholder-gray-800' placeholder='Topic Name' type='text' onChange={ handleChange } name='name' value={ formData.name } />
+                <span className='text-lg'>{ `${type} ${dict.topic}` }</span>
+                <input className='placeholder-gray-800' placeholder={ dict.topName } type='text' onChange={ handleChange } name='name' value={ formData.name } />
                 <button className='btn-green btn'>{ type }</button>
-                <div onClick={ () => reset() } className='btn btn-red'>Cancel</div>
+                <div onClick={ () => reset() } className='btn btn-red'>{ dict.cancel }</div>
             </form>
         </div>
     );

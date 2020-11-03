@@ -1,13 +1,15 @@
 import React, { useContext, useState } from 'react';
 
 import CardBoard from '../components/CardBoard';
+import Header from '../components/default/Header';
 import ModuleForm from '../components/forms/ModuleForm';
 import ImportFile from '../components/ImportFile'
+import { LanguageContext } from '../contexts/LanguageContext';
 import { MainContext } from '../contexts/MainContext';
 
 function Main(props) {
     const [ state, dispatch ] = useContext(MainContext);
-
+    const [ dict, ] = useContext(LanguageContext);
     const [ operation, setOperation ] = useState(undefined);
     const [ module, setModule ] = useState(undefined);
 
@@ -34,17 +36,6 @@ function Main(props) {
             module
         });
     }
-    // const addModule = (event) => {
-    //     console.log('aaa');
-    //     dispatch({
-    //         type: 'UPDATE_MODULE',
-    //         module: 1,
-    //         payload: {
-    //             subModuleName: "TEST 1",
-    //             subModuleImage: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.howtogeek.com%2Fwp-content%2Fuploads%2F2015%2F02%2Fimg_54e924f260960.jpg&f=1&nofb=1"
-    //         }
-    //     })
-    // }
 
     const modules = state.data ? state.data.map((subModule) => {
         return {
@@ -55,15 +46,16 @@ function Main(props) {
 
     return (
         <>
+            <Header />
             { modules ? 
                 <>
-                    <CardBoard url='/mod' cardSize={64} data={ modules } update={ () => setOperation('UPDATE') } choose={ setModule } remove={ removeModule } dir='row' />
+                    <CardBoard url='/mod' cardSize={64} data={ modules } update={ () => setOperation(dict.update) } choose={ setModule } remove={ removeModule } dir='row' />
                     <button className='btn btn-blue' onClick={ () => { 
-                        setOperation('ADD');
+                        setOperation(dict.add);
                         setModule(undefined);
-                        } }>Add Module</button>
-                    <button className='btn btn-red' onClick={ handleReset }>Reset</button>
-                    <button className='btn btn-green' onClick={ () => handleExport(state.data) }>Export</button>
+                        } }>{ dict.addModule }</button>
+                    <button className='btn btn-red' onClick={ handleReset }>{ dict.reset }</button>
+                    <button className='btn btn-green' onClick={ () => handleExport(state.data) }>{ dict.export }</button>
                     { operation && <ModuleForm reset={ () => setOperation(undefined) } type={ operation } module={ module } /> }
                 </> :
                 <ImportFile /> }

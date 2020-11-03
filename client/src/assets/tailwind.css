@@ -6,7 +6,7 @@
 
 
 .btn {
-    @apply bg-transparent font-semibold py-2 px-4 border rounded;
+    @apply bg-transparent font-semibold py-2 px-4 border rounded cursor-pointer;
 }
 
 .btn-blue {

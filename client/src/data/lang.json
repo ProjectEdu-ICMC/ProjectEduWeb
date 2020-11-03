@@ -1,0 +1,36 @@
+{
+    "pt-br": {
+        "update": "Atualizar",
+        "remove": "Remover",
+        "addModule": "Adicionar Módulo",
+        "reset": "Redefinir",
+        "export": "Exportar",
+        "add": "Adicionar",
+        "cancel": "Cancelar",
+        "modName": "Nome do Módulo",
+        "modImg": "Imagem do Módulo",
+        "module": "Módulo",
+        "addTopic": "Adicionar Tópico",
+        "back": "Voltar",
+        "topName": "Nome do Tópico",
+        "topic": "Tópico",
+        "upload": "Enviar Arquivo"
+    },
+    "en-us": {
+        "update": "Update",
+        "remove": "Remove",
+        "addModule": "Add Module",
+        "reset": "Reset",
+        "export": "Export",
+        "add": "Add",
+        "cancel": "Cancel",
+        "modName": "Module Name",
+        "modImg": "Module Image",
+        "module": "Module",
+        "addTopic": "Add Topic",
+        "back": "Back",
+        "topName": "Topic Name",
+        "topic": "Topic",
+        "upload": "Upload File"
+    }
+}

@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useReducer } from 'react';
+import { LanguageContext } from '../../contexts/LanguageContext';
 import { MainContext } from '../../contexts/MainContext';
+
 
 const formReducer = (state, action) => {
     if (action.reset) {
@@ -26,6 +28,7 @@ function ModuleForm(props) {
     const { reset, type, module } = props;
 
     const [ state, dispatch ] = useContext(MainContext);
+    const [ dict, ] = useContext(LanguageContext);
 
     const [ formData, setFormData ] = useReducer(formReducer, {
         name: '',
@@ -54,7 +57,7 @@ function ModuleForm(props) {
         if (formData.image === undefined || formData.image.length === 0)
             return;
             
-        const topics = type === 'ADD' ? {
+        const topics = type === dict.add ? {
             subModuleTopics: []
         } : {};
 
@@ -86,11 +89,11 @@ function ModuleForm(props) {
     return ( 
         <div className='w-full h-screen flex items-center justify-center bg-opacity-75 bg-black fixed top-0 left-0'>
             <form className='screen-form' onSubmit={ handleSubmit } >
-                <span className='text-lg'>{ type }</span>
-                <input className='placeholder-gray-800' placeholder='Module Name' type='text' onChange={ handleChange } name='name' value={ formData.name } />
-                <input className='placeholder-gray-800' placeholder='Module Image' type='url' onChange={ handleChange } name='image' value={ formData.image } />
+                <span className='text-lg'>{ `${type} ${dict.module}` }</span>
+                <input className='placeholder-gray-800' placeholder={ dict.modName } type='text' onChange={ handleChange } name='name' value={ formData.name } />
+                <input className='placeholder-gray-800' placeholder={ dict.modImg } type='url' onChange={ handleChange } name='image' value={ formData.image } />
                 <button className='btn-green btn'>{ type }</button>
-                <div onClick={ () => reset() } className='btn btn-red'>Cancel</div>
+                <div onClick={ () => reset() } className='btn btn-red'>{ dict.cancel }</div>
             </form>
         </div>
     );

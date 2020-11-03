@@ -22,7 +22,7 @@ function Card(props) {
 
     return (
         <Link className={link ? 'cursor-pointer' : 'cursor-default' } to={ link || '#' }>
-            <div className={`${!size ? 'w-64' : `w-${size}`} mb-5`}>
+            <div className={`${!size ? 'w-64' : `w-${size}`} mb-5 break-words`}>
                 <div className='relative bg-blue-500 pb-full'>
                     { display }
                 </div>

@@ -2,13 +2,16 @@ import React, { useContext, useState } from 'react';
 
 import { useParams, Link, Redirect } from 'react-router-dom'
 import CardBoard from '../components/CardBoard';
+import Header from '../components/default/Header';
 import TopicForm from '../components/forms/TopicForm';
+import { LanguageContext } from '../contexts/LanguageContext';
 import { MainContext } from '../contexts/MainContext';
 
 function Module(props) {
     const { id } = useParams();
 
     const [ state, dispatch ] = useContext(MainContext);
+    const [ dict, ] = useContext(LanguageContext);
 
     const [ operation, setOperation ] = useState(undefined);
     const [ topic, setTopic ] = useState(undefined);
@@ -32,18 +35,21 @@ function Module(props) {
 
     return (
         <>
+            <Header />
             { topics ? 
                 <>  
-                    <CardBoard url={`/topic/${id}`} cardSize={32} data={ topics } update={ () => setOperation('UPDATE') } choose={ setTopic } remove={ removeTopic } dir='col'/>
+                    <CardBoard url={`/topic/${id}`} cardSize={32} data={ topics } update={ () => setOperation(dict.update) } choose={ setTopic } remove={ removeTopic } dir='col'/>
                     <button className='btn btn-blue' onClick={ () => {
-                        setOperation('ADD');
+                        setOperation(dict.add);
                         setTopic(undefined);
-                    } } >Add Topic</button>
+                    } } >{ dict.addTopic } </button>
                     { operation && <TopicForm reset={ () => setOperation(undefined) } type={ operation } topic={ topic } /> }
                 </>: 
                 'No modules' }
-            <Link className='btn btn-blue' to='/'>
-                Back
+            <Link to='/'>
+                <button className='btn btn-red'>
+                    { dict.back }
+                </button> 
             </Link>
         </>
    );

@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 
-import { MainContext } from '../contexts/MainContext'
+import { MainContext } from '../contexts/MainContext';
+import { LanguageContext } from '../contexts/LanguageContext';
 
 function ImportFile(props) {
     
     const [ , dispatch ] = useContext(MainContext);
+    const [ dict, ] = useContext(LanguageContext);
 
 
     const handleSelect = (event) => {
@@ -25,7 +27,10 @@ function ImportFile(props) {
 
     return ( 
         <form>
-            <input type='file' onChange={ handleSelect } />
+            <div className='mt-2'>
+                <label className='btn btn-green' for='file-input'>{ dict.upload }</label>
+                <input className='hidden' id='file-input' type='file' onChange={ handleSelect } />
+            </div>
         </form>
     );
 }
