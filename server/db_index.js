@@ -1,34 +1,69 @@
 const express = require('express');
 const cors = require('cors');
 
-const fire = require('./fire.js');
-const db = fire.database();
-
 const app = express();
 
-function writeUserData(userId, name, email, imageUrl) {
-    db.ref('users/' + userId).set({
-        username: name,
-        email: email,
-        profile_picture : imageUrl
-    });
-}
+const auth = require('./middlewares/auth');
+// const auth = require('./routers/auth');
 
-var userRef = db.ref('users');
-userRef.on('value', (snapshot) => {
-  const data = snapshot.val();
-  log = data;
-});
+// const firebase = require('firebase/app');
+// require('firebase/database');
+// firebase.initializeApp(require('./credentials.js'));
+// const db = firebase.database();
+// const { db } = require('./fire.js');
+// 
+// function writeUserData(userId, name, email, imageUrl) {
+//     db.ref('users/' + userId).set({
+//         username: name,
+//         email: email,
+//         profile_picture : imageUrl
+//     });
+// }
+// 
+// var userRef = db.ref('users');
+// userRef.on('value', (snapshot) => {
+//   const data = snapshot.val();
+//   log = data;
+// });
 
 app.use(cors())
+app.use('/', auth);
+// app.use('/auth', auth)
 
-let count = 1;
-let log = [];
-app.get('/', function(req, res) {
-    writeUserData(count, 'user_' + count, 'u' + count + '@gmail.com', '');
+// let count = 1;
+// let log = [];
+// app.get('/', function(req, res) {
+//     writeUserData(count, 'user_' + count, 'u' + count + '@gmail.com', '');
+// 
+//     res.send(log);
+//     count++;
+// });
 
-    res.send(log);
-    count++;
-});
+// app.get('/register', (req, res) => {
+//     auth.createUserWithEmailAndPassword('alexgalocha.jr@gmail.com', '123456')
+//         .then((user) => {
+//             auth.currentUser.getIdToken()
+//                 .then((token) => {
+//                     res.send({ token });
+//                 });
+//         })
+//         .catch((error) => {
+//             res.send({ error });
+//         });
+// });
+// 
+// app.get('/login', (req, res) => {
+//     auth.signInWithEmailAndPassword('alexgalocha.jr@gmail.com', '123456')
+//         .then((result) => {
+//             auth.currentUser.getIdToken()
+//                 .then((token) => {
+//                     res.send({ token });
+//                 });
+// 
+//         })
+//         .catch((error) => {
+//             res.send({ error });
+//         });
+// });
 
 app.listen(3001);
