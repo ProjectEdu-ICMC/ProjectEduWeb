@@ -28,7 +28,7 @@ function ImportFile(props) {
     return ( 
         <form>
             <div className='mt-2'>
-                <label className='btn btn-green' for='file-input'>{ dict.upload }</label>
+                <label className='btn btn-green' htmlFor='file-input'>{ dict.upload }</label>
                 <input className='hidden' id='file-input' type='file' onChange={ handleSelect } />
             </div>
         </form>

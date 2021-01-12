@@ -12,6 +12,8 @@ function Main(props) {
     const [ dict, ] = useContext(LanguageContext);
     const [ operation, setOperation ] = useState(undefined);
     const [ module, setModule ] = useState(undefined);
+    
+    
 
     const handleReset = (event) => {
         dispatch({

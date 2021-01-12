@@ -2,7 +2,7 @@ const { auth } = require('../fire.js');
 
 module.exports = (req, res, next) => {
     const tokenHeader = req.headers.authorization;
-    
+    console.log(tokenHeader);
     if (!tokenHeader) 
         return res.send({ message: 'No token.' }).status(401);
     
@@ -11,7 +11,10 @@ module.exports = (req, res, next) => {
 
     const token = tokenHeader.split(' ')[1];
     auth.verifyIdToken(token)
-        .then(() => next())
+        .then((decoded) => {
+            res.locals.uid = decoded.uid;
+            next();
+        })
         .catch((error) => res.send(error));
 };
 

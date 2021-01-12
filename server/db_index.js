@@ -28,6 +28,12 @@ const auth = require('./middlewares/auth');
 
 app.use(cors())
 app.use('/', auth);
+app.get('/test', (req, res) => {
+    const { uid } = res.locals;
+    console.log(uid);
+
+    res.send({ uid });
+});
 // app.use('/auth', auth)
 
 // let count = 1;

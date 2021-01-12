@@ -1,32 +1,38 @@
 import React from 'react';
 
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { 
+    BrowserRouter as Router, 
+    Route, 
+    Switch 
+} from 'react-router-dom';
 
 import Main from './pages/Main';
 import Module from './pages/Module';
 import Topic from './pages/Topic';
+import Login from './pages/Login';
 
 import { MainContextProvider } from './contexts/MainContext';
 import { LanguageContextProvider } from './contexts/LanguageContext';
+import PrivateRoute from './auth/PrivateRoute.js';
 
 function App() {
-
-    
-
     return (
         <LanguageContextProvider>
             <MainContextProvider>
                 <Router>
                     <Switch>
-                        <Route path='/topic/:mod/:id'>
+                        <PrivateRoute path='/topic/:mod/:id'>
                             <Topic />
-                        </Route>
-                        <Route path='/mod/:id'>
+                        </PrivateRoute>
+                        <PrivateRoute path='/mod/:id'>
                             <Module />
+                        </PrivateRoute>
+                        <Route path='/login'>
+                            <Login />
                         </Route>
-                        <Route path='/'>
+                        <PrivateRoute path='/'>
                             <Main /> 
-                        </Route>
+                        </PrivateRoute>
                     </Switch>
 
                 </Router>
