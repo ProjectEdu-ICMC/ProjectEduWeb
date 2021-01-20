@@ -2,16 +2,18 @@ import React, { useState } from 'react';
 
 import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 
 import { auth } from '../auth/fire.js';
-import useLocalStorage from '../hooks/localStorageHook';
+//import useLocalStorage from '../hooks/localStorageHook';
 
 function Login(props) {
     const history = useHistory();
     const { register, handleSubmit, errors } = useForm();
     const [ error, setError ] = useState(undefined);
     
-    const [ , setToken ] = useLocalStorage('@token');
+    //const [ , setToken ] = useLocalStorage('@token');
+    const dispatch = useDispatch();
 
     const onSubmit = (data) => {
         const { email, password } = data;
@@ -21,7 +23,11 @@ function Login(props) {
                 result.user.getIdToken()
                     .then((token) => {
                         if (token) {
-                            setToken(token);
+                            //setToken(token);
+                            dispatch({
+                                type: 'SIGN_IN',
+                                payload: token
+                            });
                             history.push('/');
                         }
                     })

@@ -2,7 +2,7 @@ const { auth } = require('../fire.js');
 
 module.exports = (req, res, next) => {
     const tokenHeader = req.headers.authorization;
-    console.log(tokenHeader);
+    
     if (!tokenHeader) 
         return res.send({ message: 'No token.' }).status(401);
     
@@ -15,7 +15,13 @@ module.exports = (req, res, next) => {
             res.locals.uid = decoded.uid;
             next();
         })
-        .catch((error) => res.send(error));
+        .catch((error) => {
+            console.log("middleware error: ", error);
+            return res.send({
+                code: error.code,
+                message: error.message
+            }).status(401)
+        });
 };
 
 

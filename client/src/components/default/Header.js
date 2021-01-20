@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { LanguageContext } from '../../contexts/LanguageContext';
 
 import { auth } from '../../auth/fire.js';
-import useLocalStorage from '../../hooks/localStorageHook.js';
+//import useLocalStorage from '../../hooks/localStorageHook.js';
 
 function Header(props) {
     const history = useHistory();

@@ -1,9 +1,12 @@
 const express = require('express');
 const cors = require('cors');
+const bp = require('body-parser');
 
 const app = express();
 
 const auth = require('./middlewares/auth');
+
+const moduleRouter = require('./routes/module');
 // const auth = require('./routers/auth');
 
 // const firebase = require('firebase/app');
@@ -27,7 +30,13 @@ const auth = require('./middlewares/auth');
 // });
 
 app.use(cors())
+app.use(bp.json())
+app.use(bp.urlencoded({ extended: true }))
+
 app.use('/', auth);
+
+app.use('/module', moduleRouter);
+
 app.get('/test', (req, res) => {
     const { uid } = res.locals;
     console.log(uid);

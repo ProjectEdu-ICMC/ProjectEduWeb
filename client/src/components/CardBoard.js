@@ -18,25 +18,27 @@ function CardBoard(props) {
     // data.push({name: '11test'});
     // data.push({name: '2test'});
     // data.push({name: '3test'});
-
+    console.log(data);
 
     return (
         <div className='container mx-auto p-3 flex flex-wrap items-stretch'>
             { data && 
-                data.map((mod, ind) => {
-                    return ( <div key={ ind } className='flex flex-col ml-5 justify-between'>
-                    <Card link={ url && `${ url }/${ ind }` } 
-                        size={ cardSize } 
-                        data={ mod }/> 
-                    <div className={ `flex flex-${dir}` }>
-                    { update && <button className='btn btn-blue flex-grow' onClick={ () => {
-                        update();
-                        choose(ind);
-                    } }>{ dict.update }</button> }
-                    { remove && <button className='btn btn-red flex-grow' onClick={ () => {
-                        remove(ind);
-                    }} >{ dict.remove }</button> }
-                    </div>
+                Object.keys(data).map((id, idx) => {
+                    return ( 
+                    <div key={ idx } 
+                        className='flex flex-col ml-5 justify-between'>
+                        <Card link={ url && `${ url }/${ id }` } 
+                            size={ cardSize } 
+                            data={ data[id] }/> 
+                        <div className={ `flex flex-${dir}` }>
+                            { update && <button className='btn btn-blue flex-grow' onClick={ () => {
+                                update();
+                                choose(id);
+                            } }>{ dict.update }</button> }
+                            { remove && <button className='btn btn-red flex-grow' onClick={ () => {
+                                remove(id);
+                            }} >{ dict.remove }</button> }
+                        </div>
                     </div> )
                 } ) }
         </div>
