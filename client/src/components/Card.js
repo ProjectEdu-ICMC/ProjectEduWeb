@@ -21,12 +21,12 @@ function Card(props) {
             <img className='absolute object-cover w-full h-full' src={ image } onError={ invalidSrc } alt={ name } /> ;
 
     return (
-        <Link className={link ? 'cursor-pointer' : 'cursor-default' } to={ link || '#' }>
-            <div className={`${!size ? 'w-64' : `w-${size}`} mb-5 break-words`}>
+        <Link className={ `${link ? 'cursor-pointer' : 'cursor-default'} flex flex-grow` } to={ link || '#' }>
+            <div className={`${!size ? 'w-64' : `w-${size}`} bg-white pb-5 flex-grow rounded shadow-lg overflow-hidden relative z-10 break-words`}>
                 <div className='relative bg-blue-500 pb-full'>
                     { display }
                 </div>
-                {name}
+                <h2 className='text-lg font-bold text-gray-800 px-4 pt-4'>{name}</h2>
             </div>
         </Link>
     );

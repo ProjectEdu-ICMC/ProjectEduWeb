@@ -124,12 +124,15 @@ function ModuleForm(props) {
     //};
 
     return ( 
-        <div className='w-full h-screen flex items-center justify-center bg-opacity-75 bg-black fixed top-0 left-0'>
-            <form className='screen-form' onSubmit={ handleSubmit(onSubmit) } >
-                <span className='text-lg'>{ `${type} ${dict.module}` }</span>
+        <div className='w-full h-screen flex items-center justify-center bg-opacity-75 bg-black fixed z-20 top-0 left-0'>
+            <form className='bg-white p-10 rounded flex flex-col shadow-lg' onSubmit={ handleSubmit(onSubmit) } >
+                <span className='text-lg font-bold ml-1 mb-4 text-gray-800'>{ `${type} ${dict.module}` }</span>
+                <label 
+                    className='text-sm text-gray-500 ml-1 mt-2'
+                    htmlFor='name'>{ dict.modName }</label>
                 <input 
-                    className='placeholder-gray-800' 
-                    placeholder={ dict.modName } 
+                    className='shadow p-1 rounded text-md outline-none focus:shadow-outline' 
+                    //placeholder={ dict.modName } 
                     type='text' 
                     ref={ register({ required: 'Enter module name' }) }
                     defaultValue={ initData?.name }
@@ -137,12 +140,15 @@ function ModuleForm(props) {
                     name='name' 
                     //value={ formData.name } 
                 />
-                { errors.name && <p className='error'> 
+                { errors.name && <p className='text-red-700 text-sm px-1'> 
                     { errors.name.message } 
                 </p> }
+                <label 
+                    className='text-sm text-gray-500 ml-1 mt-2'
+                        htmlFor='image'>{ dict.modImg }</label>
                 <input 
-                    className='placeholder-gray-800' 
-                    placeholder={ dict.modImg } 
+                    className='shadow p-1 rounded text-md outline-none focus:shadow-outline' 
+                    //placeholder={ dict.modImg } 
                     type='url' 
                     ref={ register }
                     defaultValue={ initData?.image }
@@ -150,11 +156,15 @@ function ModuleForm(props) {
                     name='image' 
                     //value={ formData.image } 
                 />
-                { errors.image && <p className='error'> 
+                { errors.image && <p className='text-red-700 text-sm px-1'> 
                     { errors.image.message } 
                 </p> }
-                <button className='btn-green btn'>{ type }</button>
-                <div onClick={ () => reset() } className='btn btn-red'>{ dict.cancel }</div>
+                <button 
+                    className='bg-green-500 hover:bg-green-600 py-2 mt-8 rounded text-white font-bold shadow focus:outline-none focus:shadow-outline'
+                >{ type }</button>
+                <div 
+                    className='bg-red-500 hover:bg-red-600 py-2 mt-2 rounded text-center cursor-pointer text-white font-bold shadow focus:outline-none focus:shadow-outline'
+                    onClick={ () => reset() }>{ dict.cancel }</div>
             </form>
         </div>
     );

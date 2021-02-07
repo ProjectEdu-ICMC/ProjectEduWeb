@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -45,16 +45,13 @@ function Login(props) {
     };
 
 
-    useEffect(() => {
-        setError({ message: 'test' })
-    }, []);
-
     return <div className='bg-gray-100 w-full flex items-center justify-center min-h-screen'>
         <form 
             className='flex flex-col bg-white p-10 rounded shadow-lg' 
             onSubmit={handleSubmit(onSubmit)} 
             noValidate
         >
+            <h1 className='text-xl font-bold mb-4 text-gray-800 ml-1'>Login</h1>
             { error && <p className='bg-red-500 text-white shadow-inner font-bold p-2 rounded-sm'>{ error.message }</p> }
             <label className='text-sm ml-1 mt-2 text-gray-500' htmlFor='inputEmail'>E-mail</label>
             <input
@@ -82,8 +79,8 @@ function Login(props) {
             />
             {errors.password && <p className='text-red-700 text-sm px-1'>{errors.password.message}</p>}
             
-            <button className='py-2 bg-blue-500 mt-2 rounded text-white font-bold shadow focus:shadow-outline focus:outline-none' type='submit'>Login</button>
-            <button className='py-2 bg-green-500 mt-2 rounded text-white font-bold shadow focus:shadow-outline focus:outline-none' onClick={ registerUser }>Register</button>
+            <button className='hover:bg-blue-600 py-2 bg-blue-500 mt-8 rounded text-white font-bold shadow focus:shadow-outline focus:outline-none' type='submit'>Login</button>
+            <button className='hover:bg-green-600 py-2 bg-green-500 mt-2 rounded text-white font-bold shadow focus:shadow-outline focus:outline-none' onClick={ registerUser }>Register</button>
         </form>
     </div>;
 }

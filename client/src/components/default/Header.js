@@ -27,13 +27,22 @@ function Header(props) {
     }
 
     return (
-        <div className='bg-white flex justify-between py-4 px-10 shadow-lg fixed w-full z-50'>
+        <div className='bg-white flex justify-between py-4 px-10 shadow-lg fixed w-full z-20'>
             <h1 className='text-3xl font-bold text-gray-800'>Portal EDU</h1>
             <div>
-                <button className='btn btn-green mr-2' onClick={ setPortuguese }>BR</button>
-                <button className='btn btn-blue' onClick={ setEnglish }>EN</button>
+                <button 
+                    className='bg-green-500 hover:bg-green-600 px-4 py-2 rounded text-white font-bold shadow focus:outline-none focus:shadow-outline'
+                    //className='btn btn-green mr-2' 
+                    onClick={ setPortuguese }>BR</button>
+                <button 
+                    className='bg-green-500 hover:bg-green-600 px-4 py-2 ml-2 rounded text-white font-bold shadow focus:outline-none focus:shadow-outline'
+                    //className='btn btn-blue' 
+                    onClick={ setEnglish }>EN</button>
                 { token &&
-                    <button className='btn btn-red ml-2' onClick={ logout }>Logout</button>
+                    <button 
+                        className='bg-red-500 hover:bg-red-600 px-4 py-2 ml-2 rounded text-white font-bold shadow focus:outline-none focus:shadow-outline'
+                        //className='btn btn-red ml-2' 
+                        onClick={ logout }>Logout</button>
                 }
             </div>
         </div>

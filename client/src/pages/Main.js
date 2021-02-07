@@ -86,23 +86,29 @@ function Main(props) {
     return (
         <>
             <Header />
-            { 
-                //data ? 
-                <>
-            <CardBoard 
-                url='/mod' 
-                cardSize={64} 
-                data={ data } 
-                update={ () => setOperation(dict.update) } 
-                choose={ setModule }
-                remove={ deleteModule } 
-                dir='row' />
-            <button className='btn btn-blue' 
-                onClick={ () => { 
-                    setOperation(dict.add);
-                    setModule(undefined);
-                } }
-                >{ dict.addModule }</button>
+            <div className='p-10 w-full'></div>
+                {/* //data ? */}
+            <div className='mx-auto container'>
+                <CardBoard 
+                    url='/mod' 
+                    cardSize={64} 
+                    data={ data } 
+                    update={ () => setOperation(dict.update) } 
+                    choose={ setModule }
+                    remove={ deleteModule } 
+                    dir='row' />
+                <div className='p-10 w-full'></div>
+                <div className='bg-white container p-4 z-20 fixed bottom-0 shadow'>
+                    <button 
+                        className='hover:bg-blue-600 bg-blue-500 py-2 px-4 rounded text-white font-bold shadow focus:outline-none focus:shadow-outline' 
+                        onClick={ () => { 
+                            setOperation(dict.add);
+                            setModule(undefined);
+                        } }
+                        >{ dict.addModule }</button>
+                </div>
+            
+            {/*
             <button className='btn btn-red' 
                 //onClick={ handleReset }
             >{ dict.reset }</button>
@@ -111,19 +117,20 @@ function Main(props) {
             >
                 { dict.export }
             </button>
+            */}
+
+            </div> 
             { operation && 
                 <ModuleForm 
                     reset={ () => setOperation(undefined) } 
                     type={ operation } 
                     module={ module } /> 
             }
-               </> 
-               //:
+               {/*//:
                //<>
                //    <button className='btn btn-blue' onClick={ testPost }>Test</button>
                //    <ImportFile /> 
-               //</> 
-            }
+               //</> */}
         </>
    );
 }

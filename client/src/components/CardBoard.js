@@ -30,14 +30,22 @@ function CardBoard(props) {
                         <Card link={ url && `${ url }/${ id }` } 
                             size={ cardSize } 
                             data={ data[id] }/> 
-                        <div className={ `flex flex-${dir}` }>
-                            { update && <button className='btn btn-blue flex-grow' onClick={ () => {
-                                update();
-                                choose(id);
-                            } }>{ dict.update }</button> }
-                            { remove && <button className='btn btn-red flex-grow' onClick={ () => {
-                                remove(id);
-                            }} >{ dict.remove }</button> }
+                        <div className={ `flex flex-${dir} rounded-b bg-white p-4 shadow-lg` }>
+                            { update && 
+                            <button 
+                                className='hover:bg-blue-600 py-2 flex-grow bg-blue-500 rounded text-white font-bold shadow focus:shadow-outline focus:outline-none' 
+                                onClick={ () => {
+                                    update();
+                                    choose(id);
+                                } 
+                            }>{ dict.update }</button> }
+                            { remove && 
+                            <button 
+                                className='hover:bg-red-600 py-2 flex-grow bg-red-500 rounded ml-2 text-white font-bold shadow focus:shadow-outline focus:outline-none' 
+                                onClick={ () => {
+                                    remove(id);
+                                }
+                            } >{ dict.remove }</button> }
                         </div>
                     </div> )
                 } ) }
