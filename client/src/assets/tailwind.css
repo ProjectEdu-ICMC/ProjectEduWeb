@@ -4,6 +4,11 @@
 
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;400;700&display=swap');
+
+#root {
+    font-family: 'Inter', sans-serif;
+}
 
 .btn {
     @apply bg-transparent font-semibold py-2 px-4 border rounded cursor-pointer;

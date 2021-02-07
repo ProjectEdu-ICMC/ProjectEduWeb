@@ -54,4 +54,30 @@ router.put('/:id', (req, res) => {
     });
 });
 
+router.delete('/:id', (req, res) => {
+    const { id } = req.params;
+    const { uid } = res.locals;
+
+    const ref = db.ref(`modules/${id}`);
+    ref.once('value', (snap) => {
+        console.log(snap.val());
+        const val = snap.val();
+        if (!val || val === null || val === undefined)
+            return res.status(404).send();
+
+        const { creator } = val;
+
+        if (creator !== uid)
+            return res.send('').status(403);
+
+        ref.remove(error => {
+            if (error) {
+                res.status(502).send(error);
+            } else {
+                res.send({ module_id: id });
+            }
+        });
+    });
+});
+
 module.exports = router;

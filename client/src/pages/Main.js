@@ -60,7 +60,7 @@ function Main(props) {
     //const [ data, setData ] = useState(undefined);
     const dispatch = useDispatch();
     const data = useSelector(state => state.module);
-    console.log('data', data);
+    //console.log('data', data);
 
     useEffect(() => {
         const fetchModules = async () => {
@@ -74,6 +74,15 @@ function Main(props) {
         fetchModules();
     }, [dispatch]);
 
+    const deleteModule = async (id) => {
+        const res = await ModuleModel.remove(id);
+        console.log(res);
+        dispatch({
+            type: 'DELETE_MODULE',
+            payload: id
+        });
+    };
+
     return (
         <>
             <Header />
@@ -86,7 +95,7 @@ function Main(props) {
                 data={ data } 
                 update={ () => setOperation(dict.update) } 
                 choose={ setModule }
-                // remove={ removeModule } 
+                remove={ deleteModule } 
                 dir='row' />
             <button className='btn btn-blue' 
                 onClick={ () => { 

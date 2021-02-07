@@ -18,7 +18,7 @@ function CardBoard(props) {
     // data.push({name: '11test'});
     // data.push({name: '2test'});
     // data.push({name: '3test'});
-    console.log(data);
+    // console.log(data);
 
     return (
         <div className='container mx-auto p-3 flex flex-wrap items-stretch'>

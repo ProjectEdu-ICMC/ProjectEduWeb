@@ -2,7 +2,7 @@ const INIT_STATE = {
 };
 
 const reducer = (state = INIT_STATE, action) => {
-    const { type, payload } = action;
+        const { type, payload } = action;
 
     switch (type) {
         case "ADD_MODULE":
@@ -13,8 +13,10 @@ const reducer = (state = INIT_STATE, action) => {
 
         case 'UPDATE_MODULE':
             return { ...state, ...payload };
-        //case "":
-        //    return { ...state, token: null }
+
+        case 'DELETE_MODULE':
+            const { [ payload ]: delMod, ...newState } = state;
+            return { ...newState };
 
         default:
             return state;
