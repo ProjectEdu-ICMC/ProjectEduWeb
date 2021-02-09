@@ -7,6 +7,7 @@ const app = express();
 const auth = require('./middlewares/auth');
 
 const moduleRouter = require('./routes/module');
+const topicRouter = require('./routes/topic');
 // const auth = require('./routers/auth');
 
 // const firebase = require('firebase/app');
@@ -36,6 +37,7 @@ app.use(bp.urlencoded({ extended: true }))
 app.use('/', auth);
 
 app.use('/module', moduleRouter);
+app.use('/topic', topicRouter);
 
 app.get('/test', (req, res) => {
     const { uid } = res.locals;

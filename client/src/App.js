@@ -14,7 +14,7 @@ import Module from './pages/Module';
 import Topic from './pages/Topic';
 import Login from './pages/Login';
 
-import { MainContextProvider } from './contexts/MainContext';
+//import { MainContextProvider } from './contexts/MainContext';
 import { LanguageContextProvider } from './contexts/LanguageContext';
 import PrivateRoute from './auth/PrivateRoute.js';
 
@@ -26,14 +26,14 @@ function App() {
                 persistor={ persistor }
             >
                 <LanguageContextProvider>
-                    <MainContextProvider>
+                    {/*<MainContextProvider>*/}
                         
                         <Router>
                             <Switch>
-                                <PrivateRoute path='/topic/:mod/:id'>
+                                <PrivateRoute path='/topic/:mod/:top'>
                                     <Topic />
                                 </PrivateRoute>
-                                <PrivateRoute path='/mod/:id'>
+                                <PrivateRoute path='/mod/:mod'>
                                     <Module />
                                 </PrivateRoute>
                                 <Route path='/login'>
@@ -45,7 +45,7 @@ function App() {
                             </Switch>
 
                         </Router>
-                    </MainContextProvider>
+                    {/*</MainContextProvider>*/}
                 </LanguageContextProvider>
             </PersistGate>
         </Provider>

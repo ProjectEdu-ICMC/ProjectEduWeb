@@ -41,7 +41,7 @@ function CardBoard(props) {
                             }>{ dict.update }</button> }
                             { remove && 
                             <button 
-                                className='hover:bg-red-600 py-2 flex-grow bg-red-500 rounded ml-2 text-white font-bold shadow focus:shadow-outline focus:outline-none' 
+                                className={ `${dir === 'row' ? 'ml-2' : 'mt-2'} hover:bg-red-600 py-2 flex-grow bg-red-500 rounded text-white font-bold shadow focus:shadow-outline focus:outline-none` }
                                 onClick={ () => {
                                     remove(id);
                                 }
