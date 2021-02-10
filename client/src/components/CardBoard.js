@@ -8,18 +8,6 @@ function CardBoard(props) {
     const { data, cardSize, url, update, choose, remove, dir } = props;
     const [ dict, ] = useContext(LanguageContext);
 
-    // data.push({name: '1test'});
-    // data.push({name: '2test'});
-    // data.push({name: '3test'});
-    // data.push({name: '4test'});
-    // data.push({name: '5test'});
-    // data.push({name: '6test'});
-    // data.push({name: '8test'});
-    // data.push({name: '11test'});
-    // data.push({name: '2test'});
-    // data.push({name: '3test'});
-    // console.log(data);
-
     return (
         <div className='container mx-auto p-3 flex flex-wrap items-stretch'>
             { data && 
@@ -49,6 +37,13 @@ function CardBoard(props) {
                         </div>
                     </div> )
                 } ) }
+            { Object.keys(data).length === 0 && 
+                <span 
+                    className='text-lg font-bold text-gray-600'
+                >
+                    Nada a mostrar.
+                </span>
+            }
         </div>
     );
 }

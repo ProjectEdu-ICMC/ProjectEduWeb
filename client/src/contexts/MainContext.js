@@ -1,5 +1,6 @@
 import React, { useReducer, createContext } from 'react';
 
+// Not used
 export const MainContext = createContext();
 
 const initial = {

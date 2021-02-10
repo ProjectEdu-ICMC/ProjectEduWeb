@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 import { LanguageContext } from '../../contexts/LanguageContext';
 
 import { auth } from '../../auth/fire.js';
-//import useLocalStorage from '../../hooks/localStorageHook.js';
 
 function Header(props) {
     const token = useSelector(state => state.auth.token);
@@ -31,17 +30,14 @@ function Header(props) {
             <h1 className='text-3xl font-bold text-gray-800'>Portal EDU</h1>
             <div>
                 <button 
-                    className='bg-green-500 hover:bg-green-600 px-4 py-2 rounded text-white font-bold shadow focus:outline-none focus:shadow-outline'
-                    //className='btn btn-green mr-2' 
+                    className='bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded text-white font-bold shadow focus:outline-none focus:shadow-outline'
                     onClick={ setPortuguese }>BR</button>
                 <button 
-                    className='bg-green-500 hover:bg-green-600 px-4 py-2 ml-2 rounded text-white font-bold shadow focus:outline-none focus:shadow-outline'
-                    //className='btn btn-blue' 
+                    className='bg-blue-500 hover:bg-blue-600 px-4 py-2 ml-2 rounded text-white font-bold shadow focus:outline-none focus:shadow-outline'
                     onClick={ setEnglish }>EN</button>
                 { token &&
                     <button 
                         className='bg-red-500 hover:bg-red-600 px-4 py-2 ml-2 rounded text-white font-bold shadow focus:outline-none focus:shadow-outline'
-                        //className='btn btn-red ml-2' 
                         onClick={ logout }>Logout</button>
                 }
             </div>

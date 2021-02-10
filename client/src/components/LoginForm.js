@@ -5,25 +5,21 @@ import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
 import { auth } from '../auth/fire.js';
-//import useLocalStorage from '../hooks/localStorageHook';
 
 function Login(props) {
     const history = useHistory();
     const { register, handleSubmit, errors } = useForm();
     const [ error, setError ] = useState(undefined);
     
-    //const [ , setToken ] = useLocalStorage('@token');
     const dispatch = useDispatch();
 
     const onSubmit = (data) => {
         const { email, password } = data;
         auth.signInWithEmailAndPassword(email, password)
             .then((result) => {
-                console.log(result);
                 result.user.getIdToken()
                     .then((token) => {
                         if (token) {
-                            //setToken(token);
                             dispatch({
                                 type: 'SIGN_IN',
                                 payload: token

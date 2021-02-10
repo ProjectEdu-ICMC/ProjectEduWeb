@@ -20,16 +20,12 @@ const remove = id => {
     return API.delete(`/topic/${id}`);
 };
 
-//const removeAll = () => {
-//  return API.delete(`/module`);
-//};
 const TopicModel = {
     getAllFromModule,
     get,
     create,
     update,
-    remove,
-    //removeAll
+    remove
 };
 
 export default TopicModel;

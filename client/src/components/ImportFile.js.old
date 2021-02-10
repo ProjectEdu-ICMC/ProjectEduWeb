@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { MainContext } from '../contexts/MainContext';
 import { LanguageContext } from '../contexts/LanguageContext';
 
+// Not used
 function ImportFile(props) {
     
     const [ , dispatch ] = useContext(MainContext);

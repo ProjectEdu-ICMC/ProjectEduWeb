@@ -69,13 +69,10 @@ function TopicForm(props) {
                     htmlFor='name'>{ dict.topName }</label>
                 <input 
                     className='shadow p-1 rounded text-md outline-none focus:shadow-outline' 
-                    //placeholder={ dict.modName } 
                     type='text' 
                     ref={ register({ required: 'Enter topic name' }) }
                     defaultValue={ initData?.name }
-                    //onChange={ handleChange } 
                     name='name' 
-                    //value={ formData.name } 
                 />
                 { errors.name && <p className='text-red-700 text-sm px-1'> 
                     { errors.name.message } 

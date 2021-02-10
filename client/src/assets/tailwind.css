@@ -11,38 +11,3 @@
     @apply bg-gray-100 min-h-screen;
 }
 
-.btn {
-    @apply bg-transparent font-semibold py-2 px-4 border rounded cursor-pointer;
-}
-
-.btn-blue {
-    @apply border-blue-500 text-blue-700;
-}
-
-.btn-blue:hover {
-    @apply bg-blue-500 border-transparent text-white ;
-}
-
-.btn-red {
-    @apply border-red-500 text-red-700;
-}
-
-.btn-red:hover {
-    @apply bg-red-500 border-transparent text-white ;
-}
-
-.btn-green {
-    @apply border-green-500 text-green-700;
-}
-
-.btn-green:hover {
-    @apply bg-green-500 border-transparent text-white ;
-}
-
-.screen-form {
-    @apply bg-white p-4 flex flex-col;
-}
-
-.screen-form input {
-    @apply bg-gray-200 p-2 text-base rounded mb-1; 
-}

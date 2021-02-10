@@ -20,16 +20,12 @@ const remove = id => {
     return API.delete(`/module/${id}`);
 };
 
-//const removeAll = () => {
-//  return API.delete(`/module`);
-//};
 const ModuleModel = {
     getAll,
     get,
     create,
     update,
-    remove,
-    //removeAll
+    remove
 };
 
 export default ModuleModel;
