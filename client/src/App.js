@@ -17,6 +17,20 @@ import Login from './pages/Login';
 import { LanguageContextProvider } from './contexts/LanguageContext';
 import PrivateRoute from './components/auth/PrivateRoute.js';
 
+import { DndProvider } from 'react-dnd';
+
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { TouchBackend } from 'react-dnd-touch-backend';
+
+const isTouchDevice = () => {
+  if ("ontouchstart" in window) {
+    return true;
+  }
+  return false;
+};
+
+const DNDBackend = isTouchDevice() ? TouchBackend : HTML5Backend;
+
 function App() {
     return (
         <Provider store={ store }>
@@ -25,23 +39,25 @@ function App() {
                 persistor={ persistor }
             >
                 <LanguageContextProvider>
-                    <Router>
-                        <Switch>
-                            <PrivateRoute path='/topic/:mod/:topic'>
-                                <Topic />
-                            </PrivateRoute>
-                            <PrivateRoute path='/mod/:mod'>
-                                <Module />
-                            </PrivateRoute>
-                            <Route path='/login'>
-                                <Login />
-                            </Route>
-                            <PrivateRoute path='/'>
-                                <Main /> 
-                            </PrivateRoute>
-                        </Switch>
+                    <DndProvider backend={ DNDBackend }>
+                        <Router>
+                            <Switch>
+                                <PrivateRoute path='/topic/:mod/:topic'>
+                                    <Topic />
+                                </PrivateRoute>
+                                <PrivateRoute path='/mod/:mod'>
+                                    <Module />
+                                </PrivateRoute>
+                                <Route path='/login'>
+                                    <Login />
+                                </Route>
+                                <PrivateRoute path='/'>
+                                    <Main /> 
+                                </PrivateRoute>
+                            </Switch>
 
-                    </Router>
+                        </Router>
+                    </DndProvider>
                 </LanguageContextProvider>
             </PersistGate>
         </Provider>

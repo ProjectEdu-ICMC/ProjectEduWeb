@@ -17,7 +17,7 @@ function TopicForm(props) {
     const [ dict, ] = useContext(LanguageContext);
 
     const dispatch = useDispatch();
-    const initData = useSelector(state => state.topic[topic]);
+    const initData = useSelector(state => state.topic.array[topic]);
 
     const onSubmit = (data) => {
         const { name } = data;
@@ -29,25 +29,25 @@ function TopicForm(props) {
             }).then(result => dispatch({
                 type: 'ADD_TOPIC',
                 payload: {
-                    [result.data.topic_id]: {
-                        name
-                    }
+                    name,
+                    module: mod,
+                    id: result.data.topic_id
                 }
             }))
             .catch(error => {
                 console.log(error);
             });
         } else {
-            TopicModel.update(topic, {
+            TopicModel.update(initData.id, {
                 name,
                 module: mod
             }).then(result => dispatch({
                 type: 'UPDATE_TOPIC',
-                id: topic,
+                key: Number(topic),
                 payload: {
-                    [result.data.topic_id]: {
-                        name
-                    }
+                    name,
+                    module: mod,
+                    id: result.data.topic_id
                 }
             }))
             .catch(error => {

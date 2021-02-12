@@ -17,7 +17,7 @@ function Module(props) {
     const [ topic, setTopic ] = useState(undefined);
 
     const dispatch = useDispatch();
-    const data = useSelector(state => state.topic);
+    const data = useSelector(state => state.topic.array);
 
     useEffect(() => {
         const fetchTopics = async () => {
@@ -31,11 +31,13 @@ function Module(props) {
         fetchTopics();
     }, [ dispatch, mod ]);
     
-    const deleteTopic = async (id) => {
+    const deleteTopic = async (index) => {
+        const { id } = data[index];
         const res = await TopicModel.remove(id);
         dispatch({
             type: 'DELETE_TOPIC',
-            payload: res.data.topic_id 
+            payload: res.data.topic_id,
+            key: Number(index)
         });
     };
 
@@ -52,7 +54,8 @@ function Module(props) {
                     choose={ setTopic } 
                     remove={ deleteTopic } 
                     dir='col'
-                /> <div className='p-10 w-full'></div>
+                /> 
+                <div className='p-10 w-full'></div>
                 <div className='justify-between flex bg-white container p-4 z-20 fixed bottom-0 shadow'>
                     <div>
                         <button 

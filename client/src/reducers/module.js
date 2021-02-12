@@ -2,7 +2,7 @@ const INIT_STATE = {
 };
 
 const reducer = (state = INIT_STATE, action) => {
-        const { type, payload } = action;
+    const { type, payload } = action;
 
     switch (type) {
         case "ADD_MODULE":
