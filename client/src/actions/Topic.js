@@ -1,12 +1,12 @@
 import { API } from '../api.js';
 
 const getAllFromModule = module => {
-    return API.get(`/topic/all/${module}`);
+    return API.get(`/topic/${module}`);
 };
 
-const get = id => {
-    return API.get(`/topic/${id}`);
-};
+//const get = id => {
+//    return API.get(`/topic/${id}`);
+//};
 
 const create = data => {
     return API.post(`/topic`, data);
@@ -22,7 +22,7 @@ const remove = id => {
 
 const TopicModel = {
     getAllFromModule,
-    get,
+    //get,
     create,
     update,
     remove
