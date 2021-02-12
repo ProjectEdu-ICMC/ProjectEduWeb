@@ -17,6 +17,8 @@ router.get('/:mod', (req, res) => {
             if (creator === uid) {
                 topRef.once('value', (snap) => {
                     const topics = snap.val();
+                    
+                    if (!topics) return res.send([]);
 
                     const array = Object.values(topics);
                     const ids = Object.keys(topics);

@@ -14,7 +14,7 @@
             const modVal = modCheck.val();
 
             if (modVal?.creator) {
-                const { creator } = _check;
+                const { creator } = modVal;
                 if (creator === uid) {
                     topRef.once('value', (topCheck) => {
                         const topVal = topCheck.val();
@@ -22,6 +22,8 @@
                             slideRef.once('value', (snap) => {
                                 const slides = snap.val();
 
+                                if (!slides) return res.send([]);
+                                
                                 const array = Object.values(slides);
                                 const ids = Object.keys(slides);
 

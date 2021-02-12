@@ -9,6 +9,8 @@ router.get('/', (req, res) => {
     const ref = db.ref('modules').orderByChild('creator').equalTo(uid);
     ref.once('value', (snap) => {
         const modules = snap.val();
+    
+        if (!modules) return res.send([]);
 
         const array = Object.values(modules);
         const ids = Object.keys(modules);
