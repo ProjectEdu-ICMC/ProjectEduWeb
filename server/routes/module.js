@@ -8,15 +8,22 @@ router.get('/', (req, res) => {
 
     const ref = db.ref('modules').orderByChild('creator').equalTo(uid);
     ref.once('value', (snap) => {
-        res.send(snap.val());
+        const modules = snap.val();
+
+        const array = Object.values(modules);
+        const ids = Object.keys(modules);
+
+        for (let i = 0; i < array?.length; i++) {
+            array[i].id = ids[i];
+        }
+
+        return res.send(array);
     });
-    ////console.log(ref);
 });
 
 router.post('/', (req, res) => {
     const { body } = req;
     const { uid } = res.locals;
-    console.log('Creating MODULE');
     
     const mod = {
         creator: uid,
@@ -60,7 +67,6 @@ router.delete('/:id', (req, res) => {
 
     const ref = db.ref(`modules/${id}`);
     ref.once('value', (snap) => {
-        console.log(snap.val());
         const val = snap.val();
         if (!val || val === null || val === undefined)
             return res.status(404).send();

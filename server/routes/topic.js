@@ -3,21 +3,35 @@ const router = express.Router();
 
 const { db } = require('../fire.js');
 
-router.get('/all/:mod', (req, res) => {
+router.get('/:mod', (req, res) => {
     const { mod } = req.params;
     const { uid } = res.locals;
     
     const topRef = db.ref('topics').orderByChild('module').equalTo(mod);
     const modRef = db.ref(`modules/${mod}`);
     modRef.once('value', (check) => {
-        const { creator } = check.val();
-        if (creator === uid) {
-            topRef.once('value', (snap) => {
-                res.send(snap.val());
-            });
+        const _check = check.val();
+
+        if (_check?.creator) {
+            const { creator } = _check;
+            if (creator === uid) {
+                topRef.once('value', (snap) => {
+                    const topics = snap.val();
+
+                    const array = Object.values(topics);
+                    const ids = Object.keys(topics);
+
+                    for (let i = 0; i < array?.length; i++) {
+                        array[i].id = ids[i];
+                    }
+
+                    return res.send(array);
+                });
+            }
         }
+        
     });
-    ////console.log(ref);
+
 });
 
 router.post('/', (req, res) => {
@@ -68,12 +82,11 @@ router.delete('/:id', (req, res) => {
 
     const ref = db.ref(`topics/${id}`);
     ref.once('value', (snap) => {
-        console.log(snap.val());
         const val = snap.val();
         if (!val || val === null || val === undefined)
             return res.status(404).send();
 
-        const { creator, module } = val;
+        const { creator } = val;
 
         if (creator !== uid)
             return res.send('').status(403);
