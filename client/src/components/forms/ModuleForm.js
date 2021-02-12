@@ -13,7 +13,7 @@ function ModuleForm(props) {
     const [ dict, ] = useContext(LanguageContext);
 
     const dispatch = useDispatch();
-    const initData = useSelector(state => state.module[module]);
+    const initData = useSelector(state => state.module.array[module]);
 
     const onSubmit = (data) => {
         const { name, image } = data;
@@ -25,27 +25,25 @@ function ModuleForm(props) {
             }).then(result => dispatch({
                 type: 'ADD_MODULE',
                 payload: {
-                    [result.data.module_id]: {
-                        name,
-                        image
-                    }
+                    id: result.data.module_id,
+                    name,
+                    image
                 }
             }))
             .catch(error => {
                 console.log(error);
             });
         } else {
-            ModuleModel.update(module, {
+            ModuleModel.update(initData?.id, {
                 name,
                 image
             }).then(result => dispatch({
                 type: 'UPDATE_MODULE',
-                id: module,
+                key: Number(module),
                 payload: {
-                    [result.data.module_id]: {
-                        name,
-                        image
-                    }
+                    id: result.data.module_id,
+                    name,
+                    image
                 }
             }))
             .catch(error => console.log(error));

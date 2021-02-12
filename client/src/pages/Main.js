@@ -13,7 +13,7 @@ function Main(props) {
     const [ module, setModule ] = useState(undefined);
 
     const dispatch = useDispatch();
-    const data = useSelector(state => state.module);
+    const data = useSelector(state => state.module.array);
 
     useEffect(() => {
         const fetchModules = async () => {
@@ -27,11 +27,13 @@ function Main(props) {
         fetchModules();
     }, [dispatch]);
 
-    const deleteModule = async (id) => {
+    const deleteModule = async (index) => {
+        const { id } = data[index];
         const res = await ModuleModel.remove(id);
         dispatch({
             type: 'DELETE_MODULE',
-            payload: res.data.module_id 
+            payload: res.data.module_id,
+            key: Number(index)
         });
     };
 
