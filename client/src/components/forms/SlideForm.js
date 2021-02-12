@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 
 import { LanguageContext } from '../../contexts/LanguageContext';
 
-//import SlideModel from '../../actions/Slide';
+import SlideModel from '../../actions/Slide';
 
 function TopicForm(props) {
     const { mod, topic } = useParams();
@@ -17,48 +17,53 @@ function TopicForm(props) {
     const [ dict, ] = useContext(LanguageContext);
 
     const dispatch = useDispatch();
-    const initData = undefined; //useSelector(state => state.slide?[slide]);
+    //const initData = undefined; //useSelector(state => state.slide?[slide]);
+
+    const initData = useSelector(state => state.slide.array[slide]);
 
     const onSubmit = (data) => {
-        const { name } = data;
+        const { type } = data;
 
         if (!slide) {
-            // TODO: create Slide
-            //TopicModel.create({
-            //    name,
-            //    module: mod
-            //}).then(result => dispatch({
-            //    type: 'ADD_TOPIC',
-            //    payload: {
-            //        [result.data.topic_id]: {
-            //            name
-            //        }
-            //    }
-            //}))
-            //.catch(error => {
-            //    console.log(error);
-            //});
+            SlideModel.create({
+                type,
+                module: mod,
+                topic
+            }).then(result => dispatch({
+                type: 'ADD_SLIDE',
+                payload: {
+                    type,
+                    module: mod,
+                    topic,
+                    id: result.data.slide_id
+                }
+            }))
+            .catch(error => {
+                console.log(error);
+            });
         } else {
-            // TODO: update Slide
-            //TopicModel.update(topic, {
-            //    name,
-            //    module: mod
-            //}).then(result => dispatch({
-            //    type: 'UPDATE_TOPIC',
-            //    id: topic,
-            //    payload: {
-            //        [result.data.topic_id]: {
-            //            name
-            //        }
-            //    }
-            //}))
-            //.catch(error => {
-            //    console.log(error);
-            //});
+            SlideModel.update(initData?.id, {
+                type,
+                module: mod,
+                topic
+            }).then(result => dispatch({
+                type: 'UPDATE_SLIDE',
+                key: Number(slide),
+                payload: {
+                    type,
+                    module: mod,
+                    topic,
+                    id: result.data.slide_id
+                }
+            }))
+            .catch(error => {
+                console.log(error);
+            });
         }
 
         reset();
     };
+
 
     return ( 
         <div className='w-full h-screen flex items-center justify-center bg-opacity-75 bg-black fixed z-20 top-0 left-0'>
@@ -73,8 +78,8 @@ function TopicForm(props) {
                     className='bg-white overflow-hidden shadow p-1 rounded text-md outline-none focus:shadow-outline' 
                     type='text' 
                     ref={ register({ required: 'Selecione um tipo para o Slide' }) }
-                    //defaultValue={ initData?.type }
-                    name='name' 
+                    defaultValue={ initData?.type }
+                    name='type' 
                 >
                     <option value='iinfo'>Item de Informação</option>
                     <option value='eexplo'>Elemento Exploratório</option>
