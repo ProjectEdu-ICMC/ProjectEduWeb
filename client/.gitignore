@@ -25,3 +25,5 @@ yarn-error.log*
 
 src/assets/main.css
 src/auth/credentials.js
+
+.eslintcache

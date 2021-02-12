@@ -27,7 +27,7 @@ function App() {
                 <LanguageContextProvider>
                     <Router>
                         <Switch>
-                            <PrivateRoute path='/topic/:mod/:top'>
+                            <PrivateRoute path='/topic/:mod/:topic'>
                                 <Topic />
                             </PrivateRoute>
                             <PrivateRoute path='/mod/:mod'>

@@ -37,7 +37,7 @@ function CardBoard(props) {
                         </div>
                     </div> )
                 } ) }
-            { Object.keys(data).length === 0 && 
+            { (!data || Object.keys(data).length === 0) && 
                 <span 
                     className='text-lg font-bold text-gray-600'
                 >
