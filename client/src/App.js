@@ -14,7 +14,7 @@ import Module from './pages/Module';
 import Topic from './pages/Topic';
 import Login from './pages/Login';
 
-import { LanguageContextProvider } from './contexts/LanguageContext';
+//import { LanguageContextProvider } from './contexts/LanguageContext';
 import PrivateRoute from './components/auth/PrivateRoute.js';
 
 import { DndProvider } from 'react-dnd';
@@ -38,7 +38,7 @@ function App() {
                 loading={ <> Loading... </> }
                 persistor={ persistor }
             >
-                <LanguageContextProvider>
+                {/*<LanguageContextProvider>*/}
                     <DndProvider backend={ DNDBackend }>
                         <Router>
                             <Switch>
@@ -58,7 +58,7 @@ function App() {
 
                         </Router>
                     </DndProvider>
-                </LanguageContextProvider>
+                {/*</LanguageContextProvider>*/}
             </PersistGate>
         </Provider>
     );

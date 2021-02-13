@@ -5,7 +5,7 @@ import { useParams, Link } from 'react-router-dom'
 import CardBoard from '../components/CardBoard';
 import Header from '../components/default/Header';
 import SlideForm from '../components/forms/SlideForm';
-import { LanguageContext } from '../contexts/LanguageContext';
+//import { LanguageContext } from '../contexts/LanguageContext';
 
 import update from "immutability-helper";
 
@@ -14,7 +14,7 @@ import SlideModel from '../actions/Slide.js';
 function Topic(props) {
     const { mod, topic } = useParams();
 
-    const [ dict, ] = useContext(LanguageContext);
+    //const [ dict, ] = useContext(LanguageContext);
 
     const [ operation, setOperation ] = useState(undefined);
     const [ slide, setSlide ] = useState(undefined);
@@ -23,7 +23,7 @@ function Topic(props) {
     const data = useSelector(state => state.slide.array);
 
     useEffect(() => {
-        const fetchTopics = async () => {
+        const fetchSlides = async () => {
             const res = await SlideModel.getAllFromTopic(mod, topic);
             dispatch({
                 type: 'SET_SLIDES',
@@ -31,7 +31,7 @@ function Topic(props) {
             });
         };
 
-        fetchTopics();
+        fetchSlides();
     }, [ dispatch, mod, topic ]);
     
     const deleteSlide = async (index) => {
@@ -63,7 +63,7 @@ function Topic(props) {
                     url={`/slide/${mod}/${slide}`} 
                     cardSize={32} 
                     data={ data } 
-                    update={ () => setOperation(dict.update) } 
+                    update={ () => setOperation('update') } 
                     choose={ setSlide } 
                     remove={ deleteSlide } 
                     dir='col'
@@ -77,7 +77,7 @@ function Topic(props) {
                         <button 
                             className='hover:bg-blue-600 bg-blue-500 py-2 px-4 rounded text-white font-bold shadow focus:outline-none focus:shadow-outline' 
                             onClick={ () => { 
-                                setOperation(dict.add);
+                                setOperation('add');
                                 setSlide(undefined);
                             } }
                         >

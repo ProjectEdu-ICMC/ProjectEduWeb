@@ -3,12 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import CardBoard from '../components/CardBoard';
 import Header from '../components/default/Header';
 import ModuleForm from '../components/forms/ModuleForm';
-import { LanguageContext } from '../contexts/LanguageContext';
+//import { LanguageContext } from '../contexts/LanguageContext';
 
 import ModuleModel from '../actions/Module.js';
 
 function Main(props) {
-    const [ dict, ] = useContext(LanguageContext);
+    //const [ dict, ] = useContext(LanguageContext);
     const [ operation, setOperation ] = useState(undefined);
     const [ module, setModule ] = useState(undefined);
 
@@ -46,7 +46,7 @@ function Main(props) {
                     url='/mod' 
                     cardSize={64} 
                     data={ data } 
-                    update={ () => setOperation(dict.update) } 
+                    update={ () => setOperation('update') } 
                     choose={ setModule }
                     remove={ deleteModule } 
                     dir='row' />
@@ -55,10 +55,10 @@ function Main(props) {
                     <button 
                         className='hover:bg-blue-600 bg-blue-500 py-2 px-4 rounded text-white font-bold shadow focus:outline-none focus:shadow-outline' 
                         onClick={ () => { 
-                            setOperation(dict.add);
+                            setOperation('add');
                             setModule(undefined);
                         } }
-                        >{ dict.addModule }</button>
+                        > Adicionar Módulo </button>
                 </div>
             </div> 
 

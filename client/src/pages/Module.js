@@ -5,13 +5,13 @@ import { useParams, Link } from 'react-router-dom'
 import CardBoard from '../components/CardBoard';
 import Header from '../components/default/Header';
 import TopicForm from '../components/forms/TopicForm';
-import { LanguageContext } from '../contexts/LanguageContext';
+//import { LanguageContext } from '../contexts/LanguageContext';
 import TopicModel from '../actions/Topic.js';
 
 function Module(props) {
     const { mod } = useParams();
 
-    const [ dict, ] = useContext(LanguageContext);
+    //const [ dict, ] = useContext(LanguageContext);
 
     const [ operation, setOperation ] = useState(undefined);
     const [ topic, setTopic ] = useState(undefined);
@@ -50,7 +50,7 @@ function Module(props) {
                     url={`/topic/${mod}`} 
                     cardSize={32} 
                     data={ data } 
-                    update={ () => setOperation(dict.update) } 
+                    update={ () => setOperation('update') } 
                     choose={ setTopic } 
                     remove={ deleteTopic } 
                     dir='col'
@@ -61,17 +61,17 @@ function Module(props) {
                         <button 
                             className='hover:bg-blue-600 bg-blue-500 py-2 px-4 rounded text-white font-bold shadow focus:outline-none focus:shadow-outline' 
                             onClick={ () => { 
-                                setOperation(dict.add);
+                                setOperation('add');
                                 setTopic(undefined);
                             } }
                         >
-                            { dict.addTopic }
+                            Adicionar Tópico
                         </button>
                     </div>
                     <Link to='/'>
                         <button 
                             className='hover:bg-red-600 bg-red-500 py-2 px-4 rounded text-white font-bold shadow focus:outline-none focus:shadow-outline'>
-                            { dict.back }
+                            Voltar
                         </button> 
                     </Link>
                 </div>
