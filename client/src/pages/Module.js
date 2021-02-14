@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { useParams, Link } from 'react-router-dom'
@@ -79,7 +79,6 @@ function Module(props) {
             { operation && 
                 <TopicForm 
                     reset={ () => setOperation(undefined) } 
-                    type={ operation } 
                     topic={ topic }
                 /> 
             }

@@ -60,7 +60,7 @@ function Card({ size, draggable, link, data, index, moveCard, update, remove, di
         <div
             ref={ ref } 
             style={{ opacity: isDragging ? 0 : 1 }}
-            className='flex bg-transparent flex-col ml-5 justify-between'
+            className='transition-all duration-500 flex bg-transparent flex-col ml-5 mb-5 justify-between'
         >
             <Link className={ `${link ? 'cursor-pointer' : 'cursor-default'} flex flex-grow` } to={ link || '#' }>
                 <div className={`${!size ? 'w-64' : `w-${size}`} bg-white flex-grow rounded shadow-lg overflow-hidden relative z-10 break-words`}>

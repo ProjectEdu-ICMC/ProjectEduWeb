@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import CardBoard from '../components/CardBoard';
 import Header from '../components/default/Header';
@@ -65,7 +65,6 @@ function Main(props) {
             { operation && 
                 <ModuleForm 
                     reset={ () => setOperation(undefined) } 
-                    type={ operation } 
                     module={ module } /> 
             }
         </>

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { useParams, Link } from 'react-router-dom'
@@ -60,7 +60,7 @@ function Topic(props) {
             <div className='p-10 w-full'></div>
             <div className='mx-auto container'>
                 <CardBoard 
-                    url={`/slide/${mod}/${slide}`} 
+                    //url={`/slide/${mod}/${slide}`} 
                     cardSize={32} 
                     data={ data } 
                     update={ () => setOperation('update') } 
@@ -97,7 +97,6 @@ function Topic(props) {
             { operation && 
                 <SlideForm 
                     reset={ () => setOperation(undefined) } 
-                    type={ operation } 
                     slide={ slide }
                 /> 
             }

@@ -10,22 +10,22 @@ function CardBoard({ data, draggable, moveCard, cardSize, cardColor = 'blue', ur
     return (
         <div className='container mx-auto p-3 flex flex-wrap items-stretch'>
             { data && 
-                Object.keys(data).map((key, idx) => {
+                data.map((cardData, idx) => {
                     return ( 
                     <Card 
-                        key={ data[key].id }
-                        link={ url && `${ url }/${ data[key].id }` } 
+                        key={ cardData.id }
+                        link={ url && `${ url }/${ cardData.id }` } 
                         size={ cardSize } 
-                        data={ data[key] }
+                        data={ cardData }
                         update={ 
                             () => {
                                 update();
-                                choose(key);
+                                choose(idx);
                             } 
                         }
                         remove={
                             () => {
-                                remove(key);
+                                remove(idx);
                             }
                         }
                         dir={ dir }
