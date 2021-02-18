@@ -13,7 +13,7 @@ function Module(props) {
 
     //const [ dict, ] = useContext(LanguageContext);
 
-    const [ operation, setOperation ] = useState(undefined);
+    const [ operation, setOperation ] = useState(false);
     const [ topic, setTopic ] = useState(undefined);
 
     const dispatch = useDispatch();
@@ -50,7 +50,7 @@ function Module(props) {
                     url={`/topic/${mod}`} 
                     cardSize={32} 
                     data={ data } 
-                    update={ () => setOperation('update') } 
+                    update={ () => setOperation(true) } 
                     choose={ setTopic } 
                     remove={ deleteTopic } 
                     dir='col'
@@ -61,7 +61,7 @@ function Module(props) {
                         <button 
                             className='hover:bg-blue-600 bg-blue-500 py-2 px-4 rounded text-white font-bold shadow focus:outline-none focus:shadow-outline' 
                             onClick={ () => { 
-                                setOperation('add');
+                                setOperation(true);
                                 setTopic(undefined);
                             } }
                         >
@@ -78,7 +78,7 @@ function Module(props) {
             </div> 
             { operation && 
                 <TopicForm 
-                    reset={ () => setOperation(undefined) } 
+                    reset={ () => setOperation(false) } 
                     topic={ topic }
                 /> 
             }

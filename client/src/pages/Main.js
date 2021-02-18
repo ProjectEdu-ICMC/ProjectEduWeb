@@ -9,7 +9,7 @@ import ModuleModel from '../actions/Module.js';
 
 function Main(props) {
     //const [ dict, ] = useContext(LanguageContext);
-    const [ operation, setOperation ] = useState(undefined);
+    const [ operation, setOperation ] = useState(false);
     const [ module, setModule ] = useState(undefined);
 
     const dispatch = useDispatch();
@@ -46,7 +46,7 @@ function Main(props) {
                     url='/mod' 
                     cardSize={64} 
                     data={ data } 
-                    update={ () => setOperation('update') } 
+                    update={ () => setOperation(true) } 
                     choose={ setModule }
                     remove={ deleteModule } 
                     dir='row' />
@@ -55,7 +55,7 @@ function Main(props) {
                     <button 
                         className='hover:bg-blue-600 bg-blue-500 py-2 px-4 rounded text-white font-bold shadow focus:outline-none focus:shadow-outline' 
                         onClick={ () => { 
-                            setOperation('add');
+                            setOperation(true);
                             setModule(undefined);
                         } }
                         > Adicionar Módulo </button>
@@ -64,7 +64,7 @@ function Main(props) {
 
             { operation && 
                 <ModuleForm 
-                    reset={ () => setOperation(undefined) } 
+                    reset={ () => setOperation(false) } 
                     module={ module } /> 
             }
         </>

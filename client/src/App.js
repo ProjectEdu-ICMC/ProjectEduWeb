@@ -12,6 +12,8 @@ import { store, persistor } from './store.js';
 import Main from './pages/Main';
 import Module from './pages/Module';
 import Topic from './pages/Topic';
+import Slide from './pages/Slide';
+
 import Login from './pages/Login';
 
 //import { LanguageContextProvider } from './contexts/LanguageContext';
@@ -38,27 +40,28 @@ function App() {
                 loading={ <> Loading... </> }
                 persistor={ persistor }
             >
-                {/*<LanguageContextProvider>*/}
-                    <DndProvider backend={ DNDBackend }>
-                        <Router>
-                            <Switch>
-                                <PrivateRoute path='/topic/:mod/:topic'>
-                                    <Topic />
-                                </PrivateRoute>
-                                <PrivateRoute path='/mod/:mod'>
-                                    <Module />
-                                </PrivateRoute>
-                                <Route path='/login'>
-                                    <Login />
-                                </Route>
-                                <PrivateRoute path='/'>
-                                    <Main /> 
-                                </PrivateRoute>
-                            </Switch>
+                <DndProvider backend={ DNDBackend }>
+                    <Router>
+                        <Switch>
+                            <PrivateRoute path='/slide/:mod/:topic/:slide'>
+                                <Slide />
+                            </PrivateRoute>
+                            <PrivateRoute path='/topic/:mod/:topic'>
+                                <Topic />
+                            </PrivateRoute>
+                            <PrivateRoute path='/mod/:mod'>
+                                <Module />
+                            </PrivateRoute>
+                            <Route path='/login'>
+                                <Login />
+                            </Route>
+                            <PrivateRoute path='/'>
+                                <Main /> 
+                            </PrivateRoute>
+                        </Switch>
 
-                        </Router>
-                    </DndProvider>
-                {/*</LanguageContextProvider>*/}
+                    </Router>
+                </DndProvider>
             </PersistGate>
         </Provider>
     );

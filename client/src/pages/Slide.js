@@ -2,75 +2,76 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { useParams, Link } from 'react-router-dom'
-import CardBoard from '../components/CardBoard';
+//import CardBoard from '../components/CardBoard';
 import Header from '../components/default/Header';
-import SlideForm from '../components/forms/SlideForm';
+import InfoForm from '../components/forms/InfoForm';
 //import { LanguageContext } from '../contexts/LanguageContext';
 
-import update from "immutability-helper";
+//import update from "immutability-helper";
 
-import SlideModel from '../actions/Slide.js';
+import InfoModel from '../actions/Info';
 
-function Topic(props) {
-    const { mod, topic } = useParams();
-
-    //const [ dict, ] = useContext(LanguageContext);
+function Slide(props) {
+    const { mod, topic, slide } = useParams();
 
     const [ operation, setOperation ] = useState(false);
-    const [ slide, setSlide ] = useState(undefined);
+    //const [ slide, setSlide ] = useState(undefined);
 
     const dispatch = useDispatch();
-    const data = useSelector(state => state.slide.array);
+    //const data = useSelector(state => state.slide.array);
 
     useEffect(() => {
-        const fetchSlides = async () => {
-            const res = await SlideModel.getAllFromTopic(mod, topic);
-            dispatch({
-                type: 'SET_SLIDES',
-                payload: res.data
-            });
-        };
+        //const fetchSlides = async () => {
+        //    const res = await SlideModel.getAllFromTopic(mod, topic);
+        //    dispatch({
+        //        type: 'SET_SLIDES',
+        //        payload: res.data
+        //    });
+        //};
 
-        fetchSlides();
-    }, [ dispatch, mod, topic ]);
+        //fetchSlides();
+    }, [ dispatch, mod, topic, slide ]);
     
     const deleteSlide = async (index) => {
-        const { id } = data[index];
-        const res = await SlideModel.remove(id);
-        dispatch({
-            type: 'DELETE_SLIDE',
-            payload: res.data.topic_id,
-            key: Number(index)
-        });
+        //const { id } = data[index];
+        //const res = await SlideModel.remove(id);
+        //dispatch({
+        //    type: 'DELETE_SLIDE',
+        //    payload: res.data.topic_id,
+        //    key: Number(index)
+        //});
     };
 
-    const moveCard = (dragIndex, hoverIndex) => {
-        const draggedCard = data[dragIndex];
-        dispatch({
-            type: 'SET_SLIDES',
-            payload: update(data, {
-                $splice: [[dragIndex, 1], [hoverIndex, 0, draggedCard]]
-            })
-        });
-    };
+    //const moveCard = (dragIndex, hoverIndex) => {
+    //    const draggedCard = data[dragIndex];
+    //    dispatch({
+    //        type: 'SET_SLIDES',
+    //        payload: update(data, {
+    //            $splice: [[dragIndex, 1], [hoverIndex, 0, draggedCard]]
+    //        })
+    //    });
+    //};
 
     return (
         <>
             <Header />
             <div className='p-10 w-full'></div>
             <div className='mx-auto container'>
+                Slide Page
+                {/*
                 <CardBoard 
-                    url={`/slide/${mod}/${topic}`} 
+                    //url={`/slide/${mod}/${slide}`} 
                     cardSize={32} 
                     data={ data } 
                     update={ () => setOperation(true) } 
                     choose={ setSlide } 
                     remove={ deleteSlide } 
                     dir='col'
-                    draggable={ true }
-                    moveCard={ moveCard }
+                    //draggable={ true }
+                    //moveCard={ moveCard }
                     cardColor='purple'
                 /> 
+                */}
                 <div className='p-10 w-full'></div>
                 <div className='justify-between flex bg-white container p-4 z-20 fixed bottom-0 shadow'>
                     <div>
@@ -78,7 +79,7 @@ function Topic(props) {
                             className='hover:bg-blue-600 bg-blue-500 py-2 px-4 rounded text-white font-bold shadow focus:outline-none focus:shadow-outline' 
                             onClick={ () => { 
                                 setOperation(true);
-                                setSlide(undefined);
+                                //setSlide(undefined);
                             } }
                         >
                             { /*dict.addTopic*/ }
@@ -95,13 +96,13 @@ function Topic(props) {
                 </div>
             </div> 
             { operation && 
-                <SlideForm 
+                <InfoForm 
                     reset={ () => setOperation(false) } 
-                    slide={ slide }
+                    //info={ info }
                 /> 
             }
         </>
    );
 }
 
-export default Topic;
+export default Slide;
