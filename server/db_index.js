@@ -9,6 +9,7 @@ const auth = require('./middlewares/auth');
 const moduleRouter = require('./routes/module');
 const topicRouter = require('./routes/topic');
 const slideRouter = require('./routes/slide');
+const infoRouter = require('./routes/info');
 // const auth = require('./routers/auth');
 
 // const firebase = require('firebase/app');
@@ -40,6 +41,7 @@ app.use('/', auth);
 app.use('/module', moduleRouter);
 app.use('/topic', topicRouter);
 app.use('/slide', slideRouter);
+app.use('/info', infoRouter);
 
 app.get('/test', (req, res) => {
     const { uid } = res.locals;
