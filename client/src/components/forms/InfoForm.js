@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 import InfoModel from '../../actions/Info';
 
 function InfoForm(props) {
-    const { mod, topic } = useParams();
+    const { mod, topic, slide } = useParams();
 
     const { register, watch, handleSubmit, errors } = useForm();
     const { reset, info } = props;
@@ -21,25 +21,45 @@ function InfoForm(props) {
     const initData = useSelector(state => state.info.array?.[info]);
 
     const onSubmit = (data) => {
-        const { type } = data;
+        const { 
+            type, 
+            datatype, 
+            textValue, 
+            imageValue, 
+            videoValue 
+        } = data;
+
+        const value = {
+            'text': textValue,
+            'image': imageValue,
+            'video': videoValue
+        }[ datatype ];
+
+        console.log(value);
 
         if (info === undefined) {
-            //SlideModel.create({
-            //    type,
-            //    module: mod,
-            //    topic
-            //}).then(result => dispatch({
-            //    type: 'ADD_SLIDE',
-            //    payload: {
-            //        type,
-            //        module: mod,
-            //        topic,
-            //        id: result.data.slide_id
-            //    }
-            //}))
-            //.catch(error => {
-            //    console.log(error);
-            //});
+            InfoModel.create({
+                type,
+                datatype,
+                value,
+                module: mod,
+                topic,
+                slide
+            }).then(result => dispatch({
+                type: 'ADD_INFO',
+                payload: {
+                    type,
+                    datatype,
+                    value,
+                    module: mod,
+                    topic,
+                    slide,
+                    id: result.data.info_id
+                }
+            }))
+            .catch(error => {
+                console.log(error);
+            });
         } else {
             //SlideModel.update(initData?.id, {
             //    type,
@@ -82,10 +102,10 @@ function InfoForm(props) {
                     defaultValue={ initData?.type }
                     name='type' 
                 >
-                    <option value='fact'>Fato</option>
-                    <option value='concept'>Conceito</option>
-                    <option value='principle'>Princípio</option>
-                    <option value='procedure'>Procedimento</option>
+                    <option value='fato'>Fato</option>
+                    <option value='conceito'>Conceito</option>
+                    <option value='princípio'>Princípio</option>
+                    <option value='procedimento'>Procedimento</option>
                 </select>
 
                 { errors.type && <p className='text-red-700 text-sm px-1'> 
