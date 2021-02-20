@@ -4,13 +4,13 @@ const router = express.Router();
 const { db } = require('../fire.js');
 
 router.get('/:mod/:topic/:slide', (req, res) => {
-    const { mod, topic } = req.params;
+    const { mod, topic, slide } = req.params;
     const { uid } = res.locals;
 
-    const infoRef = db.ref('info').orderByChild('slide').equalTo(slide);
+    const infoRef = db.ref('infos').orderByChild('slide').equalTo(slide);
     infoRef.once('value', (snap) => {
         const infos = snap.val();
-        if (!infos) res.status(200).send([]);
+        if (!infos) return res.status(200).send([]);
 
         const array = Object.values(infos);
         const ids = Object.keys(infos);
