@@ -4,9 +4,9 @@ import Card from './Card';
 //import { LanguageContext } from '../contexts/LanguageContext';
 
 
-function CardBoard({ data, draggable, moveCard, cardSize, cardColor = 'blue', url, update, choose, remove, dir }) {
+function CardBoard({ data, draggable, moveCard, cardSize, cardColor = 'blue', url, update, choose, remove, dir, CardInfo }) {
     //const [ dict, ] = useContext(LanguageContext);
-
+    
     return (
         <div className='container mx-auto p-3 flex flex-wrap items-stretch'>
             { data && 
@@ -33,6 +33,7 @@ function CardBoard({ data, draggable, moveCard, cardSize, cardColor = 'blue', ur
                         draggable={ draggable }
                         moveCard={ moveCard }
                         index={ idx }
+                        InfoShow={ CardInfo }
                     /> 
 
                     )

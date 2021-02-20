@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { useDrag, useDrop } from 'react-dnd';
 
-function Card({ size, draggable, link, data, index, moveCard, update, remove, dir, color }) {
+function Card({ size, draggable, link, data, index, moveCard, update, remove, dir, color, InfoShow }) { 
     const [ noImage, setNoImage ] = useState(false);
 
     const { name, image } = data;
@@ -54,8 +54,6 @@ function Card({ size, draggable, link, data, index, moveCard, update, remove, di
             <span className='absolute flex h-full w-full items-center justify-center text-3xl font-bold'>{ name ? name[0] : "S" }</span> : 
             <img className='absolute object-cover w-full h-full' src={ image } onError={ invalidSrc } alt={ name } /> ;
 
-    //console.log(isDragging, data.id, index);
-
     return (
         <div
             ref={ ref } 
@@ -64,17 +62,22 @@ function Card({ size, draggable, link, data, index, moveCard, update, remove, di
         >
             <Link className={ `${link ? 'cursor-pointer' : 'cursor-default'} flex flex-grow` } to={ link || '#' }>
                 <div className={`${!size ? 'w-64' : `w-${size}`} bg-white flex-grow rounded shadow-lg overflow-hidden relative z-10 break-words`}>
-                    <div className={ `relative bg-${color}-500 pb-full` }>
-                        { display }
-                    </div>
-                    { 
-                        name && 
-                        <h2 
-                            className='text-lg font-bold text-gray-800 mb-5 px-4 pt-4'
-                        >
-                            {name}
-                        </h2>
+                    { InfoShow === undefined &&
+                    <>
+                        <div className={ `relative bg-${color}-500 pb-full` }>
+                            { display }
+                        </div>
+                        { 
+                            name && 
+                            <h2 
+                                className='text-lg font-bold text-gray-800 mb-5 px-4 pt-4'
+                            >
+                                {name}
+                            </h2>
+                        }
+                    </>
                     }
+                    { InfoShow !== undefined && <InfoShow color={ color } cardInfo={ data } /> }
                 </div>
             </Link>
             <div className={ `flex flex-${dir} rounded-b bg-white p-4 shadow-lg` }>
