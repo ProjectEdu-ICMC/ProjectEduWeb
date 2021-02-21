@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
@@ -11,7 +11,7 @@ import InfoModel from '../../actions/Info';
 function InfoForm(props) {
     const { mod, topic, slide } = useParams();
 
-    const { register, watch, handleSubmit, errors } = useForm();
+    const { register, watch, setValue, handleSubmit, errors } = useForm();
     const { reset, info } = props;
 
     //const [ dict, ] = useContext(LanguageContext);
@@ -20,19 +20,24 @@ function InfoForm(props) {
 
     const initData = useSelector(state => state.info.array?.[info]);
 
+    useEffect(() => {
+        if (initData?.datatype !== undefined)
+            setValue('datatype', initData?.datatype);
+    }, [ initData, setValue ]);
+
     const onSubmit = (data) => {
         const { 
             type, 
             datatype, 
             textValue, 
-            imageValue, 
-            videoValue 
+            imageURL, 
+            videoURL
         } = data;
 
         const value = {
             'text': textValue,
-            'image': imageValue,
-            'video': videoValue
+            'image': imageURL,
+            'video': videoURL
         }[ datatype ];
 
         console.log(value);
@@ -61,23 +66,29 @@ function InfoForm(props) {
                 console.log(error);
             });
         } else {
-            //SlideModel.update(initData?.id, {
-            //    type,
-            //    module: mod,
-            //    topic
-            //}).then(result => dispatch({
-            //    type: 'UPDATE_SLIDE',
-            //    key: Number(slide),
-            //    payload: {
-            //        type,
-            //        module: mod,
-            //        topic,
-            //        id: result.data.slide_id
-            //    }
-            //}))
-            //.catch(error => {
-            //    console.log(error);
-            //});
+            InfoModel.update(initData?.id, {
+                type,
+                datatype,
+                value,
+                module: mod,
+                topic,
+                slide
+            }).then(result => dispatch({
+                type: 'UPDATE_INFO',
+                key: Number(info),
+                payload: {
+                    type,
+                    datatype,
+                    value,
+                    module: mod,
+                    topic,
+                    slide,
+                    id: result.data.info_id
+                }
+            }))
+            .catch(error => {
+                console.log(error);
+            });
         }
 
         reset();
@@ -126,7 +137,8 @@ function InfoForm(props) {
                         type='radio' 
                         name='datatype' 
                         value='text' 
-                        id='text' />
+                        id='text' 
+                    />
                     <label 
                         className='text-gray-800'
                         htmlFor='text'
@@ -139,7 +151,8 @@ function InfoForm(props) {
                         type='radio' 
                         name='datatype' 
                         value='image' 
-                        id='image' />
+                        id='image' 
+                    />
                     <label 
                         className='text-gray-800'
                         htmlFor='image'
@@ -152,7 +165,8 @@ function InfoForm(props) {
                         type='radio' 
                         name='datatype' 
                         value='video' 
-                        id='video' />
+                        id='video' 
+                    />
                     <label 
                         className='text-gray-800'
                         htmlFor='video'
@@ -183,7 +197,7 @@ function InfoForm(props) {
                                     && value !== "") || 
                                 'Insira o texto da informação' 
                         }) }
-                        //defaultValue={ initData?.name }
+                        defaultValue={ initData?.value }
                         name='textValue' 
                     ></textarea>
                 }
@@ -202,8 +216,8 @@ function InfoForm(props) {
                                     && value !== "") || 
                                 'Insira a URL da imagem da informação' 
                         }) }
-                        //defaultValue={ initData?.name }
-                        name='imageValue' 
+                        defaultValue={ initData?.value }
+                        name='imageURL' 
                     />
                 }
                 { errors.imageValue && <p className='text-red-700 text-sm px-1'> 
@@ -221,8 +235,8 @@ function InfoForm(props) {
                                     && value !== "") || 
                                 'Insira a URL do vídeo da informação' 
                         }) }
-                        //defaultValue={ initData?.name }
-                        name='videoValue' 
+                        defaultValue={ initData?.value }
+                        name='videoURL' 
                     />
                 }
                 { errors.videoValue && <p className='text-red-700 text-sm px-1'> 

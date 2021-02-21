@@ -49,13 +49,13 @@ function Slide(props) {
     }, [ dispatch, mod, topic, slide ]);
     
     const deleteInfo = async (index) => {
-        //const { id } = data[index];
-        //const res = await SlideModel.remove(id);
-        //dispatch({
-        //    type: 'DELETE_SLIDE',
-        //    payload: res.data.topic_id,
-        //    key: Number(index)
-        //});
+        const { id } = data[index];
+        const res = await InfoModel.remove(id);
+        dispatch({
+            type: 'DELETE_INFO',
+            payload: res.data.info_id,
+            key: Number(index)
+        });
     };
 
     //const moveCard = (dragIndex, hoverIndex) => {

@@ -39,7 +39,7 @@ function Topic(props) {
         const res = await SlideModel.remove(id);
         dispatch({
             type: 'DELETE_SLIDE',
-            payload: res.data.topic_id,
+            payload: res.data.slide_id,
             key: Number(index)
         });
     };
