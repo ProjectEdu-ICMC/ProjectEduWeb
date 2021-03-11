@@ -8,7 +8,7 @@ const getAllFromSlide = (module, topic, slide) => {
 //    return API.get(`/topic/${id}`);
 //};
 
-const create = data => {
+const create = (data) => {
     return API.post(`/info`, data);
 };
 
@@ -16,7 +16,7 @@ const update = (id, data) => {
     return API.put(`/info/${id}`, data);
 };
 
-const remove = id => {
+const remove = (id) => {
     return API.delete(`/info/${id}`);
 };
 
@@ -25,7 +25,7 @@ const InfoModel = {
     //get,
     create,
     update,
-    remove
+    remove,
 };
 
 export default InfoModel;

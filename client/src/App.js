@@ -1,11 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { 
-    BrowserRouter as Router, 
-    Route, 
-    Switch 
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { store, persistor } from './store.js';
 
@@ -25,41 +21,37 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { TouchBackend } from 'react-dnd-touch-backend';
 
 const isTouchDevice = () => {
-  if ("ontouchstart" in window) {
-    return true;
-  }
-  return false;
+    if ('ontouchstart' in window) {
+        return true;
+    }
+    return false;
 };
 
 const DNDBackend = isTouchDevice() ? TouchBackend : HTML5Backend;
 
 function App() {
     return (
-        <Provider store={ store }>
-            <PersistGate 
-                loading={ <> Loading... </> }
-                persistor={ persistor }
-            >
-                <DndProvider backend={ DNDBackend }>
+        <Provider store={store}>
+            <PersistGate loading={<> Loading... </>} persistor={persistor}>
+                <DndProvider backend={DNDBackend}>
                     <Router>
                         <Switch>
-                            <PrivateRoute path='/slide/:mod/:topic/:slide'>
+                            <PrivateRoute path="/slide/:mod/:topic/:slide">
                                 <Slide />
                             </PrivateRoute>
-                            <PrivateRoute path='/topic/:mod/:topic'>
+                            <PrivateRoute path="/topic/:mod/:topic">
                                 <Topic />
                             </PrivateRoute>
-                            <PrivateRoute path='/mod/:mod'>
+                            <PrivateRoute path="/mod/:mod">
                                 <Module />
                             </PrivateRoute>
-                            <Route path='/login'>
+                            <Route path="/login">
                                 <Login />
                             </Route>
-                            <PrivateRoute path='/'>
-                                <Main /> 
+                            <PrivateRoute path="/">
+                                <Main />
                             </PrivateRoute>
                         </Switch>
-
                     </Router>
                 </DndProvider>
             </PersistGate>

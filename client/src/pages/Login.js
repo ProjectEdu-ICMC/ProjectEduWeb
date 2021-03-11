@@ -4,10 +4,12 @@ import Header from '../components/default/Header.js';
 import LoginForm from '../components/LoginForm.js';
 
 function Login(props) {
-    return <>
-        <Header />
-        <LoginForm />
-    </>
+    return (
+        <>
+            <Header />
+            <LoginForm />
+        </>
+    );
 }
 
 export default Login;

@@ -1,22 +1,22 @@
 import { API } from '../api.js';
 
 const getAll = () => {
-    return API.get("/module");
+    return API.get('/module');
 };
 
-const get = id => {
+const get = (id) => {
     return API.get(`/module/${id}`);
 };
 
-const create = data => {
-    return API.post("/module", data);
+const create = (data) => {
+    return API.post('/module', data);
 };
 
 const update = (id, data) => {
     return API.put(`/module/${id}`, data);
 };
 
-const remove = id => {
+const remove = (id) => {
     return API.delete(`/module/${id}`);
 };
 
@@ -25,7 +25,7 @@ const ModuleModel = {
     get,
     create,
     update,
-    remove
+    remove,
 };
 
 export default ModuleModel;

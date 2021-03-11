@@ -9,18 +9,18 @@ import ModuleModel from '../actions/Module.js';
 
 function Main(props) {
     //const [ dict, ] = useContext(LanguageContext);
-    const [ operation, setOperation ] = useState(false);
-    const [ module, setModule ] = useState(undefined);
+    const [operation, setOperation] = useState(false);
+    const [module, setModule] = useState(undefined);
 
     const dispatch = useDispatch();
-    const data = useSelector(state => state.module.array);
+    const data = useSelector((state) => state.module.array);
 
     useEffect(() => {
         const fetchModules = async () => {
             const res = await ModuleModel.getAll();
             dispatch({
                 type: 'SET_MODULES',
-                payload: res.data
+                payload: res.data,
             });
         };
 
@@ -33,42 +33,44 @@ function Main(props) {
         dispatch({
             type: 'DELETE_MODULE',
             payload: res.data.module_id,
-            key: Number(index)
+            key: Number(index),
         });
     };
 
     return (
         <>
             <Header />
-            <div className='p-10 w-full'></div>
-            <div className='mx-auto container'>
-                <CardBoard 
-                    url='/mod' 
-                    cardSize={64} 
-                    data={ data } 
-                    update={ () => setOperation(true) } 
-                    choose={ setModule }
-                    remove={ deleteModule } 
-                    dir='row' />
-                <div className='p-10 w-full'></div>
-                <div className='bg-white container p-4 z-20 fixed bottom-0 shadow'>
-                    <button 
-                        className='hover:bg-blue-600 bg-blue-500 py-2 px-4 rounded text-white font-bold shadow focus:outline-none focus:shadow-outline' 
-                        onClick={ () => { 
+            <div className="p-10 w-full"></div>
+            <div className="mx-auto container">
+                <CardBoard
+                    url="/mod"
+                    cardSize={64}
+                    data={data}
+                    update={() => setOperation(true)}
+                    choose={setModule}
+                    remove={deleteModule}
+                    dir="row"
+                />
+                <div className="p-10 w-full"></div>
+                <div className="bg-white container p-4 z-20 fixed bottom-0 shadow">
+                    <button
+                        className="hover:bg-blue-600 bg-blue-500 py-2 px-4 rounded text-white font-bold shadow focus:outline-none focus:shadow-outline"
+                        onClick={() => {
                             setOperation(true);
                             setModule(undefined);
-                        } }
-                        > Adicionar Módulo </button>
+                        }}
+                    >
+                        {' '}
+                        Adicionar Módulo{' '}
+                    </button>
                 </div>
-            </div> 
+            </div>
 
-            { operation && 
-                <ModuleForm 
-                    reset={ () => setOperation(false) } 
-                    module={ module } /> 
-            }
+            {operation && (
+                <ModuleForm reset={() => setOperation(false)} module={module} />
+            )}
         </>
-   );
+    );
 }
 
 export default Main;

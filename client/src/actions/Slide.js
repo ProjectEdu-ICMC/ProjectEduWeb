@@ -8,7 +8,7 @@ const getAllFromTopic = (module, topic) => {
 //    return API.get(`/topic/${id}`);
 //};
 
-const create = data => {
+const create = (data) => {
     return API.post(`/slide`, data);
 };
 
@@ -16,7 +16,7 @@ const update = (id, data) => {
     return API.put(`/slide/${id}`, data);
 };
 
-const remove = id => {
+const remove = (id) => {
     return API.delete(`/slide/${id}`);
 };
 
@@ -25,7 +25,7 @@ const SlideModel = {
     //get,
     create,
     update,
-    remove
+    remove,
 };
 
 export default SlideModel;
