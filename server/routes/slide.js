@@ -23,7 +23,7 @@ router.get('/:mod/:topic', (req, res) => {
                             const slides = snap.val();
 
                             if (!slides) return res.send([]);
-                            
+
                             const array = Object.values(slides);
                             const ids = Object.keys(slides);
 
@@ -37,19 +37,17 @@ router.get('/:mod/:topic', (req, res) => {
                 });
             }
         }
-        
     });
-
 });
 
 router.post('/', (req, res) => {
     const { body } = req;
     const { uid } = res.locals;
-        
+
     const mod = {
         creator: uid,
-        ...body
-    }
+        ...body,
+    };
 
     const new_slide = db.ref('slides').push(mod, (error) => {
         if (error) {
@@ -68,14 +66,11 @@ router.put('/:id', (req, res) => {
     ref.once('value', (snap) => {
         const { creator, module, topic } = snap.val();
 
-        if (creator !== uid)
-            return res.send('').status(403);
+        if (creator !== uid) return res.send('').status(403);
 
-        if (module !== body.module)
-            return res.send('').status(409);
+        if (module !== body.module) return res.send('').status(409);
 
-        if (topic !== body.topic)
-            return res.send('').status(409);
+        if (topic !== body.topic) return res.send('').status(409);
 
         ref.update(body, (error) => {
             if (error) {
@@ -99,10 +94,9 @@ router.delete('/:id', (req, res) => {
 
         const { creator } = val;
 
-        if (creator !== uid)
-            return res.send('').status(403);
+        if (creator !== uid) return res.send('').status(403);
 
-        ref.remove(error => {
+        ref.remove((error) => {
             if (error) {
                 res.status(502).send(error);
             } else {

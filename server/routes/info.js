@@ -15,8 +15,9 @@ router.get('/:mod/:topic/:slide', (req, res) => {
         const array = Object.values(infos);
         const ids = Object.keys(infos);
 
-        for (let i = 0; i < array?.length; i++) 
+        for (let i = 0; i < array?.length; i++) {
             array[i].id = ids[i];
+        }
 
         return res.status(200).send(array);
     });
@@ -35,7 +36,7 @@ router.get('/:mod/:topic/:slide', (req, res) => {
     //                        const slides = snap.val();
 
     //                        if (!slides) return res.send([]);
-    //                        
+    //
     //                        const array = Object.values(slides);
     //                        const ids = Object.keys(slides);
 
@@ -49,19 +50,18 @@ router.get('/:mod/:topic/:slide', (req, res) => {
     //            });
     //        }
     //    }
-    //    
+    //
     //});
-
 });
 
 router.post('/', (req, res) => {
     const { body } = req;
     const { uid } = res.locals;
-        
+
     const info = {
         creator: uid,
-        ...body
-    }
+        ...body,
+    };
 
     const new_info = db.ref('infos').push(info, (error) => {
         if (error) {
@@ -81,17 +81,13 @@ router.put('/:id', (req, res) => {
     ref.once('value', (snap) => {
         const { creator, module, topic, slide } = snap.val();
 
-        if (creator !== uid)
-            return res.status(403).send('');
+        if (creator !== uid) return res.status(403).send('');
 
-        if (module !== body.module)
-            return res.status(409).send('');
+        if (module !== body.module) return res.status(409).send('');
 
-        if (topic !== body.topic)
-            return res.status(409).send('');
+        if (topic !== body.topic) return res.status(409).send('');
 
-        if (slide !== body.slide)
-            return res.status(409).send('');
+        if (slide !== body.slide) return res.status(409).send('');
 
         ref.update(body, (error) => {
             if (error) {
@@ -115,10 +111,9 @@ router.delete('/:id', (req, res) => {
 
         const { creator } = val;
 
-        if (creator !== uid)
-            return res.status(403).send('');
+        if (creator !== uid) return res.status(403).send('');
 
-        ref.remove(error => {
+        ref.remove((error) => {
             if (error) {
                 res.status(502).send(error);
             } else {

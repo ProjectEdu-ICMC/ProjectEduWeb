@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
     const ref = db.ref('modules').orderByChild('creator').equalTo(uid);
     ref.once('value', (snap) => {
         const modules = snap.val();
-    
+
         if (!modules) return res.send([]);
 
         const array = Object.values(modules);
@@ -26,11 +26,11 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
     const { body } = req;
     const { uid } = res.locals;
-    
+
     const mod = {
         creator: uid,
-        ...body
-    }
+        ...body,
+    };
 
     const new_module = db.ref('modules').push(mod, (error) => {
         if (error) {
@@ -45,13 +45,12 @@ router.put('/:id', (req, res) => {
     const { body, params } = req;
     const { id } = params;
     const { uid } = res.locals;
-    
+
     const ref = db.ref(`modules/${id}`);
     ref.once('value', (snap) => {
         const { creator } = snap.val();
 
-        if (creator !== uid)
-            return res.send('').status(403);
+        if (creator !== uid) return res.send('').status(403);
 
         ref.update(body, (error) => {
             if (error) {
@@ -75,10 +74,9 @@ router.delete('/:id', (req, res) => {
 
         const { creator } = val;
 
-        if (creator !== uid)
-            return res.send('').status(403);
+        if (creator !== uid) return res.send('').status(403);
 
-        ref.remove(error => {
+        ref.remove((error) => {
             if (error) {
                 res.status(502).send(error);
             } else {

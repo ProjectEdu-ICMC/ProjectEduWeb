@@ -18,7 +18,9 @@ router.get('/:mod/:topic/:slide', (req, res) => {
         const array = Object.values(explas);
         const ids = Object.keys(explas);
 
-        for (let i = 0; i < array?.length; i++) array[i].id = ids[i];
+        for (let i = 0; i < array?.length; i++) {
+            array[i].id = ids[i];
+        }
 
         return res.status(200).send(array);
     });

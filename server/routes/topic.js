@@ -6,7 +6,7 @@ const { db } = require('../fire.js');
 router.get('/:mod', (req, res) => {
     const { mod } = req.params;
     const { uid } = res.locals;
-    
+
     const topRef = db.ref('topics').orderByChild('module').equalTo(mod);
     const modRef = db.ref(`modules/${mod}`);
     modRef.once('value', (check) => {
@@ -17,7 +17,7 @@ router.get('/:mod', (req, res) => {
             if (creator === uid) {
                 topRef.once('value', (snap) => {
                     const topics = snap.val();
-                    
+
                     if (!topics) return res.send([]);
 
                     const array = Object.values(topics);
@@ -31,19 +31,17 @@ router.get('/:mod', (req, res) => {
                 });
             }
         }
-        
     });
-
 });
 
 router.post('/', (req, res) => {
     const { body } = req;
     const { uid } = res.locals;
-        
+
     const mod = {
         creator: uid,
-        ...body
-    }
+        ...body,
+    };
 
     const new_topic = db.ref('topics').push(mod, (error) => {
         if (error) {
@@ -62,11 +60,9 @@ router.put('/:id', (req, res) => {
     ref.once('value', (snap) => {
         const { creator, module } = snap.val();
 
-        if (creator !== uid)
-            return res.send('').status(403);
+        if (creator !== uid) return res.send('').status(403);
 
-        if (module !== body.module)
-            return res.send('').status(409);
+        if (module !== body.module) return res.send('').status(409);
 
         ref.update(body, (error) => {
             if (error) {
@@ -90,10 +86,9 @@ router.delete('/:id', (req, res) => {
 
         const { creator } = val;
 
-        if (creator !== uid)
-            return res.send('').status(403);
+        if (creator !== uid) return res.send('').status(403);
 
-        ref.remove(error => {
+        ref.remove((error) => {
             if (error) {
                 res.status(502).send(error);
             } else {
