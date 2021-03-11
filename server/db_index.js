@@ -10,6 +10,7 @@ const moduleRouter = require('./routes/module');
 const topicRouter = require('./routes/topic');
 const slideRouter = require('./routes/slide');
 const infoRouter = require('./routes/info');
+const explaRouter = require('./routes/expla');
 // const auth = require('./routers/auth');
 
 // const firebase = require('firebase/app');
@@ -17,7 +18,7 @@ const infoRouter = require('./routes/info');
 // firebase.initializeApp(require('./credentials.js'));
 // const db = firebase.database();
 // const { db } = require('./fire.js');
-// 
+//
 // function writeUserData(userId, name, email, imageUrl) {
 //     db.ref('users/' + userId).set({
 //         username: name,
@@ -25,16 +26,16 @@ const infoRouter = require('./routes/info');
 //         profile_picture : imageUrl
 //     });
 // }
-// 
+//
 // var userRef = db.ref('users');
 // userRef.on('value', (snapshot) => {
 //   const data = snapshot.val();
 //   log = data;
 // });
 
-app.use(cors())
-app.use(bp.json())
-app.use(bp.urlencoded({ extended: true }))
+app.use(cors());
+app.use(bp.json());
+app.use(bp.urlencoded({ extended: true }));
 
 app.use('/', auth);
 
@@ -42,6 +43,7 @@ app.use('/module', moduleRouter);
 app.use('/topic', topicRouter);
 app.use('/slide', slideRouter);
 app.use('/info', infoRouter);
+app.use('/expla', explaRouter);
 
 app.get('/test', (req, res) => {
     const { uid } = res.locals;
@@ -55,7 +57,7 @@ app.get('/test', (req, res) => {
 // let log = [];
 // app.get('/', function(req, res) {
 //     writeUserData(count, 'user_' + count, 'u' + count + '@gmail.com', '');
-// 
+//
 //     res.send(log);
 //     count++;
 // });
@@ -72,7 +74,7 @@ app.get('/test', (req, res) => {
 //             res.send({ error });
 //         });
 // });
-// 
+//
 // app.get('/login', (req, res) => {
 //     auth.signInWithEmailAndPassword('alexgalocha.jr@gmail.com', '123456')
 //         .then((result) => {
@@ -80,7 +82,7 @@ app.get('/test', (req, res) => {
 //                 .then((token) => {
 //                     res.send({ token });
 //                 });
-// 
+//
 //         })
 //         .catch((error) => {
 //             res.send({ error });
