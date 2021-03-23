@@ -8,12 +8,12 @@ import moduleReducer from './module.js';
 import topicReducer from './topic.js';
 import slideReducer from './slide.js';
 import infoReducer from './info.js';
-import explaReducer from './expla.js';
+import explanationReducer from './explanation.js';
 
 const config = {
     key: 'auth',
     storage,
-    whitelist: ['auth'],
+    whitelist: ['auth']
 };
 
 const reducer = combineReducers({
@@ -22,7 +22,7 @@ const reducer = combineReducers({
     topic: topicReducer,
     slide: slideReducer,
     info: infoReducer,
-    expla: explaReducer,
+    explanation: explanationReducer
 });
 
 export default persistReducer(config, reducer);

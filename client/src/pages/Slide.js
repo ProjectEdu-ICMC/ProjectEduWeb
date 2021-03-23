@@ -5,7 +5,7 @@ import { useParams, Link, Redirect } from 'react-router-dom';
 import CardBoard from '../components/CardBoard';
 import Header from '../components/default/Header';
 import InfoForm from '../components/forms/InfoForm';
-import ExplaForm from '../components/forms/ExplaForm';
+import ExplanationForm from '../components/forms/ExplanationForm';
 
 import IInfo from '../components/cardInfo/IInfo';
 import EExpla from '../components/cardInfo/EExpla';
@@ -16,7 +16,7 @@ import { createSelector } from 'reselect';
 import Maintenence from '../components/Maintenence';
 
 import InfoModel from '../actions/Info';
-import ExplaModel from '../actions/Expla';
+import ExplanationModel from '../actions/Explanation';
 
 const selectSlideType = createSelector(
     (state) => state.slide?.array,
@@ -37,22 +37,26 @@ function Slide(props) {
     console.log(slideType);
     const dispatch = useDispatch();
     const dataInfo = useSelector((state) => state.info.array);
-    const dataExpla = useSelector((state) => state.expla.array);
+    const dataExplanation = useSelector((state) => state.explanation.array);
 
     useEffect(() => {
         const fetchInfo = async () => {
             const res = await InfoModel.getAllFromSlide(mod, topic, slide);
             dispatch({
                 type: 'SET_INFO',
-                payload: res.data,
+                payload: res.data
             });
         };
 
-        const fetchExpla = async () => {
-            const res = await ExplaModel.getAllFromSlide(mod, topic, slide);
+        const fetchExplanation = async () => {
+            const res = await ExplanationModel.getAllFromSlide(
+                mod,
+                topic,
+                slide
+            );
             dispatch({
-                type: 'SET_EXPLA',
-                payload: res.data,
+                type: 'SET_EXPLANATION',
+                payload: res.data
             });
         };
 
@@ -61,7 +65,7 @@ function Slide(props) {
                 fetchInfo();
                 break;
             case 'eexpla':
-                fetchExpla();
+                fetchExplanation();
                 break;
 
             default:
@@ -75,17 +79,17 @@ function Slide(props) {
         dispatch({
             type: 'DELETE_INFO',
             payload: res.data.info_id,
-            key: Number(index),
+            key: Number(index)
         });
     };
 
-    const deleteExpla = async (index) => {
-        const { id } = dataExpla[index];
-        const res = await ExplaModel.remove(id);
+    const deleteExplanation = async (index) => {
+        const { id } = dataExplanation[index];
+        const res = await ExplanationModel.remove(id);
         dispatch({
-            type: 'DELETE_EXPLA',
+            type: 'DELETE_EXPLANATION',
             payload: res.data.expla_id,
-            key: Number(index),
+            key: Number(index)
         });
     };
 
@@ -129,10 +133,10 @@ function Slide(props) {
                     <CardBoard
                         //url={`/slide/${mod}/${slide}`}
                         cardSize={32}
-                        data={dataExpla}
+                        data={dataExplanation}
                         update={() => setOperation('eexpla')}
                         choose={setSelected}
-                        remove={deleteExpla}
+                        remove={deleteExplanation}
                         dir="col"
                         //draggable={ true }
                         //moveCard={ moveCard }
@@ -183,9 +187,9 @@ function Slide(props) {
                 />
             )}
             {operation === 'eexpla' && (
-                <ExplaForm
+                <ExplanationForm
                     reset={() => setOperation(undefined)}
-                    expla={selected}
+                    explanation={selected}
                 />
             )}
         </>

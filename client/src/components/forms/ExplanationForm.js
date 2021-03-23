@@ -6,19 +6,21 @@ import { useParams } from 'react-router-dom';
 
 //import { LanguageContext } from '../../contexts/LanguageContext';
 
-import ExplaModel from '../../actions/Expla';
+import ExplanationModel from '../../actions/Explanation';
 
-function ExplaForm(props) {
+function ExplanationForm(props) {
     const { mod, topic, slide } = useParams();
 
     const { register, watch, setValue, handleSubmit, errors } = useForm();
-    const { reset, expla } = props;
+    const { reset, explanation } = props;
 
     //const [ dict, ] = useContext(LanguageContext);
     const watchDataType = watch('datatype');
     const dispatch = useDispatch();
 
-    const initData = useSelector((state) => state.expla.array?.[expla]);
+    const initData = useSelector(
+        (state) => state.explanation.array?.[explanation]
+    );
 
     useEffect(() => {
         if (initData?.datatype !== undefined)
@@ -31,23 +33,23 @@ function ExplaForm(props) {
         const value = {
             text: textValue,
             image: imageURL,
-            video: videoURL,
+            video: videoURL
         }[datatype];
 
         console.log(value);
 
-        if (expla === undefined) {
-            ExplaModel.create({
+        if (explanation === undefined) {
+            ExplanationModel.create({
                 type,
                 datatype,
                 value,
                 module: mod,
                 topic,
-                slide,
+                slide
             })
                 .then((result) =>
                     dispatch({
-                        type: 'ADD_EXPLA',
+                        type: 'ADD_EXPLANATION',
                         payload: {
                             type,
                             datatype,
@@ -55,26 +57,26 @@ function ExplaForm(props) {
                             module: mod,
                             topic,
                             slide,
-                            id: result.data.expla_id,
-                        },
+                            id: result.data.explanation_id
+                        }
                     })
                 )
                 .catch((error) => {
                     console.log(error);
                 });
         } else {
-            ExplaModel.update(initData?.id, {
+            ExplanationModel.update(initData?.id, {
                 type,
                 datatype,
                 value,
                 module: mod,
                 topic,
-                slide,
+                slide
             })
                 .then((result) =>
                     dispatch({
-                        type: 'UPDATE_EXPLA',
-                        key: Number(expla),
+                        type: 'UPDATE_EXPLANATION',
+                        key: Number(explanation),
                         payload: {
                             type,
                             datatype,
@@ -82,8 +84,8 @@ function ExplaForm(props) {
                             module: mod,
                             topic,
                             slide,
-                            id: result.data.expla_id,
-                        },
+                            id: result.data.explanation_id
+                        }
                     })
                 )
                 .catch((error) => {
@@ -101,7 +103,7 @@ function ExplaForm(props) {
                 onSubmit={handleSubmit(onSubmit)}
             >
                 <span className="text-lg font-bold ml-1 mb-4 text-gray-800">
-                    {expla === undefined
+                    {explanation === undefined
                         ? 'Adicionar Explicação'
                         : 'Atualizar Explicação'}
                 </span>
@@ -115,7 +117,7 @@ function ExplaForm(props) {
                     className="bg-white overflow-hidden shadow p-1 rounded text-md outline-none focus:shadow-outline"
                     type="text"
                     ref={register({
-                        required: 'Selecione um tipo para a Explicação',
+                        required: 'Selecione um tipo para a Explicação'
                     })}
                     defaultValue={initData?.type}
                     name="type"
@@ -140,7 +142,7 @@ function ExplaForm(props) {
                     <input
                         ref={register({
                             required:
-                                'Selecione um tipo de dados para a Explicação',
+                                'Selecione um tipo de dados para a Explicação'
                         })}
                         className="mr-1"
                         type="radio"
@@ -154,7 +156,7 @@ function ExplaForm(props) {
                     <input
                         ref={register({
                             required:
-                                'Selecione um tipo de dados para a Explicação',
+                                'Selecione um tipo de dados para a Explicação'
                         })}
                         className="ml-2 mr-1"
                         type="radio"
@@ -168,7 +170,7 @@ function ExplaForm(props) {
                     <input
                         ref={register({
                             required:
-                                'Selecione um tipo de dados para a Explicação',
+                                'Selecione um tipo de dados para a Explicação'
                         })}
                         className="ml-2 mr-1"
                         type="radio"
@@ -203,7 +205,7 @@ function ExplaForm(props) {
                                 (watchDataType === 'text' &&
                                     value !== undefined &&
                                     value !== '') ||
-                                'Insira o texto da explicação',
+                                'Insira o texto da explicação'
                         })}
                         defaultValue={initData?.value}
                         name="textValue"
@@ -223,7 +225,7 @@ function ExplaForm(props) {
                                 (watchDataType === 'image' &&
                                     value !== undefined &&
                                     value !== '') ||
-                                'Insira a URL da imagem da explicação',
+                                'Insira a URL da imagem da explicação'
                         })}
                         defaultValue={initData?.value}
                         name="imageURL"
@@ -243,7 +245,7 @@ function ExplaForm(props) {
                                 (watchDataType === 'video' &&
                                     value !== undefined &&
                                     value !== '') ||
-                                'Insira a URL do vídeo da explicação',
+                                'Insira a URL do vídeo da explicação'
                         })}
                         defaultValue={initData?.value}
                         name="videoURL"
@@ -256,7 +258,7 @@ function ExplaForm(props) {
                 )}
                 {/* TODO: finalize form data for all types of slides */}
                 <button className="bg-green-500 hover:bg-green-600 py-2 mt-8 rounded text-white font-bold shadow focus:outline-none focus:shadow-outline">
-                    {expla === undefined ? 'Criar' : 'Atualizar'}
+                    {explanation === undefined ? 'Criar' : 'Atualizar'}
                 </button>
                 <div
                     className="bg-red-500 hover:bg-red-600 py-2 mt-2 rounded text-center cursor-pointer text-white font-bold shadow focus:outline-none focus:shadow-outline"
@@ -269,4 +271,4 @@ function ExplaForm(props) {
     );
 }
 
-export default ExplaForm;
+export default ExplanationForm;
