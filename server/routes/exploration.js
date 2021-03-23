@@ -8,15 +8,15 @@ router.get('/:mod/:topic/:slide', (req, res) => {
     const { uid } = res.locals;
 
     const explaRef = db
-        .ref('explanations')
+        .ref('explorations')
         .orderByChild('slide')
         .equalTo(slide);
     explaRef.once('value', (snap) => {
-        const explas = snap.val();
-        if (!explas) return res.status(200).send([]);
+        const explos = snap.val();
+        if (!explos) return res.status(200).send([]);
 
-        const array = Object.values(explas);
-        const ids = Object.keys(explas);
+        const array = Object.values(explos);
+        const ids = Object.keys(explos);
 
         for (let i = 0; i < array?.length; i++) {
             array[i].id = ids[i];
@@ -24,53 +24,22 @@ router.get('/:mod/:topic/:slide', (req, res) => {
 
         return res.status(200).send(array);
     });
-    //const modRef = db.ref(`modules/${mod}`);
-    //const topRef = db.ref(`topics/${topic}`);
-    //modRef.once('value', (modCheck) => {
-    //    const modVal = modCheck.val();
-
-    //    if (modVal?.creator) {
-    //        const { creator } = modVal;
-    //        if (creator === uid) {
-    //            topRef.once('value', (topCheck) => {
-    //                const topVal = topCheck.val();
-    //                if (topVal?.module === mod) {
-    //                    slideRef.once('value', (snap) => {
-    //                        const slides = snap.val();
-
-    //                        if (!slides) return res.send([]);
-    //
-    //                        const array = Object.values(slides);
-    //                        const ids = Object.keys(slides);
-
-    //                        for (let i = 0; i < array?.length; i++) {
-    //                            array[i].id = ids[i];
-    //                        }
-
-    //                        return res.send(array);
-    //                    });
-    //                }
-    //            });
-    //        }
-    //    }
-    //
-    //});
 });
 
 router.post('/', (req, res) => {
     const { body } = req;
     const { uid } = res.locals;
 
-    const expla = {
+    const explo = {
         creator: uid,
-        ...body,
+        ...body
     };
 
-    const new_expla = db.ref('explanations').push(expla, (error) => {
+    const new_explo = db.ref('explorations').push(explo, (error) => {
         if (error) {
             res.status(502).send(error);
         } else {
-            res.status(200).send({ expla_id: new_expla.key });
+            res.status(200).send({ explo_id: new_explo.key });
         }
     });
 });
@@ -80,7 +49,7 @@ router.put('/:id', (req, res) => {
     const { id } = req.params;
     const { uid } = res.locals;
 
-    const ref = db.ref(`explanations/${id}`);
+    const ref = db.ref(`explorations/${id}`);
     ref.once('value', (snap) => {
         const { creator, module, topic, slide } = snap.val();
 
@@ -96,7 +65,7 @@ router.put('/:id', (req, res) => {
             if (error) {
                 res.status(502).send(error);
             } else {
-                res.status(200).send({ expla_id: id });
+                res.status(200).send({ explo_id: id });
             }
         });
     });
@@ -106,7 +75,7 @@ router.delete('/:id', (req, res) => {
     const { id } = req.params;
     const { uid } = res.locals;
 
-    const ref = db.ref(`explanations/${id}`);
+    const ref = db.ref(`explorations/${id}`);
     ref.once('value', (snap) => {
         const val = snap.val();
         if (!val || val === null || val === undefined)
@@ -120,7 +89,7 @@ router.delete('/:id', (req, res) => {
             if (error) {
                 res.status(502).send(error);
             } else {
-                res.status(200).send({ expla_id: id });
+                res.status(200).send({ explo_id: id });
             }
         });
     });
