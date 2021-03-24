@@ -39,7 +39,7 @@ router.post('/', (req, res) => {
         if (error) {
             res.status(502).send(error);
         } else {
-            res.status(200).send({ explo_id: new_explo.key });
+            res.status(200).send({ exploration_id: new_explo.key });
         }
     });
 });
@@ -65,7 +65,7 @@ router.put('/:id', (req, res) => {
             if (error) {
                 res.status(502).send(error);
             } else {
-                res.status(200).send({ explo_id: id });
+                res.status(200).send({ exploration_id: id });
             }
         });
     });
@@ -89,7 +89,7 @@ router.delete('/:id', (req, res) => {
             if (error) {
                 res.status(502).send(error);
             } else {
-                res.status(200).send({ explo_id: id });
+                res.status(200).send({ exploration_id: id });
             }
         });
     });

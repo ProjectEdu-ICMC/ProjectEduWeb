@@ -9,6 +9,7 @@ import topicReducer from './topic.js';
 import slideReducer from './slide.js';
 import infoReducer from './info.js';
 import explanationReducer from './explanation.js';
+import explorationReducer from './exploration.js';
 
 const config = {
     key: 'auth',
@@ -22,7 +23,8 @@ const reducer = combineReducers({
     topic: topicReducer,
     slide: slideReducer,
     info: infoReducer,
-    explanation: explanationReducer
+    explanation: explanationReducer,
+    exploration: explorationReducer
 });
 
 export default persistReducer(config, reducer);

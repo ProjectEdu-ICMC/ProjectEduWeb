@@ -4,11 +4,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Link, Redirect } from 'react-router-dom';
 import CardBoard from '../components/CardBoard';
 import Header from '../components/default/Header';
+
 import InfoForm from '../components/forms/InfoForm';
 import ExplanationForm from '../components/forms/ExplanationForm';
+import ExplorationForm from '../components/forms/ExplorationForm';
 
 import IInfo from '../components/cardInfo/IInfo';
 import EExpla from '../components/cardInfo/EExpla';
+import EExplo from '../components/cardInfo/EExplo';
 
 //import { LanguageContext } from '../contexts/LanguageContext';
 import { createSelector } from 'reselect';
@@ -17,6 +20,7 @@ import Maintenence from '../components/Maintenence';
 
 import InfoModel from '../actions/Info';
 import ExplanationModel from '../actions/Explanation';
+import ExplorationModel from '../actions/Exploration';
 
 const selectSlideType = createSelector(
     (state) => state.slide?.array,
@@ -34,10 +38,11 @@ function Slide(props) {
 
     const slideType = useSelector((state) => selectSlideType(state, slide));
 
-    console.log(slideType);
     const dispatch = useDispatch();
+
     const dataInfo = useSelector((state) => state.info.array);
     const dataExplanation = useSelector((state) => state.explanation.array);
+    const dataExploration = useSelector((state) => state.exploration.array);
 
     useEffect(() => {
         const fetchInfo = async () => {
@@ -60,12 +65,27 @@ function Slide(props) {
             });
         };
 
+        const fetchExploration = async () => {
+            const res = await ExplorationModel.getAllFromSlide(
+                mod,
+                topic,
+                slide
+            );
+            dispatch({
+                type: 'SET_EXPLORATION',
+                payload: res.data
+            });
+        };
+
         switch (slideType) {
             case 'iinfo':
                 fetchInfo();
                 break;
             case 'eexpla':
                 fetchExplanation();
+                break;
+            case 'eexplo':
+                fetchExploration();
                 break;
 
             default:
@@ -88,11 +108,20 @@ function Slide(props) {
         const res = await ExplanationModel.remove(id);
         dispatch({
             type: 'DELETE_EXPLANATION',
-            payload: res.data.expla_id,
+            payload: res.data.explanation_id,
             key: Number(index)
         });
     };
 
+    const deleteExploration = async (index) => {
+        const { id } = dataExploration[index];
+        const res = await ExplorationModel.remove(id);
+        dispatch({
+            type: 'DELETE_EXPLORATION',
+            payload: res.data.exploration_id,
+            key: Number(index)
+        });
+    };
     //const moveCard = (dragIndex, hoverIndex) => {
     //    const draggedCard = data[dragIndex];
     //    dispatch({
@@ -102,18 +131,16 @@ function Slide(props) {
     //        })
     //    });
     //};
-
     //renders++;
     if (slideType === undefined)
         return <Redirect to={`/topic/${mod}/${topic}`} />;
 
+    console.log(dataExploration);
     return (
         <>
             <Header />
             <div className="p-10 w-full"></div>
             <div className="mx-auto container">
-                {slideType === 'eexplo' && <Maintenence />}
-                {/* renders */}
                 {slideType === 'iinfo' && (
                     <CardBoard
                         //url={`/slide/${mod}/${slide}`}
@@ -144,6 +171,21 @@ function Slide(props) {
                         CardInfo={EExpla}
                     />
                 )}
+                {slideType === 'eexplo' && (
+                    <CardBoard
+                        //url={`/slide/${mod}/${slide}`}
+                        cardSize={32}
+                        data={dataExploration}
+                        update={() => setOperation('eexplo')}
+                        choose={setSelected}
+                        remove={deleteExploration}
+                        dir="col"
+                        //draggable={ true }
+                        //moveCard={ moveCard }
+                        cardColor="yellow"
+                        CardInfo={EExplo}
+                    />
+                )}
                 <div className="p-10 w-full"></div>
                 <div className="justify-between flex bg-white container p-4 z-20 fixed bottom-0 shadow">
                     <div>
@@ -171,6 +213,18 @@ function Slide(props) {
                                 Adicionar Explicação
                             </button>
                         )}
+                        {slideType === 'eexplo' && (
+                            <button
+                                className="hover:bg-blue-600 bg-blue-500 py-2 px-4 rounded text-white font-bold shadow focus:outline-none focus:shadow-outline"
+                                onClick={() => {
+                                    setOperation('eexplo');
+                                    setSelected(undefined);
+                                }}
+                            >
+                                {/*dict.addTopic*/}
+                                Adicionar Exploração
+                            </button>
+                        )}
                     </div>
                     <Link to={`/topic/${mod}/${topic}`}>
                         <button className="hover:bg-red-600 bg-red-500 py-2 px-4 rounded text-white font-bold shadow focus:outline-none focus:shadow-outline">
@@ -190,6 +244,12 @@ function Slide(props) {
                 <ExplanationForm
                     reset={() => setOperation(undefined)}
                     explanation={selected}
+                />
+            )}
+            {operation === 'eexplo' && (
+                <ExplorationForm
+                    reset={() => setOperation(undefined)}
+                    exploration={selected}
                 />
             )}
         </>
