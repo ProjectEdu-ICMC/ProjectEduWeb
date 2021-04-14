@@ -1,9 +1,4 @@
-<<<<<<< HEAD
 node_modules/
-=======
-/node_modules
-old/
 
 credentials.js
 private-key.json
->>>>>>> server
