@@ -12,7 +12,14 @@ function EExplo({ cardInfo, color = 'pink' }) {
             {type === 'texto' && (
                 <p className="p-2 text-gray-800">
                     {question.length > 50
-                        ? question.slice(47) + '...'
+                        ? question.slice(0, 47) + '...'
+                        : question}
+                </p>
+            )}
+            {type === 'alternativa' && (
+                <p className="p-2 text-gray-800">
+                    {question.length > 50
+                        ? question.slice(0, 47) + '...'
                         : question}
                 </p>
             )}

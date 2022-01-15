@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from 'react-hook-form';
+import { useFieldArray, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 
 //import { LanguageContext } from '../../contexts/LanguageContext';
@@ -11,7 +11,12 @@ import ExplorationModel from '../../actions/Exploration';
 function ExplorationForm(props) {
     const { mod, topic, slide } = useParams();
 
-    const { register, watch, setValue, handleSubmit, errors } = useForm();
+    const { register, watch, setValue, handleSubmit, errors, control } = useForm();
+    const { fields, append, remove } = useFieldArray({
+        control,
+        name: "alternatives"
+    })
+
     const { reset, exploration } = props;
 
     //const [ dict, ] = useContext(LanguageContext);
@@ -23,8 +28,11 @@ function ExplorationForm(props) {
     );
 
     useEffect(() => {
-        setValue('type', 'texto');
-    }, [setValue]);
+        setValue('type', initData?.type);
+        setValue('alternatives', initData?.alternatives);
+        console.log(initData?.alternatives)
+        setValue('answerNumberAlt', initData?.answerNumber);
+    }, [initData, setValue]);
     // TODO: init form data when set to update
     //useEffect(() => {
     //    if (initData?.datatype !== undefined)
@@ -38,8 +46,14 @@ function ExplorationForm(props) {
             texto: {
                 question: data.questionText,
                 answer: data.answerText
+            },
+            alternativa: {
+                question: data.questionAlt,
+                answerNumber: data.answerNumberAlt,
+                alternatives: data.alternatives
             }
         }[type];
+
         //const value = {
         //    text: textValue,
         //    image: imageURL,
@@ -74,36 +88,38 @@ function ExplorationForm(props) {
                 });
         } else {
             // TODO: update exercise
-            //ExplorationModel.update(initData?.id, {
-            //    type,
+            ExplorationModel.update(initData?.id, {
+               type,
             //    datatype,
-            //    ...fields,
-            //    module: mod,
-            //    topic,
-            //    slide
-            //})
-            //    .then((result) =>
-            //        dispatch({
-            //            type: 'UPDATE_EXPLORATION',
-            //            key: Number(exploration),
-            //            payload: {
-            //                type,
-            //                datatype,
-            //                ...fields,
-            //                module: mod,
-            //                topic,
-            //                slide,
-            //                id: result.data.exploration_id
-            //            }
-            //        })
-            //    )
-            //    .catch((error) => {
-            //        console.log(error);
-            //    });
+               ...fields,
+               module: mod,
+               topic,
+               slide
+            })
+               .then((result) =>
+                   dispatch({
+                       type: 'UPDATE_EXPLORATION',
+                       key: Number(exploration),
+                       payload: {
+                           type,
+                        //    datatype,
+                           ...fields,
+                           module: mod,
+                           topic,
+                           slide,
+                           id: result.data.exploration_id
+                       }
+                   })
+               )
+               .catch((error) => {
+                   console.log(error);
+               });
         }
 
         reset();
     };
+
+    console.log(errors)
 
     return (
         <div className="w-full h-screen flex items-center justify-center bg-opacity-75 bg-black fixed z-20 top-0 left-0">
@@ -132,6 +148,7 @@ function ExplorationForm(props) {
                     name="type"
                 >
                     <option value="texto">Resposta em Texto</option>
+                    <option value="alternativa">Resposta Alternativa</option>
                     {/* <option value="alternativa">Seleção de alternativa</option>*/}
                     {/* TODO: complete a frase e outros modelos de exercícios */}
                 </select>
@@ -162,6 +179,7 @@ function ExplorationForm(props) {
                                         value !== '') ||
                                     'Insira um enunciado para o exercício'
                             })}
+                            defaultValue={initData?.question}
                         ></textarea>
                         {errors.questionText && (
                             <p className="text-red-700 text-sm px-1">
@@ -187,10 +205,119 @@ function ExplorationForm(props) {
                             })}
                             //defaultValue={initData?.value}
                             name="answerText"
+                            defaultValue={initData?.answer}
                         />
                         {errors.answerText && (
                             <p className="text-red-700 text-sm px-1">
                                 {errors.answerText.message}
+                            </p>
+                        )}
+                    </>
+                )}
+                {watchType === 'alternativa' && (
+                    <>
+                        <label
+                            className="text-sm text-gray-500 ml-1 mt-2"
+                            htmlFor="questionText"
+                        >
+                            Enunciado
+                        </label>
+                        <textarea
+                            className="resize-none shadow p-1 rounded text-md outline-none focus:shadow-outline"
+                            rows="5"
+                            id="questionAlt"
+                            name="questionAlt"
+                            ref={register({
+                                validate: (value) =>
+                                    (watchType === 'alternativa' &&
+                                        value !== undefined &&
+                                        value !== '') ||
+                                    'Insira um enunciado para o exercício'
+                            })}
+                            defaultValue={initData?.question}
+                        ></textarea>
+                        {errors.questionAlt && (
+                            <p className="text-red-700 text-sm px-1">
+                                {errors.questionAlt.message}
+                            </p>
+                        )}
+
+                        {/* <label
+                            className="text-sm text-gray-500 ml-1 mt-2"
+                            htmlFor="answerText"
+                        >
+                            Alternativas
+                        </label> */}
+                            {fields.map((alternative, alternativeIndex) => (
+                                <div key={alternative.id} className="mt-2">
+                                    <label
+                                        className="text-sm text-gray-500 ml-1 mt-2"
+                                        htmlFor="questionText"
+                                    >
+                                        Alternativa {alternativeIndex + 1}:
+                                    </label>
+                                    <br/>
+                                    <input
+                                        ref={register({
+                                            required: 'A alternativa deve ser preenchida'
+                                        })}
+                                        name={`alternatives[${alternativeIndex}].text`}
+                                        control={control}
+                                        defaultValue={initData?.alternatives[alternativeIndex]?.text}
+                                        className="resize-none shadow p-1 rounded text-md outline-none focus:shadow-outline"
+                                    />
+
+                                    <button
+                                        type="button"
+                                        onClick={() => remove(alternativeIndex)}
+                                        className="bg-red-500 hover:bg-red-600 py-1 rounded text-white font-bold shadow focus:outline-none focus:shadow-outline px-3 ml-2"
+                                    >
+                                        X
+                                    </button>
+                                    {(errors.alternatives && errors.alternatives[alternativeIndex]) && errors.alternatives[alternativeIndex].text && (
+                                        <p className="text-red-700 text-sm px-1">
+                                            {errors.alternatives[alternativeIndex].text.message}
+                                        </p>
+                                    )}
+                                </div>
+                            ))}
+                            <button
+                                className="bg-blue-500 hover:bg-blue-600 py-2 mt-2 rounded text-white font-bold shadow focus:outline-none focus:shadow-outline"
+                                type="button"
+                                onClick={() => append({ text: "" })}
+                            >
+                                Adicionar Alternativa
+                            </button>
+                        {// erro de não ter alternativa
+                        errors.answerText && (
+                            <p className="text-red-700 text-sm px-1">
+                                {errors.answerText.message}
+                            </p>
+                        )}
+
+                        <label
+                            className="text-sm text-gray-500 ml-1 mt-2"
+                            htmlFor="questionText"
+                        >
+                            Resposta correta
+                        </label>
+                        <select
+                            className="bg-white overflow-hidden shadow p-1 mt-2 rounded text-md outline-none focus:shadow-outline"
+                            type="text"
+                            ref={register({
+                                required: 'Selecione uma alternativa como correta'
+                            })}
+                            defaultValue={initData?.answerNumber}
+                            name="answerNumberAlt"
+                        >
+                            {
+                                fields.map((alternative, index) => <option value={index}>{index + 1}</option>)
+                            }
+                        </select>
+
+                        {errors.answerNumberAlt && (
+                            <p className="text-red-700 text-sm px-1">
+                                {errors.answerNumberAlt.message}
                             </p>
                         )}
                     </>

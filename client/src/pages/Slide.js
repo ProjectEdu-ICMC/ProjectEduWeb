@@ -16,7 +16,7 @@ import EExplo from '../components/cardInfo/EExplo';
 //import { LanguageContext } from '../contexts/LanguageContext';
 import { createSelector } from 'reselect';
 //import update from "immutability-helper";
-import Maintenence from '../components/Maintenence';
+// import Maintenence from '../components/Maintenence';
 
 import InfoModel from '../actions/Info';
 import ExplanationModel from '../actions/Explanation';
