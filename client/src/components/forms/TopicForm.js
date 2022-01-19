@@ -20,11 +20,12 @@ function TopicForm(props) {
     const initData = useSelector((state) => state.topic.array[topic]);
 
     const onSubmit = (data) => {
-        const { name } = data;
+        const { name, prize } = data;
 
         if (topic === undefined) {
             TopicModel.create({
                 name,
+                prize: Number(prize),
                 module: mod,
             })
                 .then((result) =>
@@ -32,6 +33,7 @@ function TopicForm(props) {
                         type: 'ADD_TOPIC',
                         payload: {
                             name,
+                            prize: Number(prize),
                             module: mod,
                             id: result.data.topic_id,
                         },
@@ -43,6 +45,7 @@ function TopicForm(props) {
         } else {
             TopicModel.update(initData.id, {
                 name,
+                prize: Number(prize),
                 module: mod,
             })
                 .then((result) =>
@@ -51,6 +54,7 @@ function TopicForm(props) {
                         key: Number(topic),
                         payload: {
                             name,
+                            prize: Number(prize),
                             module: mod,
                             id: result.data.topic_id,
                         },
@@ -91,6 +95,30 @@ function TopicForm(props) {
                 {errors.name && (
                     <p className="text-red-700 text-sm px-1">
                         {errors.name.message}
+                    </p>
+                )}
+                <label
+                    className="text-sm text-gray-500 ml-1 mt-2"
+                    htmlFor="name"
+                >
+                    Prêmio em pontos
+                </label>
+                <input
+                    className="shadow p-1 rounded text-md outline-none focus:shadow-outline"
+                    type="number"
+                    ref={register({ 
+                        required: 'Insira o prêmio do tópico',
+                        min: {
+                            value: 1,
+                            message: 'O premio precisa ser maior que 0'
+                        }
+                    })}
+                    defaultValue={initData?.prize}
+                    name="prize"
+                />
+                {errors.prize && (
+                    <p className="text-red-700 text-sm px-1">
+                        {errors.prize.message}
                     </p>
                 )}
                 <button className="bg-green-500 hover:bg-green-600 py-2 mt-8 rounded text-white font-bold shadow focus:outline-none focus:shadow-outline">

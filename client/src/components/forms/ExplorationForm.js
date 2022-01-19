@@ -19,7 +19,6 @@ function ExplorationForm(props) {
 
     const { reset, exploration } = props;
 
-    //const [ dict, ] = useContext(LanguageContext);
     const watchType = watch('type');
     const dispatch = useDispatch();
 
@@ -33,14 +32,9 @@ function ExplorationForm(props) {
         console.log(initData?.alternatives)
         setValue('answerNumberAlt', initData?.answerNumber);
     }, [initData, setValue]);
-    // TODO: init form data when set to update
-    //useEffect(() => {
-    //    if (initData?.datatype !== undefined)
-    //        setValue('datatype', initData?.datatype);
-    //}, [initData, setValue]);
 
     const onSubmit = (data) => {
-        const { type } = data;
+        const { type, prize } = data;
 
         const fields = {
             texto: {
@@ -54,17 +48,10 @@ function ExplorationForm(props) {
             }
         }[type];
 
-        //const value = {
-        //    text: textValue,
-        //    image: imageURL,
-        //    video: videoURL
-        //}[datatype];
-
-        //console.log(value);
-
         if (exploration === undefined) {
             ExplorationModel.create({
                 type,
+                prize: Number(prize),
                 ...fields,
                 module: mod,
                 topic,
@@ -75,6 +62,7 @@ function ExplorationForm(props) {
                         type: 'ADD_EXPLORATION',
                         payload: {
                             type,
+                            prize: Number(prize),
                             ...fields,
                             module: mod,
                             topic,
@@ -87,10 +75,9 @@ function ExplorationForm(props) {
                     console.log(error);
                 });
         } else {
-            // TODO: update exercise
             ExplorationModel.update(initData?.id, {
                type,
-            //    datatype,
+               prize: Number(prize),
                ...fields,
                module: mod,
                topic,
@@ -102,7 +89,7 @@ function ExplorationForm(props) {
                        key: Number(exploration),
                        payload: {
                            type,
-                        //    datatype,
+                           prize: Number(prize),
                            ...fields,
                            module: mod,
                            topic,
@@ -315,6 +302,8 @@ function ExplorationForm(props) {
                             }
                         </select>
 
+                        
+
                         {errors.answerNumberAlt && (
                             <p className="text-red-700 text-sm px-1">
                                 {errors.answerNumberAlt.message}
@@ -322,133 +311,30 @@ function ExplorationForm(props) {
                         )}
                     </>
                 )}
-                {/*
                 <label
                     className="text-sm text-gray-500 ml-1 mt-2"
-                    htmlFor="datatype"
+                    htmlFor="name"
                 >
-                    Tipo do dado
+                    Prêmio em pontos
                 </label>
-                <div className="flex flex-wrap">
-                    <input
-                        ref={register({
-                            required:
-                                'Selecione um tipo de dados para a Exploração'
-                        })}
-                        className="mr-1"
-                        type="radio"
-                        name="datatype"
-                        value="text"
-                        id="text"
-                    />
-                    <label className="text-gray-800" htmlFor="text">
-                        Texto
-                    </label>
-                    <input
-                        ref={register({
-                            required:
-                                'Selecione um tipo de dados para a Exploração'
-                        })}
-                        className="ml-2 mr-1"
-                        type="radio"
-                        name="datatype"
-                        value="image"
-                        id="image"
-                    />
-                    <label className="text-gray-800" htmlFor="image">
-                        Imagem
-                    </label>
-                    <input
-                        ref={register({
-                            required:
-                                'Selecione um tipo de dados para a Exploração'
-                        })}
-                        className="ml-2 mr-1"
-                        type="radio"
-                        name="datatype"
-                        value="video"
-                        id="video"
-                    />
-                    <label className="text-gray-800" htmlFor="video">
-                        Vídeo
-                    </label>
-                </div>
-                {errors.datatype && (
+                <input
+                    className="shadow p-1 rounded text-md outline-none focus:shadow-outline"
+                    type="number"
+                    ref={register({ 
+                        required: 'Insira o prêmio do exercício',
+                        min: {
+                            value: 1,
+                            message: 'O premio precisa ser maior que 0'
+                        }
+                    })}
+                    defaultValue={initData?.prize}
+                    name="prize"
+                />
+                {errors.prize && (
                     <p className="text-red-700 text-sm px-1">
-                        {errors.datatype.message}
+                        {errors.prize.message}
                     </p>
                 )}
-                {watchDataType && (
-                    <label
-                        className="text-sm text-gray-500 ml-1 mt-2"
-                        htmlFor="datatype"
-                    >
-                        Valor da Exploração
-                    </label>
-                )}
-                {watchDataType === 'text' && (
-                    <textarea
-                        className="resize-none shadow p-1 rounded text-md outline-none focus:shadow-outline"
-                        type="text"
-                        rows="5"
-                        ref={register({
-                            validate: (value) =>
-                                (watchDataType === 'text' &&
-                                    value !== undefined &&
-                                    value !== '') ||
-                                'Insira o texto da exploração'
-                        })}
-                        defaultValue={initData?.value}
-                        name="textValue"
-                    ></textarea>
-                )}
-                {errors.textValue && (
-                    <p className="text-red-700 text-sm px-1">
-                        {errors.textValue.message}
-                    </p>
-                )}
-                {watchDataType === 'image' && (
-                    <input
-                        className="shadow p-1 rounded text-md outline-none focus:shadow-outline"
-                        type="url"
-                        ref={register({
-                            validate: (value) =>
-                                (watchDataType === 'image' &&
-                                    value !== undefined &&
-                                    value !== '') ||
-                                'Insira a URL da imagem da exploração'
-                        })}
-                        defaultValue={initData?.value}
-                        name="imageURL"
-                    />
-                )}
-                {errors.imageValue && (
-                    <p className="text-red-700 text-sm px-1">
-                        {errors.imageValue.message}
-                    </p>
-                )}
-                {watchDataType === 'video' && (
-                    <input
-                        className="shadow p-1 rounded text-md outline-none focus:shadow-outline"
-                        type="url"
-                        ref={register({
-                            validate: (value) =>
-                                (watchDataType === 'video' &&
-                                    value !== undefined &&
-                                    value !== '') ||
-                                'Insira a URL do vídeo da exploração'
-                        })}
-                        defaultValue={initData?.value}
-                        name="videoURL"
-                    />
-                )}
-                {errors.videoValue && (
-                    <p className="text-red-700 text-sm px-1">
-                        {errors.videoValue.message}
-                    </p>
-                )}
-
-                */}
                 <button className="bg-green-500 hover:bg-green-600 py-2 mt-8 rounded text-white font-bold shadow focus:outline-none focus:shadow-outline">
                     {exploration === undefined ? 'Criar' : 'Atualizar'}
                 </button>
