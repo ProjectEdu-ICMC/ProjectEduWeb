@@ -24,8 +24,6 @@ const reducer = (state = INIT_STATE, action) => {
             };
 
         case 'DELETE_TOPIC':
-            //const { [ payload ]: delMod, ...newState } = state;
-            //return { ...newState };
             return {
                 array: [
                     ...state.array.slice(0, key),
@@ -34,7 +32,6 @@ const reducer = (state = INIT_STATE, action) => {
             };
 
         //case 'MOVE_SLIDE':
-        //    console.log("MOVE");
         //    const { drag, drop } = payload;
         //    const dragged = state.array[drag];
 

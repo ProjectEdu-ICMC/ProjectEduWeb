@@ -1,11 +1,10 @@
 import axios from 'axios';
 
-const local = 'localhost';
-//const global = '179.211.98.243';
+const server = 'localhost';
+//const server = '179.211.98.243';
 
 export const API = axios.create({
-    //baseURL: `http://${global}:3001`,
-    baseURL: `http://${local}:3001`,
+    baseURL: `http://${server}:3001`,
     headers: {
         'Content-type': 'application/json'
     }

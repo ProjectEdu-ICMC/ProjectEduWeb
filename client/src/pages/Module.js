@@ -5,13 +5,10 @@ import { useParams, Link } from 'react-router-dom';
 import CardBoard from '../components/CardBoard';
 import Header from '../components/default/Header';
 import TopicForm from '../components/forms/TopicForm';
-//import { LanguageContext } from '../contexts/LanguageContext';
 import TopicModel from '../actions/Topic.js';
 
 function Module(props) {
     const { mod } = useParams();
-
-    //const [ dict, ] = useContext(LanguageContext);
 
     const [operation, setOperation] = useState(false);
     const [topic, setTopic] = useState(undefined);

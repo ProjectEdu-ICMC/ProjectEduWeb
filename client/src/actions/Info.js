@@ -4,10 +4,6 @@ const getAllFromSlide = (module, topic, slide) => {
     return API.get(`/info/${module}/${topic}/${slide}`);
 };
 
-//const get = id => {
-//    return API.get(`/topic/${id}`);
-//};
-
 const create = (data) => {
     return API.post(`/info`, data);
 };
@@ -22,7 +18,6 @@ const remove = (id) => {
 
 const InfoModel = {
     getAllFromSlide,
-    //get,
     create,
     update,
     remove,

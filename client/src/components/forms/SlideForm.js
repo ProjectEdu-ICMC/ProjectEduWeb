@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 
-//import { LanguageContext } from '../../contexts/LanguageContext';
-
 import SlideModel from '../../actions/Slide';
 
 function SlideForm(props) {
@@ -13,8 +11,6 @@ function SlideForm(props) {
 
     const { register, handleSubmit, errors } = useForm();
     const { reset, slide } = props;
-
-    //const [ dict, ] = useContext(LanguageContext);
 
     const dispatch = useDispatch();
 

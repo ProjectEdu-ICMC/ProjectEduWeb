@@ -2,8 +2,6 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
-//import { LanguageContext } from '../../contexts/LanguageContext';
-
 import ModuleModel from '../../actions/Module.js';
 
 function ModuleForm(props) {

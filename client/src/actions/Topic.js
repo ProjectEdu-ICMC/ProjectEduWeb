@@ -4,10 +4,6 @@ const getAllFromModule = (module) => {
     return API.get(`/topic/${module}`);
 };
 
-//const get = id => {
-//    return API.get(`/topic/${id}`);
-//};
-
 const create = (data) => {
     return API.post(`/topic`, data);
 };
@@ -22,7 +18,6 @@ const remove = (id) => {
 
 const TopicModel = {
     getAllFromModule,
-    //get,
     create,
     update,
     remove,

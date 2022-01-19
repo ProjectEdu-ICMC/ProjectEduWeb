@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 
-//import { LanguageContext } from '../../contexts/LanguageContext';
-
 import TopicModel from '../../actions/Topic';
 
 function TopicForm(props) {
@@ -13,8 +11,6 @@ function TopicForm(props) {
 
     const { register, handleSubmit, errors } = useForm();
     const { reset, topic } = props;
-
-    //const [ dict, ] = useContext(LanguageContext);
 
     const dispatch = useDispatch();
     const initData = useSelector((state) => state.topic.array[topic]);

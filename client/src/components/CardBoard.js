@@ -1,8 +1,6 @@
 import React from 'react';
 import Card from './Card';
 
-//import { LanguageContext } from '../contexts/LanguageContext';
-
 function CardBoard({
     data,
     draggable,
@@ -16,8 +14,6 @@ function CardBoard({
     dir,
     CardInfo,
 }) {
-    //const [ dict, ] = useContext(LanguageContext);
-
     return (
         <div className="container mx-auto p-3 flex flex-wrap items-stretch">
             {data &&

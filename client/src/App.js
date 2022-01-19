@@ -12,7 +12,6 @@ import Slide from './pages/Slide';
 
 import Login from './pages/Login';
 
-//import { LanguageContextProvider } from './contexts/LanguageContext';
 import PrivateRoute from './components/auth/PrivateRoute.js';
 
 import { DndProvider } from 'react-dnd';

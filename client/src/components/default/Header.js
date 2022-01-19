@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+// TODO: rework Languages
 //import { LanguageContext } from '../../contexts/LanguageContext';
 
 import { auth } from '../../auth/fire.js';

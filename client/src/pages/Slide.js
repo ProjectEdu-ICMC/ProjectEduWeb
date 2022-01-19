@@ -13,10 +13,7 @@ import IInfo from '../components/cardInfo/IInfo';
 import EExpla from '../components/cardInfo/EExpla';
 import EExplo from '../components/cardInfo/EExplo';
 
-//import { LanguageContext } from '../contexts/LanguageContext';
 import { createSelector } from 'reselect';
-//import update from "immutability-helper";
-// import Maintenence from '../components/Maintenence';
 
 import InfoModel from '../actions/Info';
 import ExplanationModel from '../actions/Explanation';
@@ -28,7 +25,6 @@ const selectSlideType = createSelector(
     (array, id) => array?.filter((slide) => slide.id === id)[0].type
 );
 
-//let renders = 0;
 // TODO: fix multiple rerenders
 function Slide(props) {
     const { mod, topic, slide } = useParams();
@@ -122,6 +118,8 @@ function Slide(props) {
             key: Number(index)
         });
     };
+
+    // TODO: add card movement & persist data
     //const moveCard = (dragIndex, hoverIndex) => {
     //    const draggedCard = data[dragIndex];
     //    dispatch({
@@ -131,11 +129,10 @@ function Slide(props) {
     //        })
     //    });
     //};
-    //renders++;
+
     if (slideType === undefined)
         return <Redirect to={`/topic/${mod}/${topic}`} />;
 
-    console.log(dataExploration);
     return (
         <>
             <Header />
@@ -143,7 +140,6 @@ function Slide(props) {
             <div className="mx-auto container">
                 {slideType === 'iinfo' && (
                     <CardBoard
-                        //url={`/slide/${mod}/${slide}`}
                         cardSize={32}
                         data={dataInfo}
                         update={() => setOperation('iinfo')}
@@ -158,7 +154,6 @@ function Slide(props) {
                 )}
                 {slideType === 'eexpla' && (
                     <CardBoard
-                        //url={`/slide/${mod}/${slide}`}
                         cardSize={32}
                         data={dataExplanation}
                         update={() => setOperation('eexpla')}
@@ -173,7 +168,6 @@ function Slide(props) {
                 )}
                 {slideType === 'eexplo' && (
                     <CardBoard
-                        //url={`/slide/${mod}/${slide}`}
                         cardSize={32}
                         data={dataExploration}
                         update={() => setOperation('eexplo')}
@@ -197,7 +191,6 @@ function Slide(props) {
                                     setSelected(undefined);
                                 }}
                             >
-                                {/*dict.addTopic*/}
                                 Adicionar Informação
                             </button>
                         )}
@@ -209,7 +202,6 @@ function Slide(props) {
                                     setSelected(undefined);
                                 }}
                             >
-                                {/*dict.addTopic*/}
                                 Adicionar Explicação
                             </button>
                         )}
@@ -221,14 +213,12 @@ function Slide(props) {
                                     setSelected(undefined);
                                 }}
                             >
-                                {/*dict.addTopic*/}
                                 Adicionar Exploração
                             </button>
                         )}
                     </div>
                     <Link to={`/topic/${mod}/${topic}`}>
                         <button className="hover:bg-red-600 bg-red-500 py-2 px-4 rounded text-white font-bold shadow focus:outline-none focus:shadow-outline">
-                            {/*dict.back*/}
                             Voltar
                         </button>
                     </Link>

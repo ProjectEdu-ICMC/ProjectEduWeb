@@ -3,12 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import CardBoard from '../components/CardBoard';
 import Header from '../components/default/Header';
 import ModuleForm from '../components/forms/ModuleForm';
-//import { LanguageContext } from '../contexts/LanguageContext';
 
 import ModuleModel from '../actions/Module.js';
 
 function Main(props) {
-    //const [ dict, ] = useContext(LanguageContext);
     const [operation, setOperation] = useState(false);
     const [module, setModule] = useState(undefined);
 

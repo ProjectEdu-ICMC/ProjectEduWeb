@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 
-//import { LanguageContext } from '../../contexts/LanguageContext';
-
 import ExplanationModel from '../../actions/Explanation';
 
 function ExplanationForm(props) {
@@ -14,7 +12,6 @@ function ExplanationForm(props) {
     const { register, watch, setValue, handleSubmit, errors } = useForm();
     const { reset, explanation } = props;
 
-    //const [ dict, ] = useContext(LanguageContext);
     const watchDataType = watch('datatype');
     const dispatch = useDispatch();
 
@@ -35,8 +32,6 @@ function ExplanationForm(props) {
             image: imageURL,
             video: videoURL
         }[datatype];
-
-        console.log(value);
 
         if (explanation === undefined) {
             ExplanationModel.create({
@@ -256,7 +251,6 @@ function ExplanationForm(props) {
                         {errors.videoValue.message}
                     </p>
                 )}
-                {/* TODO: finalize form data for all types of slides */}
                 <button className="bg-green-500 hover:bg-green-600 py-2 mt-8 rounded text-white font-bold shadow focus:outline-none focus:shadow-outline">
                     {explanation === undefined ? 'Criar' : 'Atualizar'}
                 </button>

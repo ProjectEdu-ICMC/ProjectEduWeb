@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 
-//import { LanguageContext } from '../../contexts/LanguageContext';
-
 import ExplorationModel from '../../actions/Exploration';
 
 function ExplorationForm(props) {
@@ -29,7 +27,6 @@ function ExplorationForm(props) {
     useEffect(() => {
         setValue('type', initData?.type);
         setValue('alternatives', initData?.alternatives);
-        console.log(initData?.alternatives)
         setValue('answerNumberAlt', initData?.answerNumber);
     }, [initData, setValue]);
 
@@ -105,8 +102,6 @@ function ExplorationForm(props) {
 
         reset();
     };
-
-    console.log(errors)
 
     return (
         <div className="w-full h-screen flex items-start justify-center bg-opacity-75 bg-black fixed z-20 top-0 left-0 overflow-auto">
@@ -267,7 +262,7 @@ function ExplorationForm(props) {
                             >
                                 Adicionar Alternativa
                             </button>
-                        {// erro de não ter alternativa
+                        {
                         errors.answerText && (
                             <p className="text-red-700 text-sm px-1">
                                 {errors.answerText.message}
