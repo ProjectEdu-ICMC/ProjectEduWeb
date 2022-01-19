@@ -109,9 +109,9 @@ function ExplorationForm(props) {
     console.log(errors)
 
     return (
-        <div className="w-full h-screen flex items-center justify-center bg-opacity-75 bg-black fixed z-20 top-0 left-0">
+        <div className="w-full h-screen flex items-start justify-center bg-opacity-75 bg-black fixed z-20 top-0 left-0 overflow-auto">
             <form
-                className="bg-white p-10 rounded flex flex-col shadow-lg"
+                className="bg-white p-10 rounded flex flex-col shadow-lg my-20"
                 onSubmit={handleSubmit(onSubmit)}
             >
                 <span className="text-lg font-bold ml-1 mb-4 text-gray-800">
@@ -136,7 +136,6 @@ function ExplorationForm(props) {
                 >
                     <option value="texto">Resposta em Texto</option>
                     <option value="alternativa">Resposta Alternativa</option>
-                    {/* <option value="alternativa">Seleção de alternativa</option>*/}
                     {/* TODO: complete a frase e outros modelos de exercícios */}
                 </select>
 
@@ -190,7 +189,6 @@ function ExplorationForm(props) {
                                         value !== '') ||
                                     'Insira uma resposta para o exercício'
                             })}
-                            //defaultValue={initData?.value}
                             name="answerText"
                             defaultValue={initData?.answer}
                         />
@@ -229,12 +227,6 @@ function ExplorationForm(props) {
                             </p>
                         )}
 
-                        {/* <label
-                            className="text-sm text-gray-500 ml-1 mt-2"
-                            htmlFor="answerText"
-                        >
-                            Alternativas
-                        </label> */}
                             {fields.map((alternative, alternativeIndex) => (
                                 <div key={alternative.id} className="mt-2">
                                     <label

@@ -95,9 +95,9 @@ function InfoForm(props) {
     };
 
     return (
-        <div className="w-full h-screen flex items-center justify-center bg-opacity-75 bg-black fixed z-20 top-0 left-0">
+        <div className="w-full h-screen flex items-start justify-center bg-opacity-75 bg-black fixed z-20 top-0 left-0 overflow-auto">
             <form
-                className="bg-white p-10 rounded flex flex-col shadow-lg"
+                className="bg-white p-10 rounded flex flex-col shadow-lg my-20"
                 onSubmit={handleSubmit(onSubmit)}
             >
                 <span className="text-lg font-bold ml-1 mb-4 text-gray-800">
