@@ -24,37 +24,6 @@ router.get('/:mod/:topic/:slide', (req, res) => {
 
         return res.status(200).send(array);
     });
-    //const modRef = db.ref(`modules/${mod}`);
-    //const topRef = db.ref(`topics/${topic}`);
-    //modRef.once('value', (modCheck) => {
-    //    const modVal = modCheck.val();
-
-    //    if (modVal?.creator) {
-    //        const { creator } = modVal;
-    //        if (creator === uid) {
-    //            topRef.once('value', (topCheck) => {
-    //                const topVal = topCheck.val();
-    //                if (topVal?.module === mod) {
-    //                    slideRef.once('value', (snap) => {
-    //                        const slides = snap.val();
-
-    //                        if (!slides) return res.send([]);
-    //
-    //                        const array = Object.values(slides);
-    //                        const ids = Object.keys(slides);
-
-    //                        for (let i = 0; i < array?.length; i++) {
-    //                            array[i].id = ids[i];
-    //                        }
-
-    //                        return res.send(array);
-    //                    });
-    //                }
-    //            });
-    //        }
-    //    }
-    //
-    //});
 });
 
 router.post('/', (req, res) => {
