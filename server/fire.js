@@ -10,11 +10,12 @@
 //
 var admin = require('firebase-admin');
 
-var serviceAccount = require('./private-key.json');
-
 const fire = admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: 'https://p-edu-test-default-rtdb.firebaseio.com',
+    credential: admin.credential.cert({
+        projectId: process.env.SERVER_FIREBASE_PROJECT_ID,
+        clientEmail: process.env.SERVER_FIREBASE_CLIENT_EMAIL,
+        privateKey: process.env.SERVER_FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n')
+    })
 });
 
 const db = fire.database();

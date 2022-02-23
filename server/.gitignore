@@ -2,3 +2,5 @@ node_modules/
 
 credentials.js
 private-key.json
+
+.env
