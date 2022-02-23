@@ -30,4 +30,4 @@ app.use('/info', infoRouter);
 app.use('/explanation', explanationRouter);
 app.use('/exploration', explorationRouter);
 
-app.listen(3001);
+app.listen(process.env.PORT || 3001);
