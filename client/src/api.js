@@ -3,7 +3,7 @@ import axios from 'axios';
 const server = process.env.REACT_APP_API_URL;
 
 export const API = axios.create({
-    baseURL: `http://${server}:3001`,
+    baseURL: `${server}`,
     headers: {
         'Content-type': 'application/json'
     }
