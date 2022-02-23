@@ -1,5 +1,5 @@
 const express = require('express');
-const cors = require('cors');
+// const cors = require('cors');
 const bp = require('body-parser');
 
 const app = express();
@@ -13,7 +13,7 @@ const infoRouter = require('./routes/info');
 const explanationRouter = require('./routes/explanation');
 const explorationRouter = require('./routes/exploration');
 
-app.use(cors());
+// app.use(cors());
 app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
 
